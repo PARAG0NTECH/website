@@ -1,13 +1,44 @@
 * {
-    padding: 0;
+    padding: 3px;
     margin: 0;
 }
 
 body{
     background-color: #252525;
     background-image: url("./background_6.png");
+    font-family: Righteous;
+    order: -1;
+
+}
+.class_logo{
+    width: auto;
+    height: 400px;
 }
 
+nav div{
+    height: 100px;
+}
+nav{
+    display: flex;
+    justify-content:space-evenly;
+}
+li{
+    margin: 50px;
+    list-style-type: none;
+    color: #F1F1F1;
+}
+.logo, .names{
+    width: 299px;
+    height: 99px;
+    text-align: center;
+}
+.names{
+    width: 1000px;
+}
+.ulNavbar{
+    display: inline-flex;
+    margin-bottom: 20px;
+}
 ::-webkit-scrollbar-thumb{
     background: #9637E5;
 }
@@ -15,4 +46,13 @@ body{
 ::-webkit-scrollbar{
     background: #252525;
     width: 30px;
+}
+.textIntrodução,.space{
+    background-color: #9637E5;
+    width: 500px;
+    height: 500px;
+}
+.classSpaceText{
+    display: flex;
+    justify-content: space-around;
 }
