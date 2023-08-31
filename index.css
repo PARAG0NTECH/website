@@ -167,7 +167,7 @@ section{
     width: 40vw;
     height: 80vh;
     background: #f1f1f1;
-    animation: integrantes_animacao 20s infinite linear;
+    animation: integrantes_animacao 30s infinite linear;
 }
 
 .contato_integrantes{
