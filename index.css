@@ -1,20 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/*
+    BREAKPOINTS
+    LARGE LAPTOP 1440px
+    
+*/
 * {
     padding: 0;
     margin: 0;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     background: #9637E5;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     background: #252525;
     width: 0.6rem;
 }
 
-html{
+html {
     min-height: 100%;
     background-color: #252525;
     background-image: url("./img/background_6.png");
@@ -23,33 +28,34 @@ html{
     background-position: center center;
 }
 
-a{
+a {
     text-decoration: none;
     color: none;
 }
 
-.class_logo{
+.class_logo {
     width: auto;
 }
 
-nav div{
+nav div {
     height: 100px;
 }
 
-nav{
+nav {
     display: flex;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-ul{
+ul {
     flex-wrap: wrap;
 }
 
-li{
+li {
     margin: 50px;
     list-style-type: none;
 }
+
 /* 
 .logo, .names{
     width: 299px;
@@ -61,7 +67,7 @@ li{
     width: 1000px;
 } */
 
-.ulNavbar{
+.ulNavbar {
     display: inline-flex;
     margin-bottom: 20px;
 }
@@ -73,45 +79,46 @@ li{
     color: #F1F1F1;
 }
 
-section{
+section {
     display: flex;
 }
 
-.section_1{
+.section_1 {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
 }
 
-.section_1_text{
+.section_1_text {
     font-family: Poppins;
     font-weight: bold;
     font-size: 2rem;
     width: 27vw;
 }
 
-.section_1_planeta{
+.section_1_planeta {
     width: 39vw;
     animation: planeta_girar 80s infinite linear;
 }
 
-@keyframes planeta_girar{
-    0%{
+@keyframes planeta_girar {
+    0% {
         transform: rotate(0deg);
     }
-    100%{
+
+    100% {
         transform: rotate(360deg);
     }
 }
 
-.section_2{
+.section_2 {
     flex-direction: column;
     align-items: center;
     margin-top: 5rem;
 
 }
 
-.caixasMotivos{
+.caixasMotivos {
     width: 75vw;
     display: flex;
     flex-wrap: wrap;
@@ -119,7 +126,7 @@ section{
     justify-content: space-evenly;
 }
 
-.caixasMotivos div{
+.caixasMotivos div {
     margin-top: 5rem;
     background-color: #f1f1f1;
     border-radius: 36px;
@@ -127,28 +134,28 @@ section{
     height: 35vh;
 }
 
-.astronautas_caixa{
+.astronautas_caixa {
     position: relative;
     width: 3.7rem;
     bottom: 4rem;
     left: 6rem;
 }
 
-.caixasMotivos_texto{
+.caixasMotivos_texto {
     text-align: center;
     color: #252525;
     font-family: Poppins;
     font-size: 1.2rem;
 }
 
-.section_2_titulo{
+.section_2_titulo {
     font-family: Poppins;
     color: #9637E5;
     font-weight: bold;
     font-size: 2.5rem;
 }
 
-.caixasIntegrantes{
+.caixasIntegrantes {
     display: flex;
     width: 80vw;
     flex-direction: row;
@@ -156,7 +163,7 @@ section{
     overflow: hidden;
 }
 
-.integrantes{
+.integrantes {
     position: relative;
     display: flex;
     align-items: center;
@@ -170,7 +177,7 @@ section{
     animation: integrantes_animacao 30s infinite linear;
 }
 
-.contato_integrantes{
+.contato_integrantes {
     align-items: center;
     justify-content: space-between;
 }
@@ -180,64 +187,121 @@ section{
     color: #252525;
 }
 
-#linkedin{
+#linkedin {
     font-size: 4rem;
-    color: #0077b5 ;
+    color: #0077b5;
 }
 
-.caixasIntegrantes img{
+.caixasIntegrantes img {
     border-radius: 56rem;
     width: 13rem;
     padding: 1rem;
     height: auto;
 }
 
-@keyframes integrantes_animacao{
-    0%{
+@keyframes integrantes_animacao {
+    0% {
         right: -50vw;
     }
-    100%{
+
+    100% {
         right: 83vw;
     }
 }
 
-.integrante_nome{
+.integrante_nome {
     font-family: Poppins;
     font-weight: bold;
     font-size: 1.3rem;
     color: #252525;
 }
 
-.integrante_funcao{
+.integrante_funcao {
     font-family: Righteous;
     font-weight: bold;
     text-align: center;
     color: #9637E5;
 }
-.integrante_contato{
+
+.integrante_contato {
     font-family: Poppins;
     color: #9637E5;
 }
 
-.bar_contato{
+.bar_contato {
     background-color: #9637E5;
     margin-top: 0.3rem;
     width: 8rem;
     height: 2px
 }
 
-.footer_ondas{
+.footer_ondas {
     position: relative;
 }
 
-.footer_conteudo{
+.footer_conteudo {
     margin-top: -2rem;
     position: relative;
-    background-color: #9637E5;   
+    background-color: #9637E5;
     width: 100%;
-    height: 30vh; 
+    height: 30vh;
 }
 
+
+/* @media only screen and (max-width:375px) and (max-width:320px){
+    
+    
+}
+
+@media only screen and (max-width:768px) and (max-width:425px){
+    
+    
+} */
+@media only screen and (max-width:1440px) and (min-width:1024px){
+
+    .caixasMotivos div {
+        width: 30%;
+        height: 35vh;
+
+    }
+
+    .integrantes {
+        margin-left: 109px;
+        height: auto;
+    }
+    li{
+        margin: 38px;
+    }
+    #menuToggle{
+        display: none;
+        }
+}
+
+ @media only screen and (max-width:1023px){
+    li{
+        margin: 22px;
+    }
+    .caixasMotivos div {
+        width: 28vh;
+        height: 28vh;
+
+    }
+    .integrantes{
+        height: auto;
+    }
+    #menuToggle{
+        display: none;
+        }
+}
+
+@media only screen and (max-width:768px){
+    .ulNavbar{
+        display: none;
+    }
+    #menuToggle{
+        display: inline;
+        }
+} 
 
 /* .textIntrodução,.space{
     background-color: #9637E5;
@@ -249,3 +313,149 @@ section{
     display: flex;
     justify-content: space-around;
 } */
+
+
+
+
+/*Menu*/
+
+#menuToggle
+{
+  position: relative;
+  top: 50%;
+  left: 50px;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: white;
+  
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
