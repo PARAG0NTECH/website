@@ -301,8 +301,84 @@ section {
     #menuToggle{
         display: inline;
         }
+    nav{
+        justify-content: center;
+    }
+        #menu {
+            position: absolute;
+            width: 300px;
+            margin: -100px 0 0 39px;
+            padding: 50px;
+            padding-top: 125px;
+            background: #ededed;
+            list-style-type: none;
+            -webkit-font-smoothing: antialiased;
+            transform-origin: 0% 0%;
+            transform: translate(-100%, 0);
+            transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+        }
+        #menuToggle input {
+            display: block;
+            width: 40px;
+            height: 32px;
+            position: relative;
+            top: 24px;
+            /* left: -5px; */
+            /* cursor: pointer; */
+            opacity: 0;
+            z-index: 2;
+            -webkit-touch-callout: none;
+        }
 } 
+    @media only screen and (max-width:700px){
 
+
+        #menuToggle {
+            left: -156px !important;
+        }
+        #menu{
+            width: 60vh !important;
+            transform: translate(-105%, 0);
+            transition: transform 0.5s cubic-bezier(0.90,0.2,0.05,1.0);
+        }
+            
+    }
+    @media only screen and (max-width:472px){
+    body{
+        font-size: 89%;
+    }
+    .caixasIntegrantes img {
+    
+    width: 7rem;
+    }
+
+    }
+
+    @media only screen and (max-width:425px){
+        #menuToggle{
+            left: -90px !important;
+        }
+        body {
+            font-size: 89%;
+        }
+        .section_2_titulo{
+            font-size: 1.5rem;
+        }
+        p{
+            font-size: 65%;
+        }
+        #menu{
+            width: 44vh !important;
+        }
+        }
+        @media only screen and (max-width:320px){
+        #menuToggle{
+            left: -18% !important;
+        }
+        #menu{
+            width: 35vh !important;
+        }
+        }
 /* .textIntrodução,.space{
     background-color: #9637E5;
     width: 500px;
@@ -322,11 +398,9 @@ section {
 #menuToggle
 {
   position: relative;
-  top: 50%;
-  left: 50px;
-  
+  top: 0%;
+  left: -273px;
   z-index: 1;
-  
   -webkit-user-select: none;
   user-select: none;
 }
@@ -350,16 +424,18 @@ section {
   display: block;
   width: 40px;
   height: 32px;
-  position: absolute;
-  top: -7px;
-  left: -5px;
-  
+  position: relative;
+  top: 26px;
+  left: -4px;
   cursor: pointer;
-  
   opacity: 0; /* hide this */
   z-index: 2; /* and place it over the hamburger */
-  
   -webkit-touch-callout: none;
+  /* background-color: wheat; */
+  /* color: wheat; */
+  /* font-family: 'Poppins'; */
+  /* font-weight: bold; */
+  /* font-size: 85px; */
 }
 
 /*
@@ -403,7 +479,7 @@ section {
 {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
-  background: #232323;
+  background: #fff;
 }
 
 /*
@@ -430,27 +506,28 @@ section {
 #menu
 {
   position: absolute;
-  width: 300px;
+  width: 84vh;
+  height: 100vh;
   margin: -100px 0 0 -50px;
   padding: 50px;
-  padding-top: 125px;
-  
-  background: #ededed;
+  padding-top: 132px;
+  background: #252525c2;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */
-  
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
-  
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
 #menu li
 {
-  padding: 10px 0;
-  font-size: 22px;
+  padding: 17px 0;
+  font-size: 16px;
+  text-align: center;
 }
+
+li {}
 
 /*
  * And let's slide it in from the left
