@@ -248,15 +248,25 @@ section {
 }
 
 
-/* @media only screen and (max-width:375px) and (max-width:320px){
-    
-    
+.caixasMotivos div {
+    width: 30%;
+    height: 35vh;
+
 }
 
-@media only screen and (max-width:768px) and (max-width:425px){
-    
-    
-} */
+.integrantes {
+    margin-left: 109px;
+    height: auto;
+}
+
+li{
+    margin: 38px;
+}
+
+#menuToggle{
+    display: none;
+}
+
 @media only screen and (max-width:1440px) and (min-width:1024px){
 
     .caixasMotivos div {
@@ -295,15 +305,15 @@ section {
 }
 
 @media only screen and (max-width:768px){
-    .ulNavbar{
-        display: none;
-    }
-    #menuToggle{
-        display: inline;
+        .ulNavbar{
+            display: none;
         }
-    nav{
-        justify-content: center;
-    }
+        #menuToggle{
+            display: inline;
+            }
+        nav{
+            justify-content: center;
+        }
         #menu {
             position: absolute;
             width: 300px;
@@ -332,7 +342,6 @@ section {
 } 
     @media only screen and (max-width:700px){
 
-
         #menuToggle {
             left: -156px !important;
         }
@@ -344,13 +353,13 @@ section {
             
     }
     @media only screen and (max-width:472px){
-    body{
-        font-size: 89%;
-    }
-    .caixasIntegrantes img {
+        body{
+            font-size: 89%;
+        }
+        .caixasIntegrantes img {
     
-    width: 7rem;
-    }
+            width: 7rem;
+        }
 
     }
 
