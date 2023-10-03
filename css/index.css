@@ -22,10 +22,11 @@
 html {
     min-height: 100%;
     background-color: #252525;
-    background-image: url("./img/background_6.png");
+    background-image: url("../img/background_6.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    scroll-behavior: smooth;
 }
 
 a {

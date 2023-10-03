@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./css/index.css">
     <title>Paragon Tech</title>
     <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
     <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet'>
@@ -36,37 +36,36 @@
                 but hey, it's pure CSS magic.
                 -->
                 <ul id="menu">
-                    <a href="#">
-                        <li>Home</li>
+                    <a href="#produto">
+                        <li>Produtos</li>
                     </a>
-                    <a href="#">
-                        <li>Solutions</li>
+                    <a href="#quemSomos">
+                        <li>Quem somos</li>
                     </a>
-                    <a href="#">
-                        <li>Produts</li>
+                    <a href="#contato">
+                        <li>Contato</li>
                     </a>
-                    <a href="#">
-                        <li>Project</li>
+                    <a href="./login.html">
+                        <li>Login</li>
                     </a>
                 </ul>
             </div>
 
-            <div class="logo"><img src="./img/logo.png" width="120" alt=""></div>
+            <div class="logo">
+                <img src="./img/logo.png" width="130" alt="">
+            </div>
             <ul class="ulNavbar">
                 <li>
-                    <a href="">Solutions</a>
+                    <a href="#produto">Produtos</a>
                 </li>
                 <li>
-                    <a href="">Produts</a>
+                    <a href="#quemSomos">Quem somos</a>
                 </li>
                 <li>
-                    <a href="">How It Works</a>
+                    <a href="#contato">Contato</a>
                 </li>
                 <li>
-                    <a href="">Company</a>
-                </li>
-                <li>
-                    <a href="">Project</a>
+                    <a href="./login.html">Login</a>
                 </li>
             </ul>
 
@@ -83,7 +82,7 @@
                 </div>
                 <img class="section_1_planeta" src="./img/planeta_astrounautas.png">
             </section>
-            <section class="section_2">
+            <section class="section_2" id="quemSomos">
                 <p class="section_2_titulo">POR QUE A PARAGON ?</p>
                 <div class="caixasMotivos">
                     <div>
@@ -267,7 +266,7 @@
                     </div>
                 </div>
             </section>
-            <section class="section_2">
+            <section class="section_2" id="produto" >
                 <p class="section_2_titulo">NOSSO PROJETO</p>
                 <div>
                     <img src="">
@@ -288,7 +287,8 @@
                             class="transition-all duration-300 ease-in-out delay-150 path-1"></path>
                     </svg>
                 </div>
-                <div class="footer_conteudo">
+                <div class="footer_conteudo" id="contato">
+                    <h1>Aqui vão os contatos </h1>
                 </div>
             </footer>
         </main>

@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Righteous;
+    scroll-behavior: smooth;
+}
+
+html{
+    min-height: 100%;
+    background-color: #252525;
+    background-image: url("../img/background_6.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; 
+    scroll-behavior: smooth;
+}
+
+nav div {
+    height: 100px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+ul {
+    flex-wrap: wrap;
+}
+
+li {
+    margin: 50px;
+    list-style-type: none;
+}
+
+h2{
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: #9637E5;
+}
+
+p{
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #9637E5;
+}
+
+p a{
+    font-weight: 300;
+}
+
+input{
+    background: #595959;
+    border: none;
+    width: 20rem;
+    height: 3rem;
+    border-radius: 10px;
+    padding-left: 10px;
+    font-weight: 300;
+    color: #f1f1f1;
+    font-family: Righteous;
+    font-size: 1.5rem;
+}
+
+.ulNavbar {
+    display: inline-flex;
+    margin-bottom: 20px;
+}
+
+.ulNavbar li a {
+    font-family: Righteous;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #F1F1F1;
+}
+
+section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.cadastro{
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+    width: 80vw;
+    background: #3c3c3ceb;
+    border-radius: 36px;
+    margin-bottom: 3rem;
+    padding: 2rem;
+}
+
+.cadastro button{
+    border: none;
+    cursor: pointer;
+    background: #9637E5;
+    border-radius: 18px;
+    color: #f1f1f1;
+    font-size: 1.5rem;
+    width: 10rem;
+    height: 3.4rem;
+}
+
+.cadastroInputs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.cadastroInputs p{
+    font-size: 1.4rem;
+}
+
+.cadastroImgs{
+
+}
+
+.cadastroImgTexto{
+    font-size: 1.7rem;
+    font-family: Poppins;
+}
