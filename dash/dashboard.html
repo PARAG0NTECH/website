@@ -9,17 +9,30 @@
     <!-- Inclua o CSS do Chart.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
 </head>
+
+
 <body class="bg-gray-100">
     <div class="flex">
+
+
+        
         <!-- Menu Lateral -->
         <nav class="bg-gray-900 w-1/4 min-h-screen text-white p-4">
-            <h1 class="text-2xl font-semibold mb-4">Dashboard</h1>
-            <ul>
+            <h1 class="text-2xl font-semibold mb-4">Dashboard</h1><br><br>
+
+            <h1 class="text-2xl font-semibold mb-4">CineGuardian</h1>
+      
+            <img src="../img/pipoca.png" width="130" alt="">
+           <br><br><br><br><br><ul>
                 <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 1</a></li>
                 <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 2</a></li>
                 <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 3</a></li>
                 <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 4</a></li>
                 <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 5</a></li>
+                <br><br><br><br><br>
+
+
+                <li class="mb-2"><a href="../index.html" class="hover:text-gray-400">Sair</a></li>
             </ul>
         </nav>
         <!-- Conteúdo Principal -->
@@ -72,12 +85,12 @@
 
         // Configurações dos Gráficos
         var barConfig = {
-            type: 'bar',
+            type: 'line',
             data: barData,
         };
 
         var pieConfig = {
-            type: 'pie',
+            type: 'line',
             data: pieData,
         };
 
