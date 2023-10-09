@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Melhorado</title>
+    <!-- Inclua o CSS do Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Inclua o CSS do Chart.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Menu Lateral -->
+        <nav class="bg-gray-900 w-1/4 min-h-screen text-white p-4">
+            <h1 class="text-2xl font-semibold mb-4">Dashboard</h1>
+            <ul>
+                <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 1</a></li>
+                <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 2</a></li>
+                <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 3</a></li>
+                <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 4</a></li>
+                <li class="mb-2"><a href="#" class="hover:text-gray-400">Opção 5</a></li>
+            </ul>
+        </nav>
+        <!-- Conteúdo Principal -->
+        <div class="w-3/4 p-4">
+            <div class="bg-white rounded-lg shadow-lg p-4 mb-4">
+                <h2 class="text-xl font-semibold mb-2">Gráfico de Barras</h2>
+                <canvas id="barChart" width="400" height="200"></canvas>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-4 mb-4">
+                <h2 class="text-xl font-semibold mb-2">Gráfico de Pizza</h2>
+                <canvas id="pieChart" width="400" height="200"></canvas>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <h2 class="text-xl font-semibold mb-2">Gráfico de Linha</h2>
+                <canvas id="lineChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclua o JavaScript do Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script>
+        // Dados para os Gráficos
+        var barData = {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+            datasets: [{
+                label: 'Vendas Mensais',
+                data: [1200, 800, 1500, 1100, 1400],
+                backgroundColor: '#3490dc',
+            }]
+        };
+
+        var pieData = {
+            labels: ['Produto A', 'Produto B', 'Produto C'],
+            datasets: [{
+                data: [30, 45, 25],
+                backgroundColor: ['#38a169', '#f6ad55', '#ed64a6'],
+            }]
+        };
+
+        var lineData = {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+            datasets: [{
+                label: 'Lucro Mensal',
+                data: [1000, 1200, 900, 1100, 1300],
+                borderColor: '#e3342f',
+                fill: false,
+            }]
+        };
+
+        // Configurações dos Gráficos
+        var barConfig = {
+            type: 'bar',
+            data: barData,
+        };
+
+        var pieConfig = {
+            type: 'pie',
+            data: pieData,
+        };
+
+        var lineConfig = {
+            type: 'line',
+            data: lineData,
+        };
+
+        // Renderizar os Gráficos
+        var barChart = new Chart(document.getElementById('barChart'), barConfig);
+        var pieChart = new Chart(document.getElementById('pieChart'), pieConfig);
+        var lineChart = new Chart(document.getElementById('lineChart'), lineConfig);
+    </script>
+</body>
+</html>
