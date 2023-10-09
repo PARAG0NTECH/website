@@ -30,8 +30,8 @@
     </nav>
 
     <section>
-        <div class="cadastro">
-            <div class="cadastroInputs">
+        <div class="login">
+            <div class="loginInputs">
                 <h2>Faça seu <span style="color: #f1f1f1;">login</span></h2>
                 <div>
                     <p>Email:</p>
@@ -43,11 +43,55 @@
                 </div>
                 <button>Enviar</button>
             </div>
-            <div class="cadastroImgs">
+            <div class="loginImgs">
                 <img src="./img/login/online_registration_form_and_Sign_in_button_generated-removebg-preview 1.png" width="480px">
-                <p class="cadastroImgTexto">Clique aqui para se <a href="#" style="color: #f1f1f1; text-decoration: underline;">registrar</a></p>
+                <p class="loginImgTexto">Clique aqui para se <a onclick="mostrarCadastro()" style="color: #f1f1f1; text-decoration: underline;">registrar</a></p>
             </div>
         </div>
+
+        <div class="cadastro">
+            <div class="cadastroInputs">
+                <h2>Faça seu <span style="color: #f1f1f1;">cadastro</span></h2>
+                <div>
+                    <p>Primeiro nome:</p>
+                    <input type="text">
+                </div>
+                <div>
+                    <p>Email:</p>
+                    <input type="text">
+                </div>
+                <div>
+                    <p>Senha:</p>
+                    <input type="password">
+                </div>
+                <img src="">
+                <div>
+                    <p>Razão Social:</p>
+                    <input type="text">
+                </div>
+                <div>
+                    <p>CNPJ:</p>
+                    <input type="text">
+                </div>
+                <button>Enviar</button>
+            </div>  
+        </div>
     </section>
+
+    <script>
+        var divLogin = document.getElementsByClassName("login")
+        var divCadastro = document.getElementsByClassName("cadastro")
+
+
+        function mostrarCadastro(){
+            divLogin.display = "none"
+            divCadastro.display = "flex"
+
+        }
+
+        function mostrarLogin(){
+
+        }
+    </script>
 </body>
 </html>
