@@ -30,7 +30,7 @@
     </nav>
 
     <section>
-        <div class="login">
+        <div class="login" id="login">
             <div class="loginInputs">
                 <h2>Faça seu <span style="color: #f1f1f1;">login</span></h2>
                 <div>
@@ -41,7 +41,7 @@
                     <p>Senha:</p>
                     <input type="password">
                 </div>
-                <button>Enviar</button>
+                <button onclick="realizarLogin()">Enviar</button>
             </div>
             <div class="loginImgs">
                 <img src="./img/login/online_registration_form_and_Sign_in_button_generated-removebg-preview 1.png" width="480px">
@@ -49,47 +49,51 @@
             </div>
         </div>
 
-        <div class="cadastro">
-            <div class="cadastroInputs">
+        <div class="cadastro" id="cadastro">
                 <h2>Faça seu <span style="color: #f1f1f1;">cadastro</span></h2>
-                <div>
-                    <p>Primeiro nome:</p>
-                    <input type="text">
+                <div class="cadastroInputs">
+                    <div>
+                        <p>Primeiro nome:</p>
+                        <input type="text">
+                        <p>Senha:</p>
+                        <input type="password">
+                        <p>Razão Social:</p>
+                        <input type="text">
+                        <p>CNPJ:</p>
+                        <input type="text">
+                        <button onclick="realizarCadastro()">Enviar</button>
+                    </div>
+                    <div>
+                        <p>Email:</p>
+                        <input type="text">
+                        <img src="./img/login/ashdashd-removebg-preview 1.png" width="300px">
+                        <p style="font-size: 1.2rem">Já tem conta? Realize seu <a onclick="mostrarLogin()" style="color: #f1f1f1; text-decoration: underline">login</a></p>
+                    </div>
                 </div>
-                <div>
-                    <p>Email:</p>
-                    <input type="text">
-                </div>
-                <div>
-                    <p>Senha:</p>
-                    <input type="password">
-                </div>
-                <img src="">
-                <div>
-                    <p>Razão Social:</p>
-                    <input type="text">
-                </div>
-                <div>
-                    <p>CNPJ:</p>
-                    <input type="text">
-                </div>
-                <button>Enviar</button>
             </div>  
         </div>
     </section>
 
     <script>
-        var divLogin = document.getElementsByClassName("login")
-        var divCadastro = document.getElementsByClassName("cadastro")
+        var divLogin = document.getElementsById("login")
+        var divCadastro = document.getElementsById("cadastro")
 
 
         function mostrarCadastro(){
-            divLogin.display = "none"
-            divCadastro.display = "flex"
-
+            document.getElementById("login").style.display = "none"
+            document.getElementById("cadastro").style.display = "flex"
         }
 
         function mostrarLogin(){
+            document.getElementById("cadastro").style.display = "none" 
+            document.getElementById("login").style.display = "flex"
+        }
+
+        function realizarCadastro(){
+
+        }
+
+        function realizarLogin(){
 
         }
     </script>

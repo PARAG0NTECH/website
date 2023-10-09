@@ -62,6 +62,10 @@ p a{
     font-weight: 300;
 }
 
+a{
+    cursor: pointer;
+}
+
 input{
     background: #595959;
     border: none;
@@ -134,8 +138,20 @@ section{
 .cadastro{
     display: none;
     background: #3c3c3ceb;
+    flex-direction: column;
     margin-bottom: 3rem; 
-    width: 80vw;
+    width: 65vw;
     border-radius: 36px;
     padding: 2rem;
+}
+
+.cadastroInputs{
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    justify-content: center;
+}
+
+.cadastroInputs input{
+    margin-bottom: 1rem;
 }
