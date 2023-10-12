@@ -8,6 +8,9 @@
     <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
     <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet'>
 </head>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <body>
     <nav>
     
@@ -35,11 +38,11 @@
                 <h2>Faça seu <span style="color: #f1f1f1;">login</span></h2>
                 <div>
                     <p>Email:</p>
-                    <input type="text">
+                    <input type="text" id="loginEmail">
                 </div>
                 <div>
                     <p>Senha:</p>
-                    <input type="password">
+                    <input type="password" id="loginSenha">
                 </div>
                 <button onclick="realizarLogin()">Enviar</button>
             </div>
@@ -54,18 +57,18 @@
                 <div class="cadastroInputs">
                     <div>
                         <p>Primeiro nome:</p>
-                        <input type="text">
+                        <input type="text" id="cadastroNome">
                         <p>Senha:</p>
-                        <input type="password">
+                        <input type="password" id="cadastroSenha">
                         <p>Razão Social:</p>
-                        <input type="text">
+                        <input type="text" id="cadastroRazaoSocial">
                         <p>CNPJ:</p>
-                        <input type="text">
+                        <input type="text" id="cadastroCNPJ">
                         <button onclick="realizarCadastro()">Enviar</button>
                     </div>
                     <div>
                         <p>Email:</p>
-                        <input type="text">
+                        <input type="text" id="cadastroEmail">
                         <img src="./img/login/ashdashd-removebg-preview 1.png" width="300px">
                         <p style="font-size: 1.2rem">Já tem conta? Realize seu <a onclick="mostrarLogin()" style="color: #f1f1f1; text-decoration: underline">login</a></p>
                     </div>
@@ -77,6 +80,7 @@
     <script>
         var divLogin = document.getElementsById("login")
         var divCadastro = document.getElementsById("cadastro")
+  
 
 
         function mostrarCadastro(){
@@ -91,10 +95,61 @@
 
         function realizarCadastro(){
 
+            var inputCadastroNome        =  document.getElementById("cadastroNome").value    
+            var inputCadastroSenha       =  document.getElementById("cadastroSenha").value    
+            var inputCadastroRazaoSocial =  document.getElementById("cadastroRazaoSocial").value    
+            var inputCadastroCNPJ        =  document.getElementById("cadastroCNPJ").value    
+            var inputCadastroEmail       =  document.getElementById("cadastroEmail").value
+
+            if( inputCadastroNome           == "" ||
+                inputCadastroSenha          == "" ||
+                inputCadastroRazaoSocial    == "" ||
+                inputCadastroCNPJ           == "" ||
+                inputCadastroEmail          == "" ){
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops..',
+                    text: 'Preencha todos os campos!',
+                    color: '#9637E5',
+                    background: "#252525ef",
+                  })
+                return 
+
+            }else{
+                Swal.fire({
+                    icon: 'success',
+                    color: '#f1f1f1',
+                    background: '#252525ef',
+                    text: 'Cadastro realizado com sucesso!',
+                  })
+            }
         }
 
         function realizarLogin(){
 
+            var inputLoginEmail          = document.getElementById("loginEmail").value   
+            var inputLoginSenha          = document.getElementById("loginSenha").value    
+                
+            if( inputLoginEmail  == "" ||
+                inputLoginSenha  == "" ){
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops..',
+                    text: 'Preencha todos os campos!',
+                    color: '#9637E5',
+                    background: "#252525ef",
+                })
+                return 
+            }else{
+                Swal.fire({
+                    icon: 'success',
+                    color: '#f1f1f1',
+                    background: '#252525ef',
+                    text: 'Cadastro realizado com sucesso!',
+                })
+            }
         }
     </script>
 </body>
