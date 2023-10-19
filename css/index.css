@@ -29,6 +29,10 @@ html {
     scroll-behavior: smooth;
 }
 
+button{
+    cursor: pointer;
+}
+
 a {
     text-decoration: none;
     color: none;
@@ -116,7 +120,6 @@ section {
     flex-direction: column;
     align-items: center;
     margin-top: 5rem;
-
 }
 
 .caixasMotivos {
@@ -238,16 +241,23 @@ section {
 
 .footer_ondas {
     position: relative;
+    margin-top: 4rem;
 }
 
 .footer_conteudo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     margin-top: -2rem;
     position: relative;
     background-color: #9637E5;
     width: 100%;
-    height: 30vh;
+    height: 40vh;
 }
 
+.footer_conteudo div{
+    width: 20rem;
+}
 
 .caixasMotivos div {
     width: 30%;
@@ -566,4 +576,64 @@ li {}
  */
 #menuToggle input:checked~ul {
     transform: none;
+}
+
+/* 
+#eb1616
+#191c24
+#6c7293
+#000000 
+*/
+
+.section_cine{
+    display: flex;
+    flex-direction: column;
+    background: #2d2d2dd0;
+    /* background: #191c24; */
+    height: 50em;
+    margin-top: 10rem;
+    padding: 5rem;
+}
+
+.section_cine h1{
+    color: #d22929;
+    font-family: Poppins;
+    font-size: 2.5rem;
+    padding-left: 4rem;
+}
+
+.section_cine p{
+    color: #F1F1F1;
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+.div_cine_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.div_cine_info div {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 5rem;
+    margin-bottom: 3rem;
+}
+
+.div_cine_info_2{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.footer_conteudo p{
+    color: #f1f1f1;
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 1.6rem;
 }
