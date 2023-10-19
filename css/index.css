@@ -569,8 +569,6 @@ li {
     text-align: center;
 }
 
-li {}
-
 /*
  * And let's slide it in from the left
  */
@@ -588,9 +586,10 @@ li {}
 .section_cine{
     display: flex;
     flex-direction: column;
-    background: #2d2d2dd0;
-    /* background: #191c24; */
+    background: #191c24;
     height: 50em;
+    margin: 1.5rem;
+    border-radius: 36px;
     margin-top: 10rem;
     padding: 5rem;
 }
