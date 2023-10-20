@@ -363,6 +363,15 @@ li {
     .caixasMotivos_texto {
         font-size: .9rem;
     }
+
+    .div_cine_info img{
+        width: 50%!important;
+    }
+
+    .section_cine{
+        height: 63em!important;
+        margin-bottom: 20em!important;
+    }
 }
 
 @media only screen and (max-width:700px) {
@@ -377,6 +386,22 @@ li {
         transition: transform 0.5s cubic-bezier(0.90, 0.2, 0.05, 1.0);
     }
 
+    .div_cine_info{
+        width: 70%;
+    }
+
+    .div_cine_info img{
+        width: 50%!important;
+    }
+
+    .section_cine{
+        height: 53em!important;
+        margin-bottom: 20em!important;
+    }
+
+    p{
+        font-size: 1.4rem!important;
+    }
 }
 
 @media only screen and (max-width:472px) {
@@ -415,6 +440,16 @@ li {
     #menu {
         width: 44vh !important;
     }
+
+    .div_cine_info img{
+        width: 50%!important;
+    }
+
+    .section_cine{
+        height: 43em!important;
+        margin-bottom: 20em!important;
+    }
+
 }
 
 @media only screen and (max-width:320px) {
@@ -429,21 +464,17 @@ li {
     #menu {
         width: 35vh !important;
     }
+
+    .div_cine_info img{
+        width: 50%!important;
+    }
+
+    .section_cine{
+        height: 43em!important;
+        margin-bottom: 40em!important;
+    }
+    
 }
-
-/* .textIntrodução,.space{
-    background-color: #9637E5;
-    width: 500px;
-    height: 500px;
-}
-
-.classSpaceText{
-    display: flex;
-    justify-content: space-around;
-} */
-
-
-
 
 /*Menu*/
 
@@ -592,6 +623,7 @@ li {
     border-radius: 36px;
     margin-top: 10rem;
     padding: 5rem;
+    align-items: center;
 }
 
 .section_cine h1{
@@ -610,6 +642,7 @@ li {
 
 .div_cine_info{
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     justify-content: space-evenly;
