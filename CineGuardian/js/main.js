@@ -137,29 +137,30 @@
     });
 
 
-    // Single Bar Chart
-    var ctx4 = $("#bar-chart").get(0).getContext("2d");
-    var myChart4 = new Chart(ctx4, {
-        type: "bar",
-        data: {
-            labels: ["2º Feira", "3º Feira", "4º Feira", "5º Feira", "6º Feira", "Sábado", "Domingo"],
-            datasets: [{
-                backgroundColor: [
-                    "rgba(235, 22, 22, .7)",
-                    "rgba(235, 22, 22, .6)",
-                    "rgba(235, 22, 22, .5)",
-                    "rgba(235, 22, 22, .4)",
-                    "rgba(235, 22, 22, .3)"
-                ],
-                data: [55, 49, 44, 24, 15],
-                label: "Horas"
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
-
+    function graficoDemandas(){
+        // Single Bar Chart
+        var ctx4 = $("#bar-chart").get(0).getContext("2d");
+        var myChart4 = new Chart(ctx4, {
+            type: "bar",
+            data: {
+                labels: ["2º Feira", "3º Feira", "4º Feira", "5º Feira", "6º Feira", "Sábado", "Domingo"],
+                datasets: [{
+                    backgroundColor: [
+                        "rgba(235, 22, 22, .7)",
+                        "rgba(235, 22, 22, .6)",
+                        "rgba(235, 22, 22, .5)",
+                        "rgba(235, 22, 22, .4)",
+                        "rgba(235, 22, 22, .3)"
+                    ],
+                    data: [55, 49, 44, 24, 15],
+                    label: "Horas"
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
 
     // Pie Chart
     var ctx5 = $("#pie-chart").get(0).getContext("2d");
@@ -221,5 +222,9 @@
         reiniciadasDiaH5.innerHTML = `Em média, seus totens são <br>reicializados <span style="color: #36A355; font-size: 1.8rem">${(reiniciadasDia).toFixed(2)} vezes</span> por dia`
     }
 
+    
 })(jQuery);
+
+export { graficoDemandas };
+
 
