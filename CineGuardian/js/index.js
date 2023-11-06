@@ -65,22 +65,22 @@
 
 
     // Worldwide Sales Chart
-    //var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
-    // var myChart1 = new Chart(ctx1, {
-    //     type: "bar",
-    //     data: {
-    //         labels: ["id-01", "id-02", "id-03", "id-04"],
-    //         datasets: [{
-    //                 label: "Minutos",
-    //                 data: [15, 30, 55, 65, 60, 80, 95],
-    //                 backgroundColor: "rgb(54,163,85, .6)"
-    //             },
-    //         ]
-    //         },
-    //     options: {
-    //         responsive: true
-    //     }
-    // });
+    var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+    var myChart1 = new Chart(ctx1, {
+        type: "bar",
+        data: {
+            labels: ["id-01", "id-02", "id-03", "id-04"],
+            datasets: [{
+                    label: "Minutos",
+                    data: [15, 30, 55, 65, 60, 80, 95],
+                    backgroundColor: "rgb(54,163,85, .6)"
+                },
+            ]
+            },
+        options: {
+            responsive: true
+        }
+    });
 
     //alertaDisponibilidadeTempo(120)
 
@@ -92,29 +92,29 @@
     // }
 
     // Salse & Revenue Chart
-    //var ctx2 = $("#salse-revenue").get(0).getContext("2d");
-    // var myChart2 = new Chart(ctx2, {
-    //     type: "line",
-    //     data: {
-    //         labels: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"],
-    //         datasets: [{
-    //                 label: "Disponibilidade",
-    //                 data: [15, 30, 55, 45, 70, 65, 85],
-    //                 backgroundColor: "rgb(54,163,85, .6)",
-    //                 fill: true
-    //             },
-    //             {
-    //                 label: "Desempenho",
-    //                 data: [99, 135, 170, 130, 190, 180, 270],
-    //                 backgroundColor: "rgba(235, 22, 22, .5)",
-    //                 fill: true
-    //             }
-    //         ]
-    //         },
-    //     options: {
-    //         responsive: true
-    //     }
-    // });
+    var ctx2 = $("#salse-revenue").get(0).getContext("2d");
+    var myChart2 = new Chart(ctx2, {
+        type: "line",
+        data: {
+            labels: ["12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"],
+            datasets: [{
+                    label: "Disponibilidade",
+                    data: [15, 30, 55, 45, 70, 65, 85],
+                    backgroundColor: "rgb(54,163,85, .6)",
+                    fill: true
+                },
+                {
+                    label: "Desempenho",
+                    data: [99, 135, 170, 130, 190, 180, 270],
+                    backgroundColor: "rgba(235, 22, 22, .5)",
+                    fill: true
+                }
+            ]
+            },
+        options: {
+            responsive: true
+        }
+    });
     
 
 
