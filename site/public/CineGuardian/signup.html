@@ -31,7 +31,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body >
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -71,7 +71,7 @@
                             </div>
                             <a href="">Forgot Password</a>
                         </div>
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4" onclick="cadastrarUser()">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4" onclick="verificarCadastro()">Cadastrar</button>
                         <p class="text-center mb-0">Already have an Account? <a href="">Sign In</a></p>
                     </div>
                 </div>
@@ -121,9 +121,9 @@
 
             if (resposta.ok) {
                 alert("Cadastro feito com sucesso");
-                setTimeout(() => {
-                    window.location = "./index.html"
-                }, 2000)
+                //setTimeout(() => {
+                  //  window.location = "./index.html"
+                //}, 2000)
             } else {
                 throw ("Erro ao realizar cadastro!");
             }
@@ -131,5 +131,27 @@
             console.log(`#ERRO: ${resposta}`);
         });
         return false
+    }
+
+
+    function verificarCadastro() {
+        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        if(resposta[i].email == ipt_email.value ){
+                           alert("Cadastro já realizado");
+                           return false;
+                        }
+                    }
+                    cadastrarUser()
+                })
+            } else {
+                console.log("Nenhum dado encontrado.");
+            }
+        }).catch(function (error) {
+            console.error("Erro na obtenção dos dados para a table : " + error.message);
+        });
     }
 </script>

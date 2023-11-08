@@ -15,7 +15,12 @@ function listarUsers() {
     `
     return database.executar(instrucao);
 }
-
+function gerarUserAtual(id) {
+    var instrucao = `
+        select * from tb_users where id = ${id};
+    `
+    return database.executar(instrucao);
+}
 function editarUser(idPessoa, nome, email, password){
     var instrucao = `
         update tb_users set name = '${nome}', email = '${email}', password = '${password}' where id = '${idPessoa}';
@@ -34,6 +39,7 @@ module.exports = {
     cadastrar,
     listarUsers,
     editarUser,
-    deletarUser
+    deletarUser,
+    gerarUserAtual
 
 }

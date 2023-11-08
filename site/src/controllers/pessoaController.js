@@ -28,7 +28,26 @@ function cadastrar(req, res){
     }
 
 }
+function gerarUserAtual(req, res){
+    var id = req.body.idServer;
+    if(id == undefined){
+        res.status(400).send("Seu id está indefinido");
+    }else{
+    pessoaModel.gerarUserAtual(id)
+        .then( function (resultado){
+            if(resultado.length > 0){
+                res.status(200).json(resultado);
+            }else {
+                res.status(204).send("Nenhum Resultado Encontrado!")
+            }
+        }).catch( function (erro){
+            console.log(erro);
+            console.log("Houve um erro ao realizar o login");
+            res.status(500).json(erro.sqlMessage);
+        });
 
+    }
+}
 function listarUsers(req, res){
     pessoaModel.listarUsers()
         .then( function (resultado){
@@ -78,5 +97,6 @@ module.exports = {
     cadastrar,
     listarUsers,
     editarUser,
-    deletarUser
+    deletarUser,
+    gerarUserAtual
 }
