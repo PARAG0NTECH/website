@@ -59,25 +59,23 @@
     });
 
 
-    // Chart Global Color
+    // Chart Bar Color
     Chart.defaults.color = "#6C7293";
     Chart.defaults.borderColor = "#000000";
 
-    var ctx5 = $("#pie-chart").get(0).getContext("2d");
-    var myChart5 = new Chart(ctx5, {
-        type: "pie",
+    var ctx6 = $("#myBarChartProcessador").get(0).getContext("2d");
+    var myChart6 = new Chart(ctx6, {
+        type: "bar",
         data: {
-            labels: ["Funcionando","Inativos"],
+            labels: ["Funcionando", "Inativos"],
             datasets: [{
                 backgroundColor: [
+                    "#EB1616",
                     "#36A355",
-                    "rgba(235, 22, 22, .6)",
-                    "rgba(235, 22, 22, .5)",
-                    "rgba(235, 22, 22, .4)",
-                    "rgba(235, 22, 22, .3)"
                 ],
-                data: [55, 15]
+                data: [70, 17]
             }]
+
         },
         options: {
             responsive: true
@@ -94,15 +92,15 @@
     }
 
 
-    // Doughnut Chart
-    var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
+    // Bar Chart
+    var ctx6 = $("#myBarChartRam").get(0).getContext("2d");
     var myChart6 = new Chart(ctx6, {
-        type: "doughnut",
+        type: "bar",
         data: {
             labels: ["Total Máquinas", "Reiniciadas"],
             datasets: [{
                 backgroundColor: [
-                    "#252525",
+                    "#EB1616",
                     "#36A355",
                 ],
                 data: [70, 17]
@@ -121,6 +119,50 @@
 
         reiniciadasDiaH5.innerHTML = `Em média, seus totens são <br>reicializados <span style="color: #36A355; font-size: 1.8rem">${(reiniciadasDia).toFixed(2)} vezes</span> por dia`
     }
+
+    var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
+    var myChart6 = new Chart(ctx6, {
+        type: "bar",
+        data: {
+            labels: ["Funcionando", "Inativos"],
+            datasets: [{
+                backgroundColor: [
+                    "#EB1616",
+                    "#36A355",
+                ],
+                data: [70, 17]
+            }]
+
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    alertaDisponibilidade(70, 55)
+
+   
+    var ctx6 = $("#myBarChartInternet").get(0).getContext("2d");
+    var myChart6 = new Chart(ctx6, {
+        type: "bar",
+        data: {
+            labels: ["Funcionando", "Inativos"],
+            datasets: [{
+                backgroundColor: [
+                    "#EB1616",
+                    "#36A355",
+                ],
+                data: [70, 17]
+            }]
+
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    alertaDisponibilidade(70, 55)
+
 
     
 })(jQuery);
