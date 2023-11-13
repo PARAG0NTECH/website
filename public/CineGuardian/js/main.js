@@ -67,13 +67,14 @@
     var myChart6 = new Chart(ctx6, {
         type: "bar",
         data: {
-            labels: ["Funcionando", "Inativos"],
+            labels: ["Alto", "Médio","Baixo"],
             datasets: [{
                 backgroundColor: [
                     "#EB1616",
                     "#36A355",
+                    "#f5f5f5"
                 ],
-                data: [70, 17]
+                data: [70, 50,30]
             }]
 
         },
@@ -88,7 +89,7 @@
         var porcentagemMaquinasH5 = document.getElementById("porcentagemMaquinas");
         var pocentagemAtivas = (maquinasAtivas/totalMaquinas)* 100
 
-        porcentagemMaquinasH5.innerHTML = `Suas máquinas tem uma<br> disponibilidade de <spam style="color: #36A355; font-size: 1.8rem">${(pocentagemAtivas).toFixed(2)}%</spam>`
+       
     }
 
 
@@ -97,13 +98,13 @@
     var myChart6 = new Chart(ctx6, {
         type: "bar",
         data: {
-            labels: ["Total Máquinas", "Reiniciadas"],
+            labels: ["Em uso", "Total"],
             datasets: [{
                 backgroundColor: [
                     "#EB1616",
                     "#36A355",
                 ],
-                data: [70, 17]
+                data: [50, 100]
             }]
         },
         options: {
@@ -117,20 +118,20 @@
         var reiniciadasDiaH5 = document.getElementById("reiniciadasDia");
         var reiniciadasDia = (totalMaquinasReiniciadas / 24)
 
-        reiniciadasDiaH5.innerHTML = `Em média, seus totens são <br>reicializados <span style="color: #36A355; font-size: 1.8rem">${(reiniciadasDia).toFixed(2)} vezes</span> por dia`
+       
     }
 
     var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
     var myChart6 = new Chart(ctx6, {
         type: "bar",
         data: {
-            labels: ["Funcionando", "Inativos"],
+            labels: ["Em uso", "Total"],
             datasets: [{
                 backgroundColor: [
                     "#EB1616",
                     "#36A355",
                 ],
-                data: [70, 17]
+                data: [50, 100]
             }]
 
         },
@@ -146,13 +147,13 @@
     var myChart6 = new Chart(ctx6, {
         type: "bar",
         data: {
-            labels: ["Funcionando", "Inativos"],
+            labels: ["MPBS"],
             datasets: [{
                 backgroundColor: [
                     "#EB1616",
                     "#36A355",
                 ],
-                data: [70, 17]
+                data: [70]
             }]
 
         },
