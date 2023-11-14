@@ -12,7 +12,7 @@ var pessoaRouter = require("./src/routes/pessoa");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public", "CineGuardian")));
 
 app.use(cors());
 
