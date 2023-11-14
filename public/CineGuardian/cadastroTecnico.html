@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="gerarDadosUserAtual()">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="ipt_nome" placeholder="jhondoe">
+        <label for="floatingText">Username</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="ipt_email" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating mb-4">
+        <input type="password" class="form-control" id="ipt_password" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+    </div>
+    <button type="submit" class="btn btn-primary py-3 w-100 mb-4" onclick="verificarCadastro()">Cadastrar</button>
+</body>
+</html>
+
+<script>
+    function cadastrarUser() {
+        var nomeVar = ipt_nome.value;
+        var emailVar = ipt_email.value;
+        var passwordVar = ipt_password.value;
+        var donoVar = "tecnico  "
+        console.log(nomeVar, emailVar, passwordVar);
+        if (nomeVar == "" || emailVar == "" || passwordVar == "") {
+            alert("Preencha os campos corretamente");
+            return false;
+        }
+        fetch("/pessoa/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                passwordServer: passwordVar,
+                tipoUserServer: donoVar
+            })
+        }).then(function (resposta) {
+            console.log("resposta : ", resposta)
+
+            if (resposta.ok) {
+                alert("Cadastro feito com sucesso");
+                //setTimeout(() => {
+                  //  window.location = "./index.html"
+                //}, 2000)
+            } else {
+                throw ("Erro ao realizar cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+        return false
+    }
+
+    function verificarCadastro() {
+        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        if(resposta[i].email == ipt_email.value ){
+                           alert("Cadastro já realizado");
+                           return false;
+                        }
+                    }
+                    cadastrarUser()
+                })
+            } else {
+                console.log("Nenhum dado encontrado.");
+            }
+        }).catch(function (error) {
+            console.error("Erro na obtenção dos dados para a table : " + error.message);
+        });
+    }
+
+    function gerarDadosUserAtual() {
+        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                            console.log(resposta[i].id)
+                            console.log(resposta[i].name)
+                            console.log(resposta[i].type_user)
+                            console.log(resposta[i].email)
+                            console.log(resposta[i].password)
+                    }
+                })
+            } else {
+                console.log("Nenhum dado encontrado.");
+            }
+        }).catch(function (error) {
+            console.error("Erro na obtenção dos dados para a table : " + error.message);
+        });
+    }
+</script>

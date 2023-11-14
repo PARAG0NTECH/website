@@ -101,6 +101,7 @@
         var nomeVar = ipt_nome.value;
         var emailVar = ipt_email.value;
         var passwordVar = ipt_password.value;
+        var donoVar = "dono"
         console.log(nomeVar, emailVar, passwordVar);
         if (nomeVar == "" || emailVar == "" || passwordVar == "") {
             alert("Preencha os campos corretamente");
@@ -114,7 +115,8 @@
             body: JSON.stringify({
                 nomeServer: nomeVar,
                 emailServer: emailVar,
-                passwordServer: passwordVar
+                passwordServer: passwordVar,
+                tipoUserServer: donoVar
             })
         }).then(function (resposta) {
             console.log("resposta : ", resposta)

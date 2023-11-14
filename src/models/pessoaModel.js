@@ -1,10 +1,10 @@
 var database = require("../database/config");
 
-function cadastrar(nome, email, email) {
+function cadastrar(nome, email, senha, tipoUser) {
     var instrucao =
         `
     insert into tb_users(name, email, type_user , password)  values
-	('${nome}', '${email}', 'dono' ,'${email}');
+	('${nome}', '${email}', '${tipoUser}' ,'${senha}');
     `
 
     return database.executar(instrucao);

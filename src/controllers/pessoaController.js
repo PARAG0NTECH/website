@@ -5,15 +5,18 @@ function cadastrar(req, res){
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var password = req.body.passwordServer;
+    var tipoUser = req.body.tipoUserServer;
 
     if(nome == undefined){
         res.status(400).send("Seu nome está indefinido");
     }else if(email == undefined){
         res.status(400).send("Seu email está indefinido");
+    }else if(tipoUser == undefined){
+        res.status(400).send("Seu tipo está indefinido");
     }else if(password == undefined){
         res.status(400).send("Seu sexo está indefinido");
     }else{
-        pessoaModel.cadastrar(nome, email, password)
+        pessoaModel.cadastrar(nome, email, password, tipoUser)
             .then(
                 function (result){
                     res.json(result);
