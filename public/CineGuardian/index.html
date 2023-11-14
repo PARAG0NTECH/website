@@ -63,10 +63,9 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="#" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Totens</a>
-                    <a href="./cadastroTecnico.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Cadastrar Técnico</a>
-                    <a href="./chart.html" class="nav-item nav-link"><i
-                        class="fa fa-chart-bar me-2"></i>Estatísticas</a>
+                    <a href="#" class="nav-item nav-link active" id="pag_totens"><i class="fa fa-tachometer-alt me-2"></i>Totens</a>
+                    <a href="./cadastroTecnico.html" id="pag_tecnico" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Cadastrar Técnico</a>
+                    <a href="./chart.html" class="nav-item nav-link" id="pag_estatisticas"><i class="fa fa-chart-bar me-2"></i>Estatísticas</a>
                 </div>
             </nav>
         </div>
@@ -308,6 +307,12 @@
                             h6NameAtual.textContent = resposta[i].name;
                             spanNameAtual.textContent = resposta[i].name;
                             typeUser.textContent = resposta[i].type_user; 
+                                if(resposta[i].type_user == "dono"){
+                                    pag_estatisticas.style.display = "none";
+                                }else{
+                                    pag_totens.style.display = "none";
+                                    pag_tecnico.style.display = "none";
+                                }
                             console.log(resposta[i].email)
                             console.log(resposta[i].password)
                             return true

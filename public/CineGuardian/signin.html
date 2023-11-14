@@ -102,9 +102,16 @@
                     for (let i = 0; i < resposta.length; i++) {
                         if(resposta[i].email == ipt_email.value ){
                            localStorage.setItem('accountId', resposta[i].id);
-                           setTimeout(() => {
-                            window.location = "./index.html"
-                        }, 2000);
+                           console.log(resposta[i].type_user);
+                           if(resposta[i].type_user == "dono"){
+                               setTimeout(() => {
+                                   window.location = "./index.html"
+                                }, 2000);
+                            }else{
+                                setTimeout(() => {
+                                    window.location = "./chart.html"
+                                }, 2000); 
+                            }
                         }
                     }
                 })
