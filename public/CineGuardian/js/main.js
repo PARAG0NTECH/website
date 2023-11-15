@@ -71,8 +71,8 @@
             datasets: [{
                 backgroundColor: [
                     "#EB1616",
-                    "#36A355",
-                    "#f5f5f5"
+                    "#f8bb46",
+                    "#ffffff"
                 ],
                 data: [70, 50,30]
             }]
@@ -98,13 +98,12 @@
     var myChart6 = new Chart(ctx6, {
         type: "bar",
         data: {
-            labels: ["Em uso", "Total"],
+            labels: ["Em uso"],
             datasets: [{
                 backgroundColor: [
                     "#EB1616",
-                    "#36A355",
                 ],
-                data: [50, 100]
+                data: [50, ]
             }]
         },
         options: {
@@ -123,15 +122,14 @@
 
     var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
     var myChart6 = new Chart(ctx6, {
-        type: "bar",
+        type: "line",
         data: {
-            labels: ["Em uso", "Total"],
+            labels: ["Em uso"],
             datasets: [{
                 backgroundColor: [
-                    "#EB1616",
-                    "#36A355",
+                    "#EB1616"
                 ],
-                data: [50, 100]
+                data: [50]
             }]
 
         },
@@ -142,18 +140,25 @@
 
     alertaDisponibilidade(70, 55)
 
-   
+    var tempo = [1, 2, 3, 4, 5];
+    var dados_mbbits = [10, 15, 8, 12, 20];
+    var dados_mbbits_por_segundo = dados_mbbits.map(function(valor) {
+        return valor / 1e6;    });
     var ctx6 = $("#myBarChartInternet").get(0).getContext("2d");
     var myChart6 = new Chart(ctx6, {
-        type: "bar",
+        type: "line",
         data: {
-            labels: ["MPBS"],
+            labels: tempo,
             datasets: [{
-                backgroundColor: [
-                    "#EB1616",
-                    "#36A355",
-                ],
-                data: [70]
+                label: 'Taxa de Transfência (Mbps),',
+                data: dados_mbbits_por_segundo,
+                borderColor: 'red',
+                fill: false
+               // backgroundColor: [
+                    //"#EB1616",
+                   // "#36A355",
+                //],
+               // data: [70]
             }]
 
         },
