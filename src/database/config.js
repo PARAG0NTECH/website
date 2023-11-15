@@ -3,10 +3,10 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "paragon",
+    server: "ec2-44-194-47-186.compute-1.amazonaws.com",
     database: "cineguardian",
-    user: "aluno",
-    password: "aluno",
+    user: "sa",
+    password: "Cine@2023!",
     pool: {
         max: 10,
         min: 0,
