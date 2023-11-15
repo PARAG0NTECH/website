@@ -369,7 +369,7 @@ li {
     }
 
     .section_cine{
-        height: 63em!important;
+        height: 71em!important;
         margin-bottom: 20em!important;
     }
 }
@@ -420,7 +420,7 @@ li {
 
 }
 
-@media only screen and (max-width:425px) {
+@media only screen and (max-width:426px) {
     #menuToggle {
         left: -90px !important;
     }
@@ -434,7 +434,7 @@ li {
     }
 
     p {
-        font-size: 88% !important;
+        font-size: 80% !important;
     }
 
     #menu {
@@ -446,8 +446,8 @@ li {
     }
 
     .section_cine{
-        height: 43em!important;
-        margin-bottom: 20em!important;
+        height: 53em!important;
+        margin-bottom: 32em!important;
     }
 
 }
@@ -470,7 +470,7 @@ li {
     }
 
     .section_cine{
-        height: 43em!important;
+        height: 53em!important;
         margin-bottom: 40em!important;
     }
     
