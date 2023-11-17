@@ -76,7 +76,7 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="CineGuardian.html" class="navbar-brand d-flex d-lg-none me-4">
+                <a onclick="editarperfil()" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -208,16 +208,20 @@
                         flex-wrap: wrap">
 
                         <img src="./img/i.jpeg" style="border-radius: 100%; margin-top: 2rem; ">
-                        <ul style="list-style: none; flex-direction: row">
+                        <ul style="list-style: none; flex-direction: row; margin-top: 2rem">
                             <li>
                                 <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Nome:</span> <span id="userNome">Ricardo Alvez</span></p>
                             </li>
                             <li>
                                 <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700;">E-mail:</span> <span id="userEmail">ricardoalvez@gmail.com</span></p>
                             </li>
-                            <li></li>
                             <li>
                                 <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Senha:</span> <span>**********</span>
+                            </li>
+                            <li>   
+                                <button onclick="editarperfil()" class="btn btn-primary py-3 w-100 mb-4" >
+                                    Editar Perfil
+                                </button> 
                             </li>
                         </ul>
                     </div>
@@ -431,6 +435,51 @@
 <script>
     var accountId = localStorage.getItem('accountId');
 
+    function editarperfil(){
+        Swal.fire({
+            title: "Editar Perfil",
+            text: "Escolha qual campo deseja alterar:",
+            icon: "warning",
+            iconColor: "#EB1616",
+            html: `
+            <div style="display: flex; flex-direction: column; justify-content: start; ">
+                <div class="form-floating mb-3">
+                    <input type="username" class="form-control" id="ipt_username" placeholder="Nome Exemplo">
+                    <label for="floatingInput">Ricardo Alvez</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="ipt_email" placeholder="name@example.com">
+                    <label for="floatingInput">ricardoalvez@gmail.com</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" id="ipt_password" placeholder="exemploSenha">
+                    <label for="floatingPassword">Senha</label>
+                </div>
+            </div>
+            `,
+            background: "#191C24",
+            showCancelButton: true,
+            cancelButtonColor: "#EB1616",
+            cancelButtonText: "Sair",
+            confirmButtonText: "Alterar",
+            confirmButtonColor: "#7066e0",
+          }).then((result) => {
+            if (result.isConfirmed) {
+                //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
+              Swal.fire({
+                title: "Alterado!",
+                text: "Suas credenciais foram alteradas com sucesso!.",
+                color: "#fff",
+                icon: "success",
+                iconColor: "#EB1616",
+                background: "#191C24",
+
+              });
+            }
+          });
+    
+    }
+    
     function gerarDadosUserAtual() {
         var h6NameAtual = document.getElementById("h6_name");
         var spanNameAtual = document.getElementById("span_nameUser");
