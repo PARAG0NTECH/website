@@ -9,7 +9,7 @@ router.post("/cadastrar", function (req, res){
 });
 
 router.post("/metricas", function (req, res){
-    totemController.cadastrar(req, res);
+    totemController.metricaTotem(req, res);
 });
 
 router.get("/listar", function (req, res){
