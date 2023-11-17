@@ -279,7 +279,7 @@
                         align-items: center;">
                             <div>
                                 <h3 style="text-align: center;">Técnicos cadastrados:</h3>
-                                <ul class="listaTecnicos">
+                                <ul class="listaTecnicos" id="listaTecnicos">
                                     <li>
                                         <img src="./img/user-img.png">
                                         <div>
@@ -308,7 +308,7 @@
                             </div>
                             <div>
                                 <h3 style="text-align: center;">Totens cadastrados:</h3>
-                                <ul class="listaTecnicos">
+                                <ul class="listaTecnicos" id="listaTotens">
                                     <li>
                                         <img src="./img/totem.png">
                                         <div>
@@ -337,82 +337,6 @@
                     </div>
 
                 </div>
-
-                <!-- <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h2 class="mb-0">Gerenciador de máquinas</h2>
-                    </div>
-                    <div
-                        style="display: flex; justify-content: space-between; width: 12rem; margin-bottom: 1.6rem; text-shadow: 1px 1px 2px #0000;">
-                        <a class="btn btn-sm btn-primary" onclick="cadastrarTotem()">Cadastrar</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                    <th scope="col">Data</th>
-                                    <th scope="col">Identificação</th>
-                                    <th scope="col">Apelido</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>ID-01</td>
-                                    <td>Recepção1</td>
-                                    <td
-                                        style="background-color: #00ff00d7; color: white; text-shadow: 1px 1px 2px #000; font-weight: 600">
-                                        Ativo</td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>ID-02</td>
-                                    <td>Recepção2</td>
-                                    <td
-                                        style="background-color: rgba(255, 0, 0, 0.879); color:white; text-shadow: 1px 1px 2px #000;font-weight: 600">
-                                        Atenção</td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>ID-03</td>
-                                    <td>Bilheteria1</td>
-                                    <td
-                                        style="background-color: rgba(255, 0, 0, 0.879); color:white; text-shadow: 1px 1px 2px #000;font-weight: 600">
-                                        Atenção</td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>ID-04</td>
-                                    <td>Bilheteria2</td>
-                                    <td
-                                        style="background-color: #00ff00d7; color:white; text-shadow: 1px 1px 2px #000;font-weight: 600">
-                                        Ativo</td>
-                                </tr>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
-                                    <td>ID-05</td>
-                                    <td>Bilheteria3</td>
-                                    <td
-                                        style="background-color:#00ff00d7; color:white;  text-shadow: 1px 1px 2px #000;font-weight: 600">
-                                        Ativo</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> -->
-            </div>
-            <!-- GERENCIADOR DE MÁQUINAS -->
-        </div>
-        <!-- Content End -->
-
-
     </div>
 
     <!-- JavaScript Libraries -->
@@ -435,6 +359,9 @@
 <script>
     var accountId = localStorage.getItem('accountId');
 
+    //FUNCAO PARA PUXAR OS TOTEMS CADASTRADOS NAQUELE CLIENTE
+
+    //FUNCAO PARA PODER EDITAR O PERFIL
     function editarperfil(){
         Swal.fire({
             title: "Editar Perfil",
@@ -478,6 +405,101 @@
             }
           });
     
+    }
+
+    function listarTecnicos(){
+
+        var arrayTecnicos = [];
+        var companies_id;
+
+        fetch("/pessoas/listar", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              companies_idServer: companies_id
+            }),
+          })
+            .then(function (resposta) {
+              console.log("resposta: ", resposta);
+      
+              if (resposta.ok) {
+                
+                arrayTecnicos.push(resposta)
+
+                alert("listarTecnicos realizado com sucesso!!!");
+                
+                for(i = 0; i < arrayTecnicos.length(); i++){
+                    var divTecnico = document.createElement('li');
+                    divTecnico.innerHTML =`
+                    
+                    <img src="./img/user-img.png">
+                    <div>
+                        <p>Jorge01</p>
+                        <p>jorge01@gmail.com</p>
+                        <p>Técnico</p>
+                    </div>
+                    `;
+
+                    document.getElementById('listaTecnicos').appendChild(divTecnico);
+                }
+
+              } else {
+                throw "Houve um erro ao realizar o listarTecnicos()!";  
+              }
+            })
+            .catch(function (resposta) {
+              console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+
+    function listarTotem(){
+
+        var arrayTotens = [];
+        var companies_id;
+
+        fetch("/totem/listar", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              companies_idServer: companies_id
+            }),
+          })
+            .then(function (resposta) {
+              console.log("resposta: ", resposta);
+      
+              if (resposta.ok) {
+                
+                arrayTotens.push(resposta)
+
+                alert("listarTotens realizado com sucesso!!!");
+                
+                for(i = 0; i < arrayTotens.length(); i++){
+                    var divTotem = document.createElement('li');
+                    divTotem.innerHTML = `
+                    
+                        <img src="./img/totem.png">
+                        <div>
+                            <p>ID-001</p>
+                            <p>Reiniciadas: 0</p>
+                        </div>
+
+                    `;
+
+                    document.getElementById('listaTotens').appendChild(divTotem);
+                }
+
+              } else {
+                throw "Houve um erro ao realizar o listarTotem()!";
+              }
+            })
+            .catch(function (resposta) {
+              console.log(`#ERRO: ${resposta}`);
+            });
     }
     
     function gerarDadosUserAtual() {

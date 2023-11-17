@@ -30,7 +30,7 @@ function editarUser(idPessoa, nome, email, password){
 
 function deletarUser(idPessoa){
     var instrucao = `
-        delete from tb_users where id = ${idPessoa}
+        delete from tb_users where id = ${idPessoa};
     `
     return database.executar(instrucao);
 }
