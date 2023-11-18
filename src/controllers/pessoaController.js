@@ -32,6 +32,7 @@ function cadastrar(req, res){
 }
 
 function cadastrarEmpresa(req, res){
+    var idAccount = req.body.idAccountServer;
     var nomeEmpresa = req.body.nomeEmpresaVar;
     var cnpjEmpresa = req.body.cnpjEmpresaVar;
     
@@ -42,7 +43,7 @@ function cadastrarEmpresa(req, res){
     }else if(cnpjEmpresa == undefined){
         res.status(400).send("O CNPJ da empresa está indefinido");
     }else{
-        pessoaModel.cadastrar(nomeEmpresa, cnpjEmpresa)
+        pessoaModel.cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, idAccount)
             .then(
                 function (result){
                     res.json(result);

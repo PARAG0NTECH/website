@@ -10,11 +10,11 @@ function cadastrar(nome, email, senha, tipoUser) {
     return database.executar(instrucao);
 }
 
-function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa) {
+function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, idAccount) {
     var instrucao =
         `
-    insert into tb_companies(name, cnpj) values
-	('${nomeEmpresa}', '${cnpjEmpresa}');
+    insert into tb_companies(name, cnpj, tb_users_id) values
+	('${nomeEmpresa}', '${cnpjEmpresa}', '${idAccount}');
     `
     return database.executar(instrucao);
 }

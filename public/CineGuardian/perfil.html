@@ -364,7 +364,6 @@
 
 <script>
     var accountId = localStorage.getItem('accountId');
-
     listarTotem();
     //FUNCAO PARA PUXAR OS TOTEMS CADASTRADOS NAQUELE CLIENTE
 
@@ -409,6 +408,7 @@
                       "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
+                      idAccountServer:accountId,
                       nomeEmpresaVar: nomeEmpresa,
                       cnpjEmpresaVar: cnpjEmpresa,
                     }),
