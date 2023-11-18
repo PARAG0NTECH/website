@@ -6,7 +6,6 @@ function cadastrar(nome, email, senha, tipoUser) {
     insert into tb_users(name, email, type_user , password)  values
 	('${nome}', '${email}', '${tipoUser}' ,'${senha}');
     `
-
     return database.executar(instrucao);
 }
 

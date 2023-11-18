@@ -9,6 +9,32 @@ function cadastrar(nome, email, senha, tipoUser) {
 
     return database.executar(instrucao);
 }
+
+function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa) {
+    var instrucao =
+        `
+    insert into tb_companies(name, cnpj) values
+	('${nomeEmpresa}', '${cnpjEmpresa}');
+    `
+    return database.executar(instrucao);
+}
+
+function cadastrarMetrica(idEmpresa, ram, disk, cpu) {
+    var instrucao =
+        `
+    insert into tb_alerts(tb_companies_id, percentual_cpu, percentual_disk , percentual_ram)  values
+	('${idEmpresa}', '${ram}', '${disk}' ,'${cpu}');
+    `
+    return database.executar(instrucao);
+}
+
+function listarEmpresas(idUser) {
+    var instrucao = `
+        select * from tb_companies where tb_users_id = ${idUser};
+    `
+    return database.executar(instrucao);
+}
+
 function listarUsers() {
     var instrucao = `
         select * from tb_users;
@@ -40,6 +66,8 @@ module.exports = {
     listarUsers,
     editarUser,
     deletarUser,
-    gerarUserAtual
-
+    gerarUserAtual,
+    cadastrarEmpresa,
+    cadastrarMetrica,
+    listarEmpresas
 }

@@ -29,8 +29,67 @@ function cadastrar(req, res){
                 }
             )
     }
-
 }
+
+function cadastrarEmpresa(req, res){
+    var nomeEmpresa = req.body.nomeEmpresaVar;
+    var cnpjEmpresa = req.body.cnpjEmpresaVar;
+    
+    console.log("Entrei na controller");
+    console.log(nomeEmpresa, cnpjEmpresa);
+    if(nomeEmpresa == undefined){
+        res.status(400).send("O nome da empresa está indefinido");
+    }else if(cnpjEmpresa == undefined){
+        res.status(400).send("O CNPJ da empresa está indefinido");
+    }else{
+        pessoaModel.cadastrar(nomeEmpresa, cnpjEmpresa)
+            .then(
+                function (result){
+                    res.json(result);
+                }
+            ).catch(
+                function (erro){
+                    console.log(erro);
+                    console.log("Erro ao realizar cadastrarEmpresa(): " + erro.sqlMessage );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
+}
+
+
+function cadastrarMetrica(req, res){
+    var idEmpresa = req.body.idEmpresaServer;
+    var ram = req.body.ramServer;
+    var cpu = req.body.cpuServer;
+    var disk = req.body.diskServer;
+
+    if(idEmpresa == undefined){
+        res.status(400).send("Seu id empresa está indefinido");
+    }else if(ram == undefined){
+        res.status(400).send("Sua ram está indefinido");
+    }else if(cpu == undefined){
+        res.status(400).send("Sua cpu está indefinido");
+    }else if(disk == undefined){
+        res.status(400).send("Seu disk está indefinido");
+    }else{
+        pessoaModel.cadastrarMetrica(idEmpresa, ram, cpu, disk)
+            .then(
+                function (result){
+                    res.json(result);
+                }
+            ).catch(
+                function (erro){
+                    console.log(erro);
+                    console.log("Erro ao realizar cadastro!!ERRO : " + erro.sqlMessage );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
+}
+
+
+
 function gerarUserAtual(req, res){
     var id = req.body.idServer;
     if(id == undefined){
@@ -53,6 +112,22 @@ function gerarUserAtual(req, res){
 }
 function listarUsers(req, res){
     pessoaModel.listarUsers()
+        .then( function (resultado){
+            if(resultado.length > 0){
+                res.status(200).json(resultado);
+            }else {
+                res.status(204).send("Nenhum Resultado Encontrado!")
+            }
+        }).catch( function (erro){
+            console.log(erro);
+            console.log("Houve um erro ao realizar o login");
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function listarEmpresas(req, res){
+    var idAccount = req.body.idAccountServer;
+    pessoaModel.listarEmpresas(idAccount)
         .then( function (resultado){
             if(resultado.length > 0){
                 res.status(200).json(resultado);
@@ -101,5 +176,8 @@ module.exports = {
     listarUsers,
     editarUser,
     deletarUser,
-    gerarUserAtual
+    gerarUserAtual,
+    cadastrarEmpresa,
+    cadastrarMetrica,
+    listarEmpresas
 }

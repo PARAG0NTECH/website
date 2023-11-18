@@ -223,6 +223,11 @@
                                     Editar Perfil
                                 </button> 
                             </li>
+                            <li>   
+                                <button onclick="editarEmpresa()" class="btn btn-primary py-3 w-100 mb-4" >
+                                    Editar Empresa
+                                </button> 
+                            </li>
                         </ul>
                     </div>
                     <div style="display: flex; justify-content: center; align-items: center;">
@@ -352,6 +357,7 @@
     <script src="./js/actions.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
     <!-- Template Javascript -->
     <script src="js/index.js"></script>
 </body>
@@ -359,9 +365,83 @@
 <script>
     var accountId = localStorage.getItem('accountId');
 
+    listarTotem();
     //FUNCAO PARA PUXAR OS TOTEMS CADASTRADOS NAQUELE CLIENTE
 
     //FUNCAO PARA PODER EDITAR O PERFIL
+
+    function editarEmpresa(){
+        Swal.fire({
+            title: "Editar Empresa",
+            text: "Informações da sua empresa:",
+            icon: "warning",
+            iconColor: "#EB1616",
+            html: `
+            <div style="display: flex; flex-direction: column; justify-content: start; ">
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="ipt_nomeEmpresa" placeholder="Nome Empresa">
+                    <label for="floatingPassword">Nome Empresa</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="ipt_cnpjEmpresa" placeholder="CNPJ">
+                    <label for="floatingPassword">CNPJ</label>
+                </div>
+            </div>
+            `,
+            background: "#191C24",
+            showCancelButton: true,
+            cancelButtonColor: "#EB1616",
+            cancelButtonText: "Sair",
+            confirmButtonText: "Alterar",
+            confirmButtonColor: "#7066e0",
+          }).then((result) => {
+            if (result.isConfirmed) {
+                //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
+                
+                nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
+                cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
+
+                alert(nomeEmpresa,cnpjEmpresa)
+                
+                fetch("/pessoa/cadastrarEmpresa", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      nomeEmpresaVar: nomeEmpresa,
+                      cnpjEmpresaVar: cnpjEmpresa,
+                    }),
+                  })
+                    .then(function (resposta) {
+                      console.log("resposta: ", resposta);
+              
+                      if (resposta.ok) {
+        
+                        Swal.fire({
+                            title: "Empresa alterada com sucesso!",
+                            text: "Suas credenciais foram alteradas com sucesso!.",
+                            color: "#fff",
+                            icon: "success",
+                            iconColor: "#EB1616",
+                            background: "#191C24",
+            
+                          });
+        
+                      } else {
+                        throw "Houve um erro ao fazer o editarEmpresa()!";  
+                      }
+                    })
+                    .catch(function (resposta) {
+                      console.log(`#ERRO: ${resposta}`);
+                    });
+
+              
+            }
+          });
+    
+    }
+
     function editarperfil(){
         Swal.fire({
             title: "Editar Perfil",
@@ -371,15 +451,15 @@
             html: `
             <div style="display: flex; flex-direction: column; justify-content: start; ">
                 <div class="form-floating mb-3">
-                    <input type="username" class="form-control" id="ipt_username" placeholder="Nome Exemplo">
+                    <input type="username" class="form-control" id="ipt_username" placeholder="Nome usuário">
                     <label for="floatingInput">Ricardo Alvez</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="ipt_email" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="ipt_email" placeholder="E-mail">
                     <label for="floatingInput">ricardoalvez@gmail.com</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="ipt_password" placeholder="exemploSenha">
+                    <input type="password" class="form-control" id="ipt_password" placeholder="Senha">
                     <label for="floatingPassword">Senha</label>
                 </div>
             </div>
@@ -393,15 +473,48 @@
           }).then((result) => {
             if (result.isConfirmed) {
                 //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
-              Swal.fire({
-                title: "Alterado!",
-                text: "Suas credenciais foram alteradas com sucesso!.",
-                color: "#fff",
-                icon: "success",
-                iconColor: "#EB1616",
-                background: "#191C24",
+                
+                nomeUser = document.getElementById("ipt_username").value;
+                emailUser = document.getElementById("ipt_email").value;
+                passwordUser = document.getElementById("ipt_password").value
 
-              });
+                alert(nomeEmpresa,cnpjEmpresa)
+                
+                fetch("/pessoa/editar/", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        idUserServer : idUser,
+                        nomeUserServer :nomeUser,
+                        emailUserServer :emailUser,
+                        passwordUserServer: passwordUser,
+                    }),
+                  })
+                    .then(function (resposta) {
+                      console.log("resposta: ", resposta);
+              
+                      if (resposta.ok) {
+        
+                        Swal.fire({
+                            title: "Empresa alterada com sucesso!",
+                            text: "Suas credenciais foram alteradas com sucesso!.",
+                            color: "#fff",
+                            icon: "success",
+                            iconColor: "#EB1616",
+                            background: "#191C24",
+            
+                          });
+        
+                      } else {
+                        throw "Houve um erro ao fazer o editarEmpresa()!";  
+                      }
+                    })
+                    .catch(function (resposta) {
+                      console.log(`#ERRO: ${resposta}`);
+                    });
+
             }
           });
     
@@ -453,7 +566,6 @@
               console.log(`#ERRO: ${resposta}`);
             });
     }
-
 
     function listarTotem(){
 
