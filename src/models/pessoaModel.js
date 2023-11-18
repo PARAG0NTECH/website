@@ -19,18 +19,21 @@ function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, idAccount) {
     return database.executar(instrucao);
 }
 
-function cadastrarMetrica(idEmpresa, ram, disk, cpu) {
-    var instrucao =
-        `
-    insert into tb_alerts(tb_companies_id, percentual_cpu, percentual_disk , percentual_ram)  values
-	('${idEmpresa}', '${ram}', '${disk}' ,'${cpu}');
-    `
-    return database.executar(instrucao);
+function cadastrarMetrica(idEmpresa, ram, cpu, disk) {
+    var instrucao01 = `truncate table tb_alerts;`;
+    database.executar(instrucao01); 
+    var instrucao = `
+    INSERT INTO tb_alerts (id, tb_companies_id, percentual_cpu, percentual_disk, percentual_ram)
+    VALUES (1, ${idEmpresa}, ${cpu}, ${disk}, ${ram});
+    
+`;
+
+return database.executar(instrucao);
 }
 
-function listarEmpresas(idUser) {
+function listarEmpresas() {
     var instrucao = `
-        select * from tb_companies where tb_users_id = ${idUser};
+        select * from tb_companies;
     `
     return database.executar(instrucao);
 }

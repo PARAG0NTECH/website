@@ -61,9 +61,9 @@ function cadastrarEmpresa(req, res){
 
 function cadastrarMetrica(req, res){
     var idEmpresa = req.body.idEmpresaServer;
-    var ram = req.body.ramServer;
-    var cpu = req.body.cpuServer;
-    var disk = req.body.diskServer;
+    var ram = parseFloat(req.body.ramServer);
+    var cpu = parseFloat(req.body.cpuServer);
+    var disk = parseFloat(req.body.diskServer);
 
     if(idEmpresa == undefined){
         res.status(400).send("Seu id empresa está indefinido");
@@ -127,8 +127,7 @@ function listarUsers(req, res){
 }
 
 function listarEmpresas(req, res){
-    var idAccount = req.body.idAccountServer;
-    pessoaModel.listarEmpresas(idAccount)
+    pessoaModel.listarEmpresas()
         .then( function (resultado){
             if(resultado.length > 0){
                 res.status(200).json(resultado);

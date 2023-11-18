@@ -29,7 +29,8 @@ app.listen(PORTA, function () {
 });
 /*
 informaçoes para amanha:
--Pegar o id_companies do usuário logado
--Pegar o id_user do usuário logado
--Conseguir cadastrar empresa
+-Pegar o id_companies do usuário logado : feito
+-Pegar o id_user do usuário logado : feito 
+-Conseguir cadastrar empresa: feito
+- Endereço empresa: front e back 
 -Conseguir alterar informações do usuário*/
