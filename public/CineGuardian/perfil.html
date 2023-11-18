@@ -210,10 +210,10 @@
                         <img src="./img/i.jpeg" style="border-radius: 100%; margin-top: 2rem; ">
                         <ul style="list-style: none; flex-direction: row; margin-top: 2rem">
                             <li>
-                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Nome:</span> <span id="userNome">Ricardo Alvez</span></p>
+                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Nome:</span> <span id="userNome">-------</span></p>
                             </li>
                             <li>
-                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700;">E-mail:</span> <span id="userEmail">ricardoalvez@gmail.com</span></p>
+                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700;">E-mail:</span> <span id="userEmail">-------</span></p>
                             </li>
                             <li>
                                 <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Senha:</span> <span>**********</span>
@@ -357,13 +357,21 @@
     <script src="./js/actions.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
     <!-- Template Javascript -->
     <script src="js/index.js"></script>
 </body>
 
 <script>
-    var accountId = localStorage.getItem('accountId');
+    
+    //localStorage.setItem('userId', );
+
+    var userId = localStorage.getItem('userId');
+    var userName = localStorage.getItem('userName');
+    var userEmail = localStorage.getItem('userEmail');
+
+    var empresaNome = "Empresa"
+    var empresaCNPJ = "CNPJ"
+
     listarTotem();
     //FUNCAO PARA PUXAR OS TOTEMS CADASTRADOS NAQUELE CLIENTE
 
@@ -379,11 +387,11 @@
             <div style="display: flex; flex-direction: column; justify-content: start; ">
                 <div class="form-floating mb-4">
                     <input type="text" class="form-control" id="ipt_nomeEmpresa" placeholder="Nome Empresa">
-                    <label for="floatingPassword">Nome Empresa</label>
+                    <label for="floatingPassword">${empresaNome}</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="text" class="form-control" id="ipt_cnpjEmpresa" placeholder="CNPJ">
-                    <label for="floatingPassword">CNPJ</label>
+                    <label for="floatingPassword">${empresaCNPJ}</label>
                 </div>
             </div>
             `,
@@ -399,7 +407,7 @@
                 
                 nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
                 cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
-
+                
                 alert(nomeEmpresa,cnpjEmpresa)
                 
                 fetch("/pessoa/cadastrarEmpresa", {
@@ -408,9 +416,9 @@
                       "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                      idAccountServer:accountId,
                       nomeEmpresaVar: nomeEmpresa,
                       cnpjEmpresaVar: cnpjEmpresa,
+                      userIdVar: userId,
                     }),
                   })
                     .then(function (resposta) {
@@ -442,7 +450,7 @@
     
     }
 
-    function editarperfil(){
+    function editarperfil(){ 
         Swal.fire({
             title: "Editar Perfil",
             text: "Escolha qual campo deseja alterar:",
@@ -452,16 +460,17 @@
             <div style="display: flex; flex-direction: column; justify-content: start; ">
                 <div class="form-floating mb-3">
                     <input type="username" class="form-control" id="ipt_username" placeholder="Nome usuário">
-                    <label for="floatingInput">Ricardo Alvez</label>
+                    <label for="floatingInput" id="nomeLabelEditor">${userName}</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="ipt_email" placeholder="E-mail">
-                    <label for="floatingInput">ricardoalvez@gmail.com</label>
+                    <label for="floatingInput" id="emailLabelEditor">${userEmail}</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="password" class="form-control" id="ipt_password" placeholder="Senha">
                     <label for="floatingPassword">Senha</label>
                 </div>
+                
             </div>
             `,
             background: "#191C24",
@@ -470,10 +479,12 @@
             cancelButtonText: "Sair",
             confirmButtonText: "Alterar",
             confirmButtonColor: "#7066e0",
+
           }).then((result) => {
+
             if (result.isConfirmed) {
                 //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
-                
+
                 nomeUser = document.getElementById("ipt_username").value;
                 emailUser = document.getElementById("ipt_email").value;
                 passwordUser = document.getElementById("ipt_password").value
@@ -521,7 +532,7 @@
     }
 
     function listarTecnicos(){
-
+        
         var arrayTecnicos = [];
         var companies_id;
 
@@ -545,7 +556,7 @@
                 
                 for(i = 0; i < arrayTecnicos.length(); i++){
                     var divTecnico = document.createElement('li');
-                    divTecnico.innerHTML =`
+                    divTecnico.innerHTML +=`
                     
                     <img src="./img/user-img.png">
                     <div>
@@ -592,7 +603,7 @@
                 
                 for(i = 0; i < arrayTotens.length(); i++){
                     var divTotem = document.createElement('li');
-                    divTotem.innerHTML = `
+                    divTotem.innerHTML += `
                     
                         <img src="./img/totem.png">
                         <div>
@@ -614,22 +625,62 @@
             });
     }
     
+    function listarEmpresa(userId){
+
+        fetch("/pessoa/listarEmpresas", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userIdVar: userId,
+            }),
+          })
+            .then(function (resposta) {
+              console.log("resposta: ", resposta);
+      
+              if (resposta.ok) {
+                
+                empresaNome = resposta[i].name;
+                empresaCNPJ = resposta[i].cnpj;
+
+              } else {
+                throw "Houve um erro ao realizar o definirEmpresa!";
+              }
+            })
+            .catch(function (resposta) {
+              console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
     function gerarDadosUserAtual() {
         var h6NameAtual = document.getElementById("h6_name");
         var spanNameAtual = document.getElementById("span_nameUser");
         var typeUser = document.getElementById("type_user");
+        
+        var perfilNome = document.getElementById("userNome");
+        var perfilEmail = document.getElementById("userEmail");
+
         fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
             console.log(response);
             if (response.ok) {
                 response.json().then(function (resposta) {
+
                     for (let i = 0; i < resposta.length; i++) {
-                        if (resposta[i].id == accountId) {
+
+                        if (resposta[i].id == userId) {
                             console.log(resposta[i].id)
+
                             h6NameAtual.textContent = resposta[i].name;
                             spanNameAtual.textContent = resposta[i].name;
                             typeUser.textContent = resposta[i].type_user; 
+                            perfilNome.innerHTML = `${resposta[i].name}`;
+                            perfilEmail.innerHTML = `${resposta[i].email}`;
+                            listarEmpresa(resposta[i].id);
+                            
                                 if(resposta[i].type_user == "dono"){
                                     pag_estatisticas.style.display = "none";
+
                                 }else{
                                     pag_totens.style.display = "none";
                                     pag_tecnico.style.display = "none";

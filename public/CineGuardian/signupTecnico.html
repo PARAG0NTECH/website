@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Login</title>
+    <title>Cadastro - Técnico</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -31,7 +31,8 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="gerarDadosUserAtual()">
+
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -46,29 +47,32 @@
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
+                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3" style="box-shadow: 0 0 80px #388697;">
+                        <div class="d-flex align-items-center justify-content-between mb-3" style="flex-direction: column">
+                            <a href="CineGuardian.html" class="">
                                 <h3 class="text-primary"><img src="./img/pipoca.png" width="40" height="40" alt="">CineGuardian</h3>
                             </a>
+                                <h3 class="text-primary" style="font-size: 2.3rem; text-align:center;color: #388697!important;text-shadow: -1px 1px 15px #388697;">Técnico</h3>
+
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="username" class="form-control" id="ipt_username" placeholder="Nome Exemplo">
+                            <label for="floatingInput">Nome usuário</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="ipt_email" placeholder="name@example.com">
                             <label for="floatingInput">E-mail</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="ipt_password" placeholder="Password">
+                            <input type="password" class="form-control" id="ipt_password" placeholder="exemploSenha">
                             <label for="floatingPassword">Senha</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <a href="">Esqueceu a senha ?</a>
                         </div>
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4" onclick="verificarCadastro()">Conectar-se</button>
-                        <p class="text-center mb-0" >Não tem uma conta ? Realize o  
-                            <a href="./signupGerente.html" style="color: #EB1616; font-weight:bold; text-shadow: 0 0 10px #EB1616;">cadastro</a>
-                            <!-- ou
-                            <a href="./signupTecnico.html" style="color: #EB1616; font-weight:bold; text-shadow: 0 0 10px #EB1616;">Técnico</a> -->
-                        </p>
+                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4" onclick="verificarCadastro()">Cadastrar</button>
+                        <p class="text-center mb-0">Já tem uma conta ? <a href="./signup.html">Login</a></p>
+                        <p class="text-center mb-0" style="margin-top: 1rem">Deseja fazer o cadastro de um ? <a href="./signupGerente.html">perfil gerencial </a>?</p>
                     </div>
                 </div>
             </div>
@@ -86,52 +90,85 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
 
 </html>
-<script>
-    function verificarCadastro() {
-        var cadastroExiste = false;
 
+
+<script>
+    function cadastrarUser() {
+        var nomeVar = ipt_nome.value;
+        var emailVar = ipt_email.value;
+        var passwordVar = ipt_password.value;
+        var donoVar = "tecnico  "
+        console.log(nomeVar, emailVar, passwordVar);
+        if (nomeVar == "" || emailVar == "" || passwordVar == "") {
+            alert("Preencha os campos corretamente");
+            return false;
+        }
+        fetch("/pessoa/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                passwordServer: passwordVar,
+                tipoUserServer: donoVar
+            })
+        }).then(function (resposta) {
+            console.log("resposta : ", resposta)
+
+            if (resposta.ok) {
+                alert("Cadastro feito com sucesso");
+                //setTimeout(() => {
+                  //  window.location = "./index.html"
+                //}, 2000)
+            } else {
+                throw ("Erro ao realizar cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+        return false
+    }
+
+    function verificarCadastro() {
         fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
             console.log(response);
-
             if (response.ok) {
                 response.json().then(function (resposta) {
                     for (let i = 0; i < resposta.length; i++) {
-                        
                         if(resposta[i].email == ipt_email.value ){
-
-                           localStorage.setItem('userId', resposta[i].id);
-                           alert(resposta[i].id)
-                           console.log(resposta[i].type_user);
-
-                            Swal.fire({
-                            icon: "success",
-                            title: "Login realizado com sucesso!",
-                            showConfirmButton: false,
-                            background: "#191C24",
-                            iconColor: "#EB1616", 
-                            color: "#fff",
-                            timer: 1500
-                            });
-                            
-                           if(resposta[i].type_user == "dono"){
-                               setTimeout(() => {
-                                   window.location = "./dashboard.html"
-                                }, 2000);
-
-                            }else{
-                                setTimeout(() => {
-                                    window.location = "./chart.html"
-                                }, 2000); 
-                            }
+                           alert("Cadastro já realizado");
+                           return false;
                         }
+                    }
+                    cadastrarUser()
+                })
+            } else {
+                console.log("Nenhum dado encontrado.");
+            }
+        }).catch(function (error) {
+            console.error("Erro na obtenção dos dados para a table : " + error.message);
+        });
+    }
+
+    function gerarDadosUserAtual() {
+        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                            console.log(resposta[i].id)
+                            console.log(resposta[i].name)
+                            console.log(resposta[i].type_user)
+                            console.log(resposta[i].email)
+                            console.log(resposta[i].password)
                     }
                 })
             } else {
@@ -141,5 +178,4 @@
             console.error("Erro na obtenção dos dados para a table : " + error.message);
         });
     }
-    
 </script>
