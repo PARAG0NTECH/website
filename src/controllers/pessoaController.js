@@ -32,18 +32,24 @@ function cadastrar(req, res){
 }
 
 function cadastrarEmpresa(req, res){
-    var idAccount = req.body.idAccountServer;
     var nomeEmpresa = req.body.nomeEmpresaVar;
     var cnpjEmpresa = req.body.cnpjEmpresaVar;
-    
-    console.log("Entrei na controller");
-    console.log(nomeEmpresa, cnpjEmpresa);
+    var userId = req.body.userIdVar;
+
+    console.log(nomeEmpresa, cnpjEmpresa, userId);
+
     if(nomeEmpresa == undefined){
         res.status(400).send("O nome da empresa está indefinido");
+
     }else if(cnpjEmpresa == undefined){
         res.status(400).send("O CNPJ da empresa está indefinido");
+
+    }else if(userId == undefined){
+        res.status(400).send("O id do usuário está indefinido");
+
     }else{
-        pessoaModel.cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, idAccount)
+        console.log("Estou pra entrar na cadastrar()")
+        pessoaModel.cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, userId)
             .then(
                 function (result){
                     res.json(result);
@@ -58,12 +64,11 @@ function cadastrarEmpresa(req, res){
     }
 }
 
-
 function cadastrarMetrica(req, res){
     var idEmpresa = req.body.idEmpresaServer;
-    var ram = parseFloat(req.body.ramServer);
-    var cpu = parseFloat(req.body.cpuServer);
-    var disk = parseFloat(req.body.diskServer);
+    var ram = req.body.ramServer;
+    var cpu = req.body.cpuServer;
+    var disk = req.body.diskServer;
 
     if(idEmpresa == undefined){
         res.status(400).send("Seu id empresa está indefinido");
@@ -89,17 +94,17 @@ function cadastrarMetrica(req, res){
     }
 }
 
-
-
 function gerarUserAtual(req, res){
     var id = req.body.idServer;
     if(id == undefined){
         res.status(400).send("Seu id está indefinido");
+        
     }else{
     pessoaModel.gerarUserAtual(id)
         .then( function (resultado){
             if(resultado.length > 0){
                 res.status(200).json(resultado);
+
             }else {
                 res.status(204).send("Nenhum Resultado Encontrado!")
             }
@@ -111,11 +116,14 @@ function gerarUserAtual(req, res){
 
     }
 }
+
 function listarUsers(req, res){
     pessoaModel.listarUsers()
         .then( function (resultado){
+
             if(resultado.length > 0){
                 res.status(200).json(resultado);
+
             }else {
                 res.status(204).send("Nenhum Resultado Encontrado!")
             }
@@ -127,16 +135,20 @@ function listarUsers(req, res){
 }
 
 function listarEmpresas(req, res){
-    pessoaModel.listarEmpresas()
+
+    var idAccount = req.body.userIdVar;
+    console.log("Entrando na listarEmpresas model")
+    pessoaModel.listarEmpresas(idAccount)
         .then( function (resultado){
             if(resultado.length > 0){
+                
                 res.status(200).json(resultado);
             }else {
                 res.status(204).send("Nenhum Resultado Encontrado!")
             }
         }).catch( function (erro){
             console.log(erro);
-            console.log("Houve um erro ao realizar o login");
+            console.log("Houve um erro ao realizar o listarEmpresas()");
             res.status(500).json(erro.sqlMessage);
         });
 }

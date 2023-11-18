@@ -1,9 +1,11 @@
+//process.env.AMBIENTE_PROCESSO = "desenvolvimento";
 process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
 var path = require("path");
-var PORTA = process.env.AMBIENTE_PROCESSO == "producao" ? 3333 : 8080;
+var PORTA = process.env.AMBIENTE_PROCESSO == "producao" ? 3333 : 80;
+
 
 var app = express();
 
@@ -27,10 +29,3 @@ app.listen(PORTA, function () {
     \t\tSe "producao", você está se conectando ao banco REMOTO (SQL Server em nuvem Azure) \n
     \t\t\t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'`);
 });
-/*
-informaçoes para amanha:
--Pegar o id_companies do usuário logado : feito
--Pegar o id_user do usuário logado : feito 
--Conseguir cadastrar empresa: feito
-- Endereço empresa: front e back 
--Conseguir alterar informações do usuário*/

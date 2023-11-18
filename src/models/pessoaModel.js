@@ -10,30 +10,29 @@ function cadastrar(nome, email, senha, tipoUser) {
     return database.executar(instrucao);
 }
 
-function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, idAccount) {
+function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, userId) {
+    console.log("Cheguei na model");
     var instrucao =
         `
     insert into tb_companies(name, cnpj, tb_users_id) values
-	('${nomeEmpresa}', '${cnpjEmpresa}', '${idAccount}');
+	('${nomeEmpresa}', '${cnpjEmpresa}', ${userId});
     `
+    console.log(instrucao);
     return database.executar(instrucao);
 }
 
-function cadastrarMetrica(idEmpresa, ram, cpu, disk) {
-    var instrucao01 = `truncate table tb_alerts;`;
-    database.executar(instrucao01); 
-    var instrucao = `
-    INSERT INTO tb_alerts (id, tb_companies_id, percentual_cpu, percentual_disk, percentual_ram)
-    VALUES (1, ${idEmpresa}, ${cpu}, ${disk}, ${ram});
-    
-`;
-
-return database.executar(instrucao);
+function cadastrarMetrica(idEmpresa, ram, disk, cpu) {
+    var instrucao =
+        `
+    insert into tb_alerts(tb_companies_id, percentual_cpu, percentual_disk , percentual_ram)  values
+	('${idEmpresa}', '${ram}', '${disk}' ,'${cpu}');
+    `
+    return database.executar(instrucao);    
 }
 
-function listarEmpresas() {
+function listarEmpresas(idAccount) {
     var instrucao = `
-        select * from tb_companies;
+        select * from tb_companies where tb_users_id = ${idAccount};
     `
     return database.executar(instrucao);
 }

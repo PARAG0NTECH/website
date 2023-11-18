@@ -58,6 +58,14 @@
                             <input type="text" class="form-control" id="ipt_nome" placeholder="Nome Exemplo">
                             <label for="floatingText">Nome de usuário</label>
                         </div>
+                        <!-- <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="ipt_nomeEmpresa" placeholder="Empresa">
+                            <label for="floatingText">Nome da Empresa</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="ipt_cnpjEmpresa" placeholder="CNPJ">
+                            <label for="floatingText">CNPJ da Empresa</label>
+                        </div> -->
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="ipt_email" placeholder="name@example.com">
                             <label for="floatingInput">E-mail</label>
@@ -94,6 +102,48 @@
 
 </html>
 <script>
+
+    function cadastraEmpresa(idUsuario){
+
+                
+        nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
+        cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
+
+        fetch("/pessoa/cadastrarEmpresa", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeEmpresaVar: nomeEmpresa,
+                cnpjEmpresaVar: cnpjEmpresa,
+                userIdVar: idUsuario,
+            }),
+          })
+            .then(function (resposta) {
+              console.log("resposta: ", resposta);
+      
+              if (resposta.ok) {
+
+                Swal.fire({
+                    title: "Empresa alterada com sucesso!",
+                    text: "Suas credenciais foram alteradas com sucesso!.",
+                    color: "#fff",
+                    icon: "success",
+                    iconColor: "#EB1616",
+                    background: "#191C24",
+    
+                  });
+
+              } else {
+                throw "Houve um erro ao fazer o editarEmpresa()!";  
+              }
+            })
+            .catch(function (resposta) {
+              console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
     function cadastrarUser() {
         var nomeVar = ipt_nome.value;
         var emailVar = ipt_email.value;
@@ -116,15 +166,17 @@
                 tipoUserServer: donoVar
             })
         }).then(function (resposta) {
-            console.log("resposta : ", resposta)
 
             if (resposta.ok) {
-                
+            
                 Swal.fire({
+                    title: "Seja Bem-vindo!",
+                    text: "Seu cadastro foi realizado com sucesso!!.",
+                    color: "#fff",
                     icon: "success",
-                    title: "Your work has been saved",
-                    showConfirmButton: false,
-                    timer: 1500
+                    iconColor: "#EB1616",
+                    background: "#191C24",
+    
                   });
 
                   localStorage.setItem('userName', nomeVar);
@@ -151,7 +203,15 @@
                 response.json().then(function (resposta) {
                     for (let i = 0; i < resposta.length; i++) {
                         if(resposta[i].email == ipt_email.value ){
-                           alert("Cadastro já realizado");
+                            Swal.fire({
+                                title: "E-mail inválido!",
+                                text: "Este e-mail já possui um cadastro!.",
+                                color: "#fff",
+                                icon: "error",
+                                iconColor: "#EB1616",
+                                background: "#191C24",
+                
+                              });
                            return false;
                         }
                     }

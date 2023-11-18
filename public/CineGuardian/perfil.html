@@ -52,7 +52,7 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/i.jpeg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="./img/user-img.png" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -87,7 +87,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
+                                    <img class="rounded-circle" src="img/user-img.jpg" alt=""
                                         style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -98,7 +98,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
+                                    <img class="rounded-circle" src="img/user-img.jpg" alt=""
                                         style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -109,7 +109,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
+                                    <img class="rounded-circle" src="img/user-img.jpg" alt=""
                                         style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -143,7 +143,7 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/i.jpeg" alt=""
+                            <img class="rounded-circle me-lg-2" src="./img/user-img.png" alt=""
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex" id="span_nameUser"></span>
                         </a>
@@ -207,7 +207,7 @@
                         margin-top: -2rem;
                         flex-wrap: wrap">
 
-                        <img src="./img/i.jpeg" style="border-radius: 100%; margin-top: 2rem; ">
+                        <img src="././img/user-img.png" style="border-radius: 100%; margin-top: 2rem; ">
                         <ul style="list-style: none; flex-direction: row; margin-top: 2rem">
                             <li>
                                 <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Nome:</span> <span id="userNome">-------</span></p>
@@ -366,11 +366,9 @@
     //localStorage.setItem('userId', );
 
     var userId = localStorage.getItem('userId');
-    var userName = localStorage.getItem('userName');
-    var userEmail = localStorage.getItem('userEmail');
 
-    var empresaNome = "Empresa"
-    var empresaCNPJ = "CNPJ"
+    var empresaNome = "cadastre sua empresa"
+    var empresaCNPJ = "cadastre o CNPJ"
 
     listarTotem();
     //FUNCAO PARA PUXAR OS TOTEMS CADASTRADOS NAQUELE CLIENTE
@@ -408,22 +406,20 @@
                 nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
                 cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
                 
-                alert(nomeEmpresa,cnpjEmpresa)
-                
                 fetch("/pessoa/cadastrarEmpresa", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                      nomeEmpresaVar: nomeEmpresa,
-                      cnpjEmpresaVar: cnpjEmpresa,
-                      userIdVar: userId,
+                        nomeEmpresaVar: nomeEmpresa,
+                        cnpjEmpresaVar: cnpjEmpresa,
+                        userIdVar: userId,
                     }),
                   })
                     .then(function (resposta) {
                       console.log("resposta: ", resposta);
-              
+                        
                       if (resposta.ok) {
         
                         Swal.fire({
@@ -625,7 +621,7 @@
             });
     }
     
-    function listarEmpresa(userId){
+    function listarEmpresa(id){
 
         fetch("/pessoa/listarEmpresas", {
             method: "POST",
@@ -633,7 +629,7 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              userIdVar: userId,
+              userIdVar: id,
             }),
           })
             .then(function (resposta) {
@@ -645,7 +641,7 @@
                 empresaCNPJ = resposta[i].cnpj;
 
               } else {
-                throw "Houve um erro ao realizar o definirEmpresa!";
+                throw "Houve um erro ao realizar o listarEmpresa()!";
               }
             })
             .catch(function (resposta) {
@@ -670,6 +666,9 @@
 
                         if (resposta[i].id == userId) {
                             console.log(resposta[i].id)
+                            
+                            userName = resposta[i].name
+                            userEmail = resposta[i].email
 
                             h6NameAtual.textContent = resposta[i].name;
                             spanNameAtual.textContent = resposta[i].name;
