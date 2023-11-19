@@ -31,7 +31,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="gerarDadosUserAtual()">
+<body onload="idEmpresa()">
 
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
@@ -56,7 +56,7 @@
 
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="username" class="form-control" id="ipt_username" placeholder="Nome Exemplo">
+                            <input type="username" class="form-control" id="ipt_nome" placeholder="Nome Exemplo">
                             <label for="floatingInput">Nome usuário</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -96,11 +96,14 @@
 
 
 <script>
+    var accountId = localStorage.getItem('userId');
+    console.log("ID USER:"+accountId)
     function cadastrarUser() {
         var nomeVar = ipt_nome.value;
         var emailVar = ipt_email.value;
         var passwordVar = ipt_password.value;
         var donoVar = "tecnico"
+        console.log("ID EMPRESA USER => " + idDaEmpresa)
         console.log(nomeVar, emailVar, passwordVar);
         if (nomeVar == "" || emailVar == "" || passwordVar == "") {
             alert("Preencha os campos corretamente");
@@ -115,7 +118,8 @@
                 nomeServer: nomeVar,
                 emailServer: emailVar,
                 passwordServer: passwordVar,
-                tipoUserServer: donoVar
+                tipoUserServer: donoVar,
+                fkEmpresaServer : idDaEmpresa
             })
         }).then(function (resposta) {
             console.log("resposta : ", resposta)
@@ -175,4 +179,27 @@
             console.error("Erro na obtenção dos dados para a table : " + error.message);
         });
     }
+
+    var idDaEmpresa = null;
+    
+    function idEmpresa(){
+            fetch('/pessoa/listarEmpresas', { cache: 'no-store' }).then(function (response) {
+                console.log(response);
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        for (let i = 0; i < resposta.length; i++) {
+                            if(accountId == resposta[i].tb_users_id){
+                                idDaEmpresa += resposta[i].id;
+                                console.log("Id Empresa : " +idDaEmpresa)
+                                return resposta[i].id;
+                            }
+                        }
+                    })
+                } else {
+                    console.log("Nenhum dado encontrado.");
+                }
+            }).catch(function (error) {
+                console.error("Erro na obtenção dos dados para a table : " + error.message);
+            });
+        }
 </script>

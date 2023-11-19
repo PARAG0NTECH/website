@@ -2,6 +2,7 @@ var pessoaModel = require("../models/pessoaModel");
 
 
 function cadastrar(req, res){
+    var idEmpresa = req.body.fkEmpresaServer;
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var password = req.body.passwordServer;
@@ -11,12 +12,14 @@ function cadastrar(req, res){
         res.status(400).send("Seu nome está indefinido");
     }else if(email == undefined){
         res.status(400).send("Seu email está indefinido");
+    }else if(idEmpresa == undefined){
+        res.status(400).send("Seu email está indefinido");
     }else if(tipoUser == undefined){
         res.status(400).send("Seu tipo está indefinido");
     }else if(password == undefined){
         res.status(400).send("Seu sexo está indefinido");
     }else{
-        pessoaModel.cadastrar(nome, email, password, tipoUser)
+        pessoaModel.cadastrar(nome, email, password, tipoUser, idEmpresa)
             .then(
                 function (result){
                     res.json(result);
@@ -136,9 +139,7 @@ function listarUsers(req, res){
 
 function listarEmpresas(req, res){
 
-    var idAccount = req.body.userIdVar;
-    console.log("Entrando na listarEmpresas model")
-    pessoaModel.listarEmpresas(idAccount)
+    pessoaModel.listarEmpresas()
         .then( function (resultado){
             if(resultado.length > 0){
                 

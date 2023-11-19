@@ -261,7 +261,7 @@
 </html>
 <script>
     var accountId = localStorage.getItem('userId');
-
+    console.log(accountId)
     function gerarDadosUserAtual() {
 
         var h6NameAtual = document.getElementById("h6_name");
@@ -299,4 +299,32 @@
             console.error("Erro na obtenção dos dados para a table : " + error.message);
         });
     }
+
+
+    var tempo = [1, 2, 3, 4, 5];
+    var dados_mbbits = [10, 15, 8, 12, 20];
+    var dados_mbbits_por_segundo = dados_mbbits.map(function(valor) {
+        return valor;    });
+    var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
+    var myChart6 = new Chart(ctx6, {
+        type: "line",
+        data: {
+            labels: tempo,
+            datasets: [{
+                label: 'Em uso',
+                data: dados_mbbits_por_segundo,
+                borderColor: 'red',
+                fill: false
+               // backgroundColor: [
+                    //"#EB1616",
+                   // "#36A355",
+                //],
+               // data: [70]
+            }]
+
+        },
+        options: {
+            responsive: true
+        }
+    });
 </script>

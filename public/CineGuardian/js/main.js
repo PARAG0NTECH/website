@@ -120,23 +120,23 @@
        
     }
 
-    var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
-    var myChart6 = new Chart(ctx6, {
-        type: "line",
-        data: {
-            labels: ["Em uso"],
-            datasets: [{
-                backgroundColor: [
-                    "#EB1616"
-                ],
-                data: [50]
-            }]
+    // var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
+    // var myChart6 = new Chart(ctx6, {
+    //     type: "line",
+    //     data: {
+    //         labels: ["Em uso"],
+    //         datasets: [{
+    //             backgroundColor: [
+    //                 "#EB1616"
+    //             ],
+    //             data: [50   ]
+    //         }]
 
-        },
-        options: {
-            responsive: true
-        }
-    });
+    //     },
+    //     options: {
+    //         responsive: true
+    //     }
+    // });
 
     alertaDisponibilidade(70, 55)
 

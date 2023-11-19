@@ -1,10 +1,10 @@
 var database = require("../database/config");
 
-function cadastrar(nome, email, senha, tipoUser) {
+function cadastrar(nome, email, senha, tipoUser, fkEmpresa) {
     var instrucao =
         `
-    insert into tb_users(name, email, type_user , password)  values
-	('${nome}', '${email}', '${tipoUser}' ,'${senha}');
+    insert into tb_users(name, email, type_user , password, fk_empresa)  values
+	('${nome}', '${email}', '${tipoUser}' ,'${senha}', ${fkEmpresa});
     `
 
     return database.executar(instrucao);
@@ -30,9 +30,9 @@ function cadastrarMetrica(idEmpresa, ram, disk, cpu) {
     return database.executar(instrucao);    
 }
 
-function listarEmpresas(idAccount) {
+function listarEmpresas() {
     var instrucao = `
-        select * from tb_companies where tb_users_id = ${idAccount};
+        select * from tb_companies;
     `
     return database.executar(instrucao);
 }
