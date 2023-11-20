@@ -9,9 +9,9 @@ function cadastrar(nome, email, senha, tipoUser) {
     return database.executar(instrucao);
 }
 
-function listarTotem(id_companies) {
+function listarTotem() {
     var instrucao = `
-        select * from tb_computers where tb_companies_id = ${id_companies};
+        select * from tb_computers;
     `
     return database.executar(instrucao);
 }

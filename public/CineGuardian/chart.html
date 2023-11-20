@@ -14,8 +14,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -31,10 +32,11 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="gerarDadosUserAtual()">
+<body onload="gerarDadosUserAtual(), dadosComputers()">
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -51,7 +53,9 @@
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="./img/user-img.png" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0" id="h6_name"></h6>
@@ -59,9 +63,12 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="#" class="nav-item nav-link" id="pag_totens"><i class="fa fa-tachometer-alt me-2"></i>Totens</a>
-                    <a href="./cadastroTecnico.html" class="nav-item nav-link" id="pag_tecnico"><i class="fa fa-tachometer-alt me-2"></i>Cadastrar Técnico</a>
-                    <a href="chart.html" class="nav-item nav-link active" id="pag_estatisticas"><i class="fa fa-chart-bar me-2"></i>Estatísticas</a>
+                    <a href="#" class="nav-item nav-link" id="pag_totens"><i
+                            class="fa fa-tachometer-alt me-2"></i>Totens</a>
+                    <a href="./cadastroTecnico.html" class="nav-item nav-link" id="pag_tecnico"><i
+                            class="fa fa-tachometer-alt me-2"></i>Cadastrar Técnico</a>
+                    <a href="chart.html" class="nav-item nav-link active" id="pag_estatisticas"><i
+                            class="fa fa-chart-bar me-2"></i>Estatísticas</a>
                 </div>
             </nav>
         </div>
@@ -89,7 +96,7 @@
                             <a href="#" class="dropdown-item">
                                 <h6 class="fw-normal mb-0">New user added</h6>
                                 <small>15 minutes ago</small>
-                            </a> 
+                            </a>
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <h6 class="fw-normal mb-0">Password changed</h6>
@@ -101,7 +108,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="./img/user-img.png" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="./img/user-img.png" alt=""
+                                style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex" id="span_nameUser"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -114,20 +122,18 @@
             <!-- Navbar End -->
 
             <!-- Chart Start -->
-            
-            <div class="container-fluid pt-4 px-4" >
-                
-                <style>
 
-                    @media (min-width: 320px){
-                        table{
+            <div class="container-fluid pt-4 px-4">
+
+                <style>
+                    @media (min-width: 320px) {
+                        table {
                             display: flex;
                             flex-wrap: wrap;
                         }
                     }
-
                 </style>
-                
+
                 <div style="
                 display: flex; 
                 flex-wrap:wrap; 
@@ -139,10 +145,8 @@
                 border-radius: 10px;
                 margin-bottom: 4vh;
                 padding: 2vw;
-                overflow-x:auto;"
-                >
-                    <select name="totens" id="totemSelector" 
-                    style="
+                overflow-x:auto;">
+                    <select name="totens" id="totemSelector" style="
                         background-color: #EB1616; 
                         color: #f1f1f1; 
                         font-weight: 600;
@@ -158,22 +162,26 @@
                     </select>
 
                     <style>
-                        table, th, td{
+                        table,
+                        th,
+                        td {
                             border: 2px solid #eb1616cf;
                             border-collapse: collapse;
                             flex-wrap: wrap;
                         }
-                        th, td{
+
+                        th,
+                        td {
                             padding: 0.8rem;
                         }
-                        th{
+
+                        th {
                             font-size: 1.3rem;
                             color: #f1f1f1;
                         }
                     </style>
 
-                    <table style=
-                    "border: 1px solid #EB1616;
+                    <table style="border: 1px solid #EB1616;
                     border-collapse: collapse; 
                     text-shadow: 1px 1px 2px #0000;
                     ">
@@ -188,14 +196,13 @@
                             <td>Ativo</td>
                         </tr>
                     </table>
-                    <button class="btn btn-sm btn-primary" 
-                    style="
+                    <button class="btn btn-sm btn-primary" style="
                     height: 3rem;
                     width: auto;
                     font-size: 1.1rem;
                     font-weight: 600;
                     text-shadow: 1px 1px 2px #0000; ">
-                    Reiniciar</button>
+                        Reiniciar</button>
                 </div>
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
@@ -242,7 +249,7 @@
             <!-- Chart End -->
 
 
-            
+
         </div>
         <!-- Content End -->
 
@@ -270,13 +277,14 @@
 </html>
 <script>
     var accountId = localStorage.getItem('userId');
-    console.log(accountId)
+    var idEmpresa = null;
+
     function gerarDadosUserAtual() {
 
         var h6NameAtual = document.getElementById("h6_name");
         var spanNameAtual = document.getElementById("span_nameUser");
         var typeUser = document.getElementById("type_user");
-        
+
         fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
             console.log(response);
             if (response.ok) {
@@ -286,16 +294,16 @@
                             console.log(resposta[0])
                             h6NameAtual.textContent = resposta[i].name;
                             spanNameAtual.textContent = resposta[i].name;
-                            typeUser.textContent = resposta[i].type_user; 
+                            typeUser.textContent = resposta[i].type_user;
 
-                            if(resposta[i].type_user == "dono"){
+                            if (resposta[i].type_user == "dono") {
                                 pag_estatisticas.style.display = "none";
 
-                            }else{
+                            } else {
                                 pag_totens.style.display = "none";
                                 pag_tecnico.style.display = "none";
                             }
-                            console.log(resposta[i].email)
+                            idEmpresa = resposta[i].fk_empresa
                             console.log(resposta[i].password)
                             return true
                         }
@@ -312,8 +320,9 @@
 
     var tempo = [1, 2, 3, 4, 5];
     var dados_mbbits = [10, 15, 8, 12, 20];
-    var dados_mbbits_por_segundo = dados_mbbits.map(function(valor) {
-        return valor;    });
+    var dados_mbbits_por_segundo = dados_mbbits.map(function (valor) {
+        return valor;
+    });
     var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
     var myChart6 = new Chart(ctx6, {
         type: "line",
@@ -324,11 +333,11 @@
                 data: dados_mbbits_por_segundo,
                 borderColor: 'red',
                 fill: false
-               // backgroundColor: [
-                    //"#EB1616",
-                   // "#36A355",
+                // backgroundColor: [
+                //"#EB1616",
+                // "#36A355",
                 //],
-               // data: [70]
+                // data: [70]
             }]
 
         },
@@ -336,4 +345,41 @@
             responsive: true
         }
     });
+
+    function dadosComputers() {
+        setTimeout(function() {
+            fetch(`/totem/listar/${idEmpresa}`, {
+                method: "GET",
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+            .then(function(response) {
+                console.log(response);
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Erro na requisição. Status: " + response.status);
+                }
+            })
+            .then(function(resposta) {
+                for (let i = 0; i < resposta.length; i++) {
+                    console.log(i + "° máquina");
+                    console.log(resposta[i].id);
+                    console.log(resposta[i].hostname);
+                    console.log(resposta[i].system_info);
+                    console.log(i + "° máquina FINAL");
+                }
+            })
+            .catch(function(error) {
+                console.error("Erro na obtenção dos dados para a tabela: " + error.message);
+            });
+        }, 2000);
+    }
+
+
+
+
+
+
 </script>

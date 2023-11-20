@@ -86,6 +86,7 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
@@ -97,14 +98,12 @@
 
 <script>
     var accountId = localStorage.getItem('userId');
-    console.log("ID USER:"+accountId)
     function cadastrarUser() {
         var nomeVar = ipt_nome.value;
         var emailVar = ipt_email.value;
         var passwordVar = ipt_password.value;
         var donoVar = "tecnico"
-        console.log("ID EMPRESA USER => " + idDaEmpresa)
-        console.log(nomeVar, emailVar, passwordVar);
+
         if (nomeVar == "" || emailVar == "" || passwordVar == "") {
             alert("Preencha os campos corretamente");
             return false;
@@ -125,10 +124,18 @@
             console.log("resposta : ", resposta)
 
             if (resposta.ok) {
-                alert("Cadastro feito com sucesso");
-                //setTimeout(() => {
-                  //  window.location = "./index.html"
-                //}, 2000)
+                Swal.fire({
+                    icon: "success",
+                    title: "Cadastro realizado com sucesso!",
+                    showConfirmButton: false,
+                    background: "#191C24",
+                    iconColor: "#EB1616", 
+                    color: "#fff",
+                    timer: 1500
+                    });
+                setTimeout(() => {
+                  window.location = "./chart.html"
+                }, 2000)
             } else {
                 throw ("Erro ao realizar cadastro!");
             }
@@ -159,27 +166,6 @@
         });
     }
 
-    function gerarDadosUserAtual() {
-        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
-            console.log(response);
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    for (let i = 0; i < resposta.length; i++) {
-                            console.log(resposta[i].id)
-                            console.log(resposta[i].name)
-                            console.log(resposta[i].type_user)
-                            console.log(resposta[i].email)
-                            console.log(resposta[i].password)
-                    }
-                })
-            } else {
-                console.log("Nenhum dado encontrado.");
-            }
-        }).catch(function (error) {
-            console.error("Erro na obtenção dos dados para a table : " + error.message);
-        });
-    }
-
     var idDaEmpresa = null;
     
     function idEmpresa(){
@@ -190,7 +176,6 @@
                         for (let i = 0; i < resposta.length; i++) {
                             if(accountId == resposta[i].tb_users_id){
                                 idDaEmpresa += resposta[i].id;
-                                console.log("Id Empresa : " +idDaEmpresa)
                                 return resposta[i].id;
                             }
                         }

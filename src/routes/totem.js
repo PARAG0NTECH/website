@@ -4,23 +4,23 @@ var router = express.Router();
 var totemController = require("../controllers/totemController");
 
 
-router.post("/cadastrar", function (req, res){
+router.post("/cadastrar", function (req, res) {
     totemController.cadastrar(req, res);
 });
 
-router.post("/metricas", function (req, res){
+router.post("/metricas", function (req, res) {
     totemController.metricaTotem(req, res);
 });
 
-router.get("/listar", function (req, res){
+router.get("/listar/:tb_companies_id", function (req, res) {
     totemController.listarTotem(req, res);
 });
 
-router.put("/editar/:id", function(req, res){
+router.put("/editar/:id", function (req, res) {
     totemController.editarTotem(req, res);
 });
 
-router.delete("/delete/:id", function(req, res){
+router.delete("/delete/:id", function (req, res) {
     totemController.deletarTotem(req, res);
 });
 

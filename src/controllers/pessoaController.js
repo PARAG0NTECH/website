@@ -1,183 +1,183 @@
 var pessoaModel = require("../models/pessoaModel");
 
 
-function cadastrar(req, res){
+function cadastrar(req, res) {
     var idEmpresa = req.body.fkEmpresaServer;
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var password = req.body.passwordServer;
     var tipoUser = req.body.tipoUserServer;
 
-    if(nome == undefined){
+    if (nome == undefined) {
         res.status(400).send("Seu nome está indefinido");
-    }else if(email == undefined){
+    } else if (email == undefined) {
         res.status(400).send("Seu email está indefinido");
-    }else if(idEmpresa == undefined){
+    } else if (idEmpresa == undefined) {
         res.status(400).send("Seu email está indefinido");
-    }else if(tipoUser == undefined){
+    } else if (tipoUser == undefined) {
         res.status(400).send("Seu tipo está indefinido");
-    }else if(password == undefined){
+    } else if (password == undefined) {
         res.status(400).send("Seu sexo está indefinido");
-    }else{
+    } else {
         pessoaModel.cadastrar(nome, email, password, tipoUser, idEmpresa)
             .then(
-                function (result){
+                function (result) {
                     res.json(result);
                 }
             ).catch(
-                function (erro){
+                function (erro) {
                     console.log(erro);
-                    console.log("Erro ao realizar cadastro!!ERRO : " + erro.sqlMessage );
+                    console.log("Erro ao realizar cadastro!!ERRO : " + erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )
     }
 }
 
-function cadastrarEmpresa(req, res){
+function cadastrarEmpresa(req, res) {
     var nomeEmpresa = req.body.nomeEmpresaVar;
     var cnpjEmpresa = req.body.cnpjEmpresaVar;
     var userId = req.body.userIdVar;
 
     console.log(nomeEmpresa, cnpjEmpresa, userId);
 
-    if(nomeEmpresa == undefined){
+    if (nomeEmpresa == undefined) {
         res.status(400).send("O nome da empresa está indefinido");
 
-    }else if(cnpjEmpresa == undefined){
+    } else if (cnpjEmpresa == undefined) {
         res.status(400).send("O CNPJ da empresa está indefinido");
 
-    }else if(userId == undefined){
+    } else if (userId == undefined) {
         res.status(400).send("O id do usuário está indefinido");
 
-    }else{
+    } else {
         console.log("Estou pra entrar na cadastrar()")
         pessoaModel.cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, userId)
             .then(
-                function (result){
+                function (result) {
                     res.json(result);
                 }
             ).catch(
-                function (erro){
+                function (erro) {
                     console.log(erro);
-                    console.log("Erro ao realizar cadastrarEmpresa(): " + erro.sqlMessage );
+                    console.log("Erro ao realizar cadastrarEmpresa(): " + erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )
     }
 }
 
-function cadastrarMetrica(req, res){
+function cadastrarMetrica(req, res) {
     var idEmpresa = req.body.idEmpresaServer;
     var ram = req.body.ramServer;
     var cpu = req.body.cpuServer;
     var disk = req.body.diskServer;
 
-    if(idEmpresa == undefined){
+    if (idEmpresa == undefined) {
         res.status(400).send("Seu id empresa está indefinido");
-    }else if(ram == undefined){
+    } else if (ram == undefined) {
         res.status(400).send("Sua ram está indefinido");
-    }else if(cpu == undefined){
+    } else if (cpu == undefined) {
         res.status(400).send("Sua cpu está indefinido");
-    }else if(disk == undefined){
+    } else if (disk == undefined) {
         res.status(400).send("Seu disk está indefinido");
-    }else{
+    } else {
         pessoaModel.cadastrarMetrica(idEmpresa, ram, cpu, disk)
             .then(
-                function (result){
+                function (result) {
                     res.json(result);
                 }
             ).catch(
-                function (erro){
+                function (erro) {
                     console.log(erro);
-                    console.log("Erro ao realizar cadastro!!ERRO : " + erro.sqlMessage );
+                    console.log("Erro ao realizar cadastro!!ERRO : " + erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )
     }
 }
 
-function gerarUserAtual(req, res){
+function gerarUserAtual(req, res) {
     var id = req.body.idServer;
-    if(id == undefined){
+    if (id == undefined) {
         res.status(400).send("Seu id está indefinido");
-        
-    }else{
-    pessoaModel.gerarUserAtual(id)
-        .then( function (resultado){
-            if(resultado.length > 0){
-                res.status(200).json(resultado);
 
-            }else {
-                res.status(204).send("Nenhum Resultado Encontrado!")
-            }
-        }).catch( function (erro){
-            console.log(erro);
-            console.log("Houve um erro ao realizar o login");
-            res.status(500).json(erro.sqlMessage);
-        });
+    } else {
+        pessoaModel.gerarUserAtual(id)
+            .then(function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+
+                } else {
+                    res.status(204).send("Nenhum Resultado Encontrado!")
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o login");
+                res.status(500).json(erro.sqlMessage);
+            });
 
     }
 }
 
-function listarUsers(req, res){
+function listarUsers(req, res) {
     pessoaModel.listarUsers()
-        .then( function (resultado){
+        .then(function (resultado) {
 
-            if(resultado.length > 0){
+            if (resultado.length > 0) {
                 res.status(200).json(resultado);
 
-            }else {
+            } else {
                 res.status(204).send("Nenhum Resultado Encontrado!")
             }
-        }).catch( function (erro){
+        }).catch(function (erro) {
             console.log(erro);
             console.log("Houve um erro ao realizar o login");
             res.status(500).json(erro.sqlMessage);
         });
 }
 
-function listarEmpresas(req, res){
+function listarEmpresas(req, res) {
 
     pessoaModel.listarEmpresas()
-        .then( function (resultado){
-            if(resultado.length > 0){
-                
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+
                 res.status(200).json(resultado);
-            }else {
+            } else {
                 res.status(204).send("Nenhum Resultado Encontrado!")
             }
-        }).catch( function (erro){
+        }).catch(function (erro) {
             console.log(erro);
             console.log("Houve um erro ao realizar o listarEmpresas()");
             res.status(500).json(erro.sqlMessage);
         });
 }
 
-function editarUser (req, res){
+function editarUser(req, res) {
     var id = req.body.idServer;
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var password  = req.body.passwordServer;
+    var password = req.body.passwordServer;
 
     pessoaModel.editarUser(id, nome, email, password)
-        .then( function(resultado){
+        .then(function (resultado) {
             res.json(resultado);
-        }).catch( function (erro){
+        }).catch(function (erro) {
             console.log(erro);
             console.log("Houve um erro ao realizar o post : " + erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         });
 }
 
-function deletarUser(req, res){
+function deletarUser(req, res) {
     var id = req.params.id;
 
     pessoaModel.deletarUser(id)
-        .then(function (resultado){
+        .then(function (resultado) {
             res.json(resultado)
         }).catch(
-            function (erro){
+            function (erro) {
                 console.log(erro);
                 console.log("Erro ao deletar : " + erro.sqlMessage)
                 res.status(500).json(erro.sqlMessage);

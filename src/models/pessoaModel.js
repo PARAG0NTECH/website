@@ -27,7 +27,7 @@ function cadastrarMetrica(idEmpresa, ram, disk, cpu) {
     insert into tb_alerts(tb_companies_id, percentual_cpu, percentual_disk , percentual_ram)  values
 	('${idEmpresa}', '${ram}', '${disk}' ,'${cpu}');
     `
-    return database.executar(instrucao);    
+    return database.executar(instrucao);
 }
 
 function listarEmpresas() {
@@ -49,14 +49,14 @@ function gerarUserAtual(id) {
     `
     return database.executar(instrucao);
 }
-function editarUser(idPessoa, nome, email, password){
+function editarUser(idPessoa, nome, email, password) {
     var instrucao = `
         update tb_users set name = '${nome}', email = '${email}', password = '${password}' where id = '${idPessoa}';
     `
     return database.executar(instrucao);
 }
 
-function deletarUser(idPessoa){
+function deletarUser(idPessoa) {
     var instrucao = `
         delete from tb_users where id = ${idPessoa};
     `
