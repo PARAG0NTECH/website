@@ -67,14 +67,15 @@
     var myChart6 = new Chart(ctx6, {
         type: "bar",
         data: {
-            labels: ["Alto", "Médio","Baixo"],
+            labels: ["Crítico", "Em alerta","Ideal"],
             datasets: [{
+                label: 'Em uso',
                 backgroundColor: [
                     "#EB1616",
                     "#f8bb46",
                     "#ffffff"
                 ],
-                data: [70, 50,30]
+                data: [20, 50,12]
             }]
 
         },
@@ -100,10 +101,11 @@
         data: {
             labels: ["Em uso"],
             datasets: [{
+                label: 'Em uso',
                 backgroundColor: [
                     "#EB1616",
                 ],
-                data: [50, ]
+                data: [25]
             }]
         },
         options: {
