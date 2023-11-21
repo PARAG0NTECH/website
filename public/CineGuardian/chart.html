@@ -359,6 +359,7 @@
             })
             .then(function(resposta) {
                 for (let i = 0; i < resposta.length; i++) {
+                    if(idEmpresa == resposta[i].tb_companies_id){
                     console.log(i + "° máquina");
                     console.log(resposta[i].id);
                     console.log(resposta[i].hostname);
@@ -376,6 +377,8 @@
                     <option value="${resposta[i].id}" style="font-weight: 600">Totem ${resposta[i].id}</option>
                     `;
                 }
+            }
+
             })
             .catch(function(error) {
                 console.error("Erro na obtenção dos dados para a tabela: " + error.message);
