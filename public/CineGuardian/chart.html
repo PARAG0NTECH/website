@@ -343,13 +343,13 @@
     });
 
     function dadosComputers() {
-            fetch(`/totem/listar/${idEmpresa}`, {
-                method: "GET",
-                headers: {
-                    "Content-type": "application/json"
-                }
-            })
-            .then(function(response) {
+        fetch(`/totem/listar/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
+            }
+        })
+            .then(function (response) {
                 console.log(response);
                 if (response.ok) {
                     return response.json();
@@ -357,30 +357,21 @@
                     throw new Error("Erro na requisição. Status: " + response.status);
                 }
             })
-            .then(function(resposta) {
+            .then(function (resposta) {
                 for (let i = 0; i < resposta.length; i++) {
-                    if(idEmpresa == resposta[i].tb_companies_id){
-                    console.log(i + "° máquina");
-                    console.log(resposta[i].id);
-                    console.log(resposta[i].hostname);
-                    console.log(resposta[i].system_info);
-                    console.log(i + "° máquina FINAL");
-
-                    /*nick_name">Recepção1</td>
-                            <td id="date_register">2023-11-11</td>
-                            <td id="info"*/
-                    id_computer.textContent = resposta[0].id;
-                    nick_name.textContent = resposta[0].hostname;
-                    info.textContent = resposta[0].system_info;
-                    date_register.textContent = 'Sei la vei'
-                    totemSelector.innerHTML += `
+                    if (idEmpresa == resposta[i].tb_companies_id) {
+                        id_computer.textContent = resposta[0].id;
+                        nick_name.textContent = resposta[0].hostname;
+                        info.textContent = resposta[0].system_info;
+                        date_register.textContent = 'Sei la vei'
+                        totemSelector.innerHTML += `
                     <option value="${resposta[i].id}" style="font-weight: 600">Totem ${resposta[i].id}</option>
                     `;
+                    }
                 }
-            }
 
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error("Erro na obtenção dos dados para a tabela: " + error.message);
             });
     }
@@ -392,33 +383,60 @@
                 "Content-type": "application/json"
             }
         })
-        .then(function(response) {
-            console.log(response);
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error("Erro na requisição. Status: " + response.status);
-            }
-        })
-        .then(function(resposta) {
-            for (let i = 0; i < resposta.length; i++) {
-                if(idAtual == resposta[i].id){
-                    id_computer.textContent = resposta[i].id;
-                    nick_name.textContent = resposta[i].hostname;
-                    info.textContent = resposta[i].system_info;
-                    date_register.textContent = 'Sei la '
-                    return true;
+            .then(function (response) {
+                console.log(response);
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Erro na requisição. Status: " + response.status);
                 }
-            }
-        })
-        .catch(function(error) {
-            console.error("Erro na obtenção dos dados para a tabela: " + error.message);
-        });
-}
+            })
+            .then(function (resposta) {
+                for (let i = 0; i < resposta.length; i++) {
+                    if (idAtual == resposta[i].id) {
+                        id_computer.textContent = resposta[i].id;
+                        nick_name.textContent = resposta[i].hostname;
+                        info.textContent = resposta[i].system_info;
+                        date_register.textContent = 'Sei la '
+                        dadosTotenAtual(idAtual)
+                        return true;
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.error("Erro na obtenção dos dados para a tabela: " + error.message);
+            });
+    }
+
+    function dadosTotenAtual(idAtual) {
+        setInterval(function() {
+            fetch(`/totem/dadosAtual?idmaquina=${idAtual}`)
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Erro na requisição. Status: " + response.status);
+                    }
+                })
+                .then(function (resposta) {
+                    if (resposta && resposta.length > 0) {
+                        for (let i = 0; i < resposta.length; i++) {
+                            console.log(resposta);
+                            if (idAtual == resposta[i].id_computer) {
+                                return true; 
+                            }
+                        }
+                    }
+                    throw new Error("Nenhum resultado encontrado.");
+                })
+                .catch(function (error) {
+                    console.error("Erro na obtenção dos dados para a tabela: " + error.message);
+                });
+        }, 2000);
+    }
 
 
 
 
 
-    
 </script>

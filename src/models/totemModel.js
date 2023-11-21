@@ -16,6 +16,13 @@ function listarTotem() {
     return database.executar(instrucao);
 }
 
+function listarDadosTotemAtual(idmaquina) {
+    var instrucao = `
+        SELECT * FROM tb_statistics;
+    `
+    return database.executar(instrucao);
+}
+
 function editarTotem(idTotem){
     var instrucao = `
         update tb_computers set name = '${nome}', email = '${email}', password = '${password}' where id = '${idPessoa}';
@@ -43,4 +50,5 @@ module.exports = {
     metricasTotem,
     editarTotem,
     deletarTotem,
+    listarDadosTotemAtual : listarDadosTotemAtual
 }

@@ -15,6 +15,9 @@ router.post("/metricas", function (req, res) {
 router.get("/listar/:tb_companies_id", function (req, res) {
     totemController.listarTotem(req, res);
 });
+router.get("/dadosAtual", function (req, res) {
+    totemController.listarDadosTotemAtual(req, res);
+});
 
 router.put("/editar/:id", function (req, res) {
     totemController.editarTotem(req, res);

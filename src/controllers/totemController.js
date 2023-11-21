@@ -47,6 +47,23 @@ function listarTotem(req, res) {
         });
 }
 
+function listarDadosTotemAtual(req, res) {
+    var maquinaAtual = req.query.idmaquina;
+    totemModel.listarDadosTotemAtual(maquinaAtual)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum Resultado Encontrado!");
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro em listarDadosTotemAtual()");
+            res.status(500).json({ error: erro.message });
+        });
+}
+
 function editarTotem(req, res) {
     var id = req.body.idServer;
     var nome = req.body.nomeServer;
@@ -99,4 +116,5 @@ module.exports = {
     editarTotem,
     metricaTotem,
     deletarTotem,
+    listarDadosTotemAtual
 }
