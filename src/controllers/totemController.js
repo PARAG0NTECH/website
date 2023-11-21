@@ -33,7 +33,7 @@ function cadastrar(req, res) {
 }
 
 function listarTotem(req, res) {
-    totemModel.listarTotem()
+    totemModel.listarTotem(req)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
