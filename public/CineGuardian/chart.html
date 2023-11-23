@@ -155,6 +155,7 @@
                         width: auto;
                         justify-content: center;
                         text-shadow: 1px 1px 2px #0000;">
+                        <option value="">Nenhum totem</option>
                     </select>
 
                     <style>
@@ -183,12 +184,10 @@
                     ">
                         <th>ID</th>
                         <th>Apelido</th>
-                        <th>Data Cadastro</th>
                         <th>Status</th>
                         <tr>
                             <td id="id_computer"></td>
                             <td id="nick_name"></td>
-                            <td id="date_register"></td>
                             <td id="info"></td>
                         </tr>
                     </table>
@@ -197,7 +196,8 @@
                     width: auto;
                     font-size: 1.1rem;
                     font-weight: 600;
-                    text-shadow: 1px 1px 2px #0000; ">
+                    text-shadow: 1px 1px 2px #0000; "
+                    onclick="reiniciarMaquina()">
                         Reiniciar</button>
                 </div>
                 <div class="row g-4">
@@ -264,7 +264,6 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/actions.js"></script>
@@ -274,6 +273,89 @@
 <script>
     var accountId = localStorage.getItem('userId');
     var idEmpresa = null;
+
+    bomdia()
+
+    function graficoArmazenamento(objTotem){
+        var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
+        var myChart6 = new Chart(ctx6, {
+            type: "line",
+            data: {
+                labels: tempo,
+                datasets: [{
+                    label: 'Em uso',
+                    data: dados_mbbits_por_segundo,
+                    borderColor: 'red',
+                    fill: false
+                    // backgroundColor: [
+                    //"#EB1616",
+                    // "#36A355",
+                    //],
+                    // data: [70]
+                }]
+
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
+
+    function graficoProcessador(objTotem){
+        var ctx6 = $("#myBarChartProcessador").get(0).getContext("2d");
+        var myChart6 = new Chart(ctx6, {
+            type: "bar",
+            data: {
+                labels: ["Crítico", "Em alerta","Ideal"],
+                datasets: [{
+                    label: 'Em uso',
+                    backgroundColor: [
+                        "#EB1616",
+                        "#f8bb46",
+                        "#ffffff"
+                    ],
+                    data: [20, 50, 12]
+                }]
+    
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
+
+    function graficoRam(objTotem){
+
+    }
+    function graficoInternet(objTotem){
+        
+    }
+
+    function reiniciarMaquina(){
+        var idTotem = document.getElementById("totemSelector").value;
+
+        fetch(`/restart-instance'`, {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                instanceId: idTotem
+            })
+        })
+            .then(function (response) {
+                console.log(response);
+                if (response.ok) {
+                    return response.json();
+                    alert(`Máquina ${idTotem} reiniciada com sucesso!`)
+                } else {
+                    throw new Error("Erro em reiniciar");
+                }
+            })
+            .catch(function (error) {
+                console.error("Erro ao reiniciar a máquina : "+idTotem);
+            });
+    }
 
     function gerarDadosUserAtual() {
 
@@ -313,33 +395,10 @@
         });
     }
 
-
     var tempo = [1, 2, 3, 4, 5];
     var dados_mbbits = [10, 15, 8, 12, 20];
     var dados_mbbits_por_segundo = dados_mbbits.map(function (valor) {
         return valor;
-    });
-    var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
-    var myChart6 = new Chart(ctx6, {
-        type: "line",
-        data: {
-            labels: tempo,
-            datasets: [{
-                label: 'Em uso',
-                data: dados_mbbits_por_segundo,
-                borderColor: 'red',
-                fill: false
-                // backgroundColor: [
-                //"#EB1616",
-                // "#36A355",
-                //],
-                // data: [70]
-            }]
-
-        },
-        options: {
-            responsive: true
-        }
     });
 
     function dadosComputers() {
@@ -358,12 +417,14 @@
                 }
             })
             .then(function (resposta) {
+                totemSelector.innerHTML = "";
+
                 for (let i = 0; i < resposta.length; i++) {
                     if (idEmpresa == resposta[i].tb_companies_id) {
                         id_computer.textContent = resposta[0].id;
                         nick_name.textContent = resposta[0].hostname;
                         info.textContent = resposta[0].system_info;
-                        date_register.textContent = 'Sei la vei'
+
                         totemSelector.innerHTML += `
                     <option value="${resposta[i].id}" style="font-weight: 600">Totem ${resposta[i].id}</option>
                     `;
@@ -397,7 +458,6 @@
                         id_computer.textContent = resposta[i].id;
                         nick_name.textContent = resposta[i].hostname;
                         info.textContent = resposta[i].system_info;
-                        date_register.textContent = 'Sei la '
                         dadosTotenAtual(idAtual)
                         return true;
                     }
@@ -409,6 +469,7 @@
     }
 
     function dadosTotenAtual(idAtual) {
+
         setInterval(function() {
             fetch(`/totem/dadosAtual?idmaquina=${idAtual}`)
                 .then(function (response) {
@@ -422,6 +483,12 @@
                     if (resposta && resposta.length > 0) {
                         for (let i = 0; i < resposta.length; i++) {
                             console.log(resposta);
+
+                            graficoInternet(resposta)
+                            graficoRam(resposta)
+                            graficoArmazenamento(resposta)
+                            graficoProcessador(resposta)
+                            
                             if (idAtual == resposta[i].id_computer) {
                                 return true; 
                             }
@@ -434,9 +501,6 @@
                 });
         }, 2000);
     }
-
-
-
 
 
 </script>

@@ -58,39 +58,17 @@
         nav : false
     });
 
-
     // Chart Bar Color
     Chart.defaults.color = "#6C7293";
     Chart.defaults.borderColor = "#000000";
 
-    var ctx6 = $("#myBarChartProcessador").get(0).getContext("2d");
-    var myChart6 = new Chart(ctx6, {
-        type: "bar",
-        data: {
-            labels: ["Crítico", "Em alerta","Ideal"],
-            datasets: [{
-                label: 'Em uso',
-                backgroundColor: [
-                    "#EB1616",
-                    "#f8bb46",
-                    "#ffffff"
-                ],
-                data: [20, 50,12]
-            }]
 
-        },
-        options: {
-            responsive: true
-        }
-    });
 
     alertaDisponibilidade(70, 55)
 
     function alertaDisponibilidade(totalMaquinas, maquinasAtivas) {
         var porcentagemMaquinasH5 = document.getElementById("porcentagemMaquinas");
         var pocentagemAtivas = (maquinasAtivas/totalMaquinas)* 100
-
-       
     }
 
 
@@ -118,8 +96,6 @@
     function alertaReiniciada(totalMaquinasReiniciadas) {
         var reiniciadasDiaH5 = document.getElementById("reiniciadasDia");
         var reiniciadasDia = (totalMaquinasReiniciadas / 24)
-
-       
     }
 
     // var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");

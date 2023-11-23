@@ -201,7 +201,8 @@
             console.log(response);
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    for (let i = 0; i < resposta.length; i++) {
+                    
+                    for (let i = 0; i <= resposta.length; i++) {
                         if(resposta[i].email == ipt_email.value ){
                             Swal.fire({
                                 title: "E-mail inválido!",
@@ -210,7 +211,6 @@
                                 icon: "error",
                                 iconColor: "#EB1616",
                                 background: "#191C24",
-                
                               });
                            return false;
                         }
