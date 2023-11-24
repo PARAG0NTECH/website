@@ -73,23 +73,7 @@
 
 
     // Bar Chart
-    var ctx6 = $("#myBarChartRam").get(0).getContext("2d");
-    var myChart6 = new Chart(ctx6, {
-        type: "bar",
-        data: {
-            labels: ["Em uso"],
-            datasets: [{
-                label: 'Em uso',
-                backgroundColor: [
-                    "#EB1616",
-                ],
-                data: [25]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
+    
 
     alertaReiniciada(17)
 
@@ -121,33 +105,10 @@
     var tempo = [1, 2, 3, 4, 5];
     var dados_mbbits = [10, 15, 8, 12, 20];
     var dados_mbbits_por_segundo = dados_mbbits.map(function(valor) {
-        return valor / 1e6;    });
-    var ctx6 = $("#myBarChartInternet").get(0).getContext("2d");
-    var myChart6 = new Chart(ctx6, {
-        type: "line",
-        data: {
-            labels: tempo,
-            datasets: [{
-                label: 'Taxa de Transfência (Mbps),',
-                data: dados_mbbits_por_segundo,
-                borderColor: 'red',
-                fill: false
-               // backgroundColor: [
-                    //"#EB1616",
-                   // "#36A355",
-                //],
-               // data: [70]
-            }]
-
-        },
-        options: {
-            responsive: true
-        }
-    });
+    return valor / 1e6;    });
+   
 
     alertaDisponibilidade(70, 55)
-
-
     
 })(jQuery);
 
