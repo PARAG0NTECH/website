@@ -32,7 +32,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="gerarDadosUserAtual(), dadosComputers()">
+<body onload="gerarDadosUserAtual()">
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner"
@@ -206,6 +206,7 @@
                             <h3 class="mb-4">Processador</h3>
                             <span>Processador : Intel</p></span>
                             <span>Arquitetura: x64</p></span>
+                            <span id="so">Sistema Operacional: </span>
                             <span id="usoCpu">Porcentagem de Uso: </span>
                             <h5 id="porcentagemMaquinas"></h5>
                             <canvas id="myBarChartProcessador"></canvas>
@@ -273,11 +274,10 @@
 <script>
     var accountId = localStorage.getItem('userId');
     var idEmpresa = null;
-
-    var graficoArmazenamentoVar;
-    var graficoProcessadorVar;
-    var graficoRamVar;
-    var graficoInternetVar;
+    
+    var critico = 0;
+    var emAlerta = 0;
+    var ideal = 0;
 
     var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
 
@@ -315,7 +315,7 @@
             });
         }finally{
 
-            updateGraficoArmazenamento(graficoArmazenamento, [12, 15, 29]);
+            updateGraficoArmazenamento(graficoArmazenamento, resposta);
         }
     }
 
@@ -335,13 +335,10 @@
         var utilizado = arrayData[arrayData.length - 1].disk_usage
         var porcentagemUso = (total / utilizado) * 100
         
-        //totalArmazenamento.innerHTML = `<p>Total: <span style="font-size: 1rem; color: #fff; font-weight: bold">${total}</span></p>`;
-        //utilizadoArmazenamento.innerHTML = `<p>Utilizado: <span style="font-size: 1rem; color: #fff; font-weight: bold">${utilizado}</span></p>`;
-        //usoArmazenamento.innerHTML = `<p>Processador <span style="font-size: 1rem; color: #fff; font-weight: bold">${porcentagemUso}%</span></p>`;
+        totalArmazenamento.innerHTML = `<p>Total: <span style="font-size: 1rem; color: #fff; font-weight: bold">${total}</span></p>`;
+        utilizadoArmazenamento.innerHTML = `<p>Utilizado: <span style="font-size: 1rem; color: #fff; font-weight: bold">${utilizado}</span></p>`;
+        usoArmazenamento.innerHTML = `<p>Processador <span style="font-size: 1rem; color: #fff; font-weight: bold">${porcentagemUso}%</span></p>`;
 
-        totalArmazenamento.innerHTML = `<p>Total: 12po</p>`;
-        utilizadoArmazenamento.innerHTML = `Utilizado: 123`;
-        usoArmazenamento.innerHTML = `<p>Porcentagem de uso: <span style="font-size: 1rem; color: #fff; font-weight: bold">124124%</span></p>`;
     }
 
 
@@ -354,14 +351,14 @@
             data: {
                 labels: ["Crítico", "Em alerta","Ideal"],
                 datasets: [{
-                    label: 'Em uso',
+                    label: '',
                     backgroundColor: [
                         "#EB1616",
                         "#f8bb46",
                         "#ffffff"
                     ],
                     data: []
-                }]
+                }],
     
             },
             options: {
@@ -375,18 +372,33 @@
     }
  
     function updateGraficoProcessador(grafico, arrayData){
+
+
         for(i = 0; i < 5; i++){
-            grafico.data.datasets[0].data.push(arrayData[i].cpu_usage) 
-            grafico.update();
+           
             
+            if(arrayData[i].cpu_usage <= 35){
+                ideal++
+            }else if(arrayData[i].cpu_usage > 35 && arrayData[i].cpu_usage < 65){
+                emAlerta++
+            }else{
+                critico++
+            }
         }   
+        var arrayAlertas = [critico, emAlerta, ideal]
+        grafico.data.datasets[0].data = arrayAlertas 
+        grafico.update();
         
         var total = arrayData[arrayData.length - 1].cpu_total
         var utilizado = arrayData[arrayData.length - 1].cpu_usage
         var porcentagemUso = (arrayData[arrayData.length - 1].cpu_usage / arrayData[arrayData.length - 1].cpu_total) * 100
+        var sistemaOperacional = arrayData[arrayData.length - 1].system_info
 
+        var so = document.getElementById("so");
         var usoCPU = document.getElementById("usoCpu");
-        usoCPU.innerHTML = `Processador: <span style="font-size: 1rem; color: #fff; font-weight: bold">${utilizado}%</span>`
+
+        so.innerHTML = `<p>Sistema Operacional: <span style="font-size: 1rem; color: #fff; font-weight: bold">${sistemaOperacional}</span></p>`
+        usoCPU.innerHTML = `<p>Processador: <span style="font-size: 1rem; color: #fff; font-weight: bold">${utilizado}%</span></p>`
     }
 
 
@@ -437,9 +449,10 @@
     }
 
     
-    function graficoInternet(resposta){
-       
+    function graficoInternet(){
+        console.log("entrei na graficoInternet")
         try{
+            console.log("Estou no try")
             var ctx6 = $("#myBarChartInternet").get(0).getContext("2d");
             var graficoInternetVar = new Chart(ctx6, {
                 type: "line",
@@ -463,7 +476,9 @@
                 }
             });
         }finally{
-            updateGraficoInternet(graficoInternetVar, resposta)
+           console.log("entrei na finally")
+
+            //updateGraficoInternet(graficoInternetVar, resposta)
         }
         
     }
@@ -533,6 +548,7 @@
                             }
 
                             idEmpresa = resposta[i].fk_empresa
+                            dadosComputers(resposta[i].fk_empresa)
                             console.log(resposta[i].password)
                             return true
                         }
@@ -546,8 +562,8 @@
         });
     }
 
-    function dadosComputers() {
-        fetch(`/totem/listar/${idEmpresa}`, {
+    function dadosComputers(idEmpreeesa) {
+        fetch(`/totem/listar?tb_companies_id=${idEmpreeesa}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json"
@@ -570,7 +586,7 @@
                         nick_name.textContent = resposta[0].hostname;
                         info.textContent = resposta[0].system_info;
 
-                        dadosTotenAtual(resposta[0].id)
+                        dadosTotenAtual(resposta[0].id) 
                         totemSelector.innerHTML += `
                     <option value="${resposta[i].id}" style="font-weight: 600">Totem ${resposta[i].id}</option>
                     `;
@@ -632,12 +648,12 @@
                         for (let i = 0; i <= resposta.length; i++) {
                             console.log(resposta)
 
+                            graficoInternet()
                             graficoProcessador(resposta)
                             graficoArmazenamento(resposta)
                             graficoRam(resposta)
-                            graficoInternet(resposta)
                             //USO DE INTERNET NAO ESTA NA TABELA tb_statistics
-                            //graficoInternet(resposta[i].cpu_usage)
+
 
                             if (idAtual == resposta[i].id_computer) {
                                 return true; 

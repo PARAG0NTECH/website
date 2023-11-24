@@ -209,23 +209,21 @@
                             <thead>
                                 <tr class="text-white">
                                     <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                    <th scope="col">Data</th>
                                     <th scope="col">Identificação</th>
                                     <th scope="col">Apelido</th>
                                     <th scope="col">Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
+                            <tbody id="listaTotens">
+                                <!-- <tr>
                                     <td><input class="form-check-input" type="checkbox"></td>
-                                    <td>01 Jan 2045</td>
                                     <td>ID-01</td>
                                     <td>Recepção1</td>
                                     <td
                                         style="background-color: #00ff00d7; color: white; text-shadow: 1px 1px 2px #000; font-weight: 600">
                                         Ativo</td>
-                                </tr>
-                                <tr>
+                                </tr> -->
+                                <!-- <tr>
                                     <td><input class="form-check-input" type="checkbox"></td>
                                     <td>01 Jan 2045</td>
                                     <td>ID-02</td>
@@ -260,7 +258,7 @@
                                     <td
                                         style="background-color:#00ff00d7; color:white;  text-shadow: 1px 1px 2px #000;font-weight: 600">
                                         Ativo</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -293,8 +291,8 @@
 <script>
     var userId = localStorage.getItem('userId');
     var userName = localStorage.getItem('userName');
-
     var h6_name = document.getElementById("h6_name");
+    var idEmpresa = null
     
     console.log(h6_name)
     
@@ -310,8 +308,8 @@
             if (response.ok) {
                 response.json().then(function (resposta) {
                     for (let i = 0; i < resposta.length; i++) {
-                        if (resposta[i].id == accountId) {
-                            console.log(resposta[i].id)
+                        if (resposta[i].id == userId) {
+
                             h6NameAtual.textContent = resposta[i].name;
                             spanNameAtual.textContent = resposta[i].name;
                             typeUser.textContent = resposta[i].type_user; 
@@ -322,6 +320,9 @@
                                     pag_totens.style.display = "none";
                                     pag_tecnico.style.display = "none";
                                 }
+                                
+                            idEmpresa = resposta[i].fk_empresa
+                            listarTotem()
                             console.log(resposta[i].email)
                             console.log(resposta[i].password)
                             return true
@@ -336,6 +337,62 @@
         });
     }
 
+    function listarTotem(){
+
+        fetch(`/totem/listar?tb_companies_id=${idEmpresa}`, {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+
+          }) .then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Erro na requisição. Status: " + response.status);
+            }
+        })
+            .then(function (resposta) {
+   
+                for(i = 0; i <= resposta.length; i++){
+                
+                    var aws_status = "running"
+
+                    if(aws_status == "running"){
+                        var cor = "#00ff00d7"
+                        var mensagem = "Ativo"
+
+                    }else if(aws_status == "stopping"){
+                        var cor = "##f7b213" 
+                        var mensagem = "Reiniciando"
+
+                    }else{
+                        var cor = "#ff0000e0"
+                        var mensagem = "Desativada"
+                    }
+                
+                    var trTotem = document.createElement('tr');
+                
+                    trTotem.innerHTML += `
+                    
+                        <td><input class="form-check-input" type="checkbox"></td>
+                        <td>ID-${resposta[i].id}</td>
+                        <td>${resposta[i].hostname}</td>
+                        <td
+                            style="background-color: ${cor}; color:white;  text-shadow: 1px 1px 2px #000;font-weight: 600">
+                            ${mensagem}
+                        </td>
+                    `;
+
+                    document.getElementById('listaTotens').appendChild(trTotem);
+                }
+            })
+            .catch(function (resposta) {
+              console.log(`#ERRO: ${resposta}`);
+            });
+    }
+   
     /*function buscarInstancia() {
         fetch('https://957f-3-85-160-217.ngrok-free.app/list-instances')
             .then(response => response.json())
