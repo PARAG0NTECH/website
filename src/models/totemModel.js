@@ -18,7 +18,7 @@ function listarTotem() {
 
 function listarDadosTotemAtual(idmaquina) {
     var instrucao = `
-        SELECT * FROM tb_statistics where id_computer = ${idmaquina};
+        SELECT * FROM tb_statistics where id_computer = ${idmaquina} order by id desc LIMIT 10;
     `
     return database.executar(instrucao);
 }
