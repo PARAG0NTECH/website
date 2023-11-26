@@ -132,8 +132,18 @@
                                     window.location = "./chart.html"
                                 }, 2000); 
                             }
+                            return
                         }
                     }
+                    Swal.fire({
+                        title: "Credenciais incorretas!",
+                        text: "As informações preenchidas não pertencem a nenhum usuário.",
+                        color: "#fff",
+                        icon: "error",
+                        iconColor: "#EB1616",
+                        background: "#191C24",
+        
+                      });
                 })
             } else {
                 console.log("Nenhum dado encontrado.");

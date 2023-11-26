@@ -1,6 +1,6 @@
 const { WebClient } = require('@slack/web-api');
 
-const web = new WebClient("xoxp-6214323179937-6224675652064-6270411657696-94d2160cde799165b3fd92ecd6d90ef2");
+const web = new WebClient("xoxp-6214323179937-6224675652064-6242565818582-4f0ad874e598807562b033154d28c1f0");
 
 async function sendAlert(message) {
     try {

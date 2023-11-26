@@ -30,6 +30,13 @@ function cadastrarMetrica(idEmpresa, ram, disk, cpu) {
     return database.executar(instrucao);
 }
 
+function puxarMetrica(idEmpresa) {
+    var instrucao = `
+        select * from tb_alerts where tb_companies_id = ${idEmpresa};
+    `
+    return database.executar(instrucao);
+}
+
 function listarEmpresas() {
     var instrucao = `
         select * from tb_companies;
@@ -86,6 +93,7 @@ module.exports = {
     listarAllUsers,
     editarUser,
     deletarUser,
+    puxarMetrica,
     gerarUserAtual,
     cadastrarEmpresa,
     cadastrarMetrica,

@@ -16,6 +16,10 @@ router.post("/cadastrarMetrica", function (req, res){
     pessoaController.cadastrarMetrica(req, res);
 });
 
+router.get("/puxarMetrica", function (req, res){
+    pessoaController.puxarMetrica(req, res);
+});
+
 router.get("/listar", function (req, res){
     pessoaController.listarUsers(req, res);
 });

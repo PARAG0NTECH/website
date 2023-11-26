@@ -273,11 +273,16 @@
 </html>
 <script>
     var accountId = localStorage.getItem('userId');
-    var idEmpresa = null;
+    var idEmpresa = localStorage.getItem("idEmpresa");
     
+    var percentual_cpu = null;
+    var percentual_disk = null;
+    var percentual_ram = null;
+
+    var ideal= 0;
     var critico = 0;
-    var emAlerta = 0;
-    var ideal = 0;
+
+    puxarMetricas()
 
     var ctx6 = $("#myBarChartArmazenamento").get(0).getContext("2d");
 
@@ -286,6 +291,46 @@
     var dados_mbbits_por_segundo = dados_mbbits.map(function (valor) {
         return valor;
     });
+
+    //SLACK
+    function mensagemSlack(mensagem){
+        fetch("/slack/send", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                text: mensagem,
+            })
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    //PUXAR METRICAS
+
+    function puxarMetricas(){
+        fetch(`/pessoa/puxarMetrica?tb_companies_id=${idDaEmpresa}`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+        }).then(function (resposta) {
+            console.log("resposta : ", resposta)
+
+            if (resposta.ok) {
+                
+                percentual_cpu = resposta[resposta.length - 1].percentual_cpu;
+                percentual_disk = resposta[resposta.length - 1].percentual_disk;
+                percentual_ram = resposta[resposta.length - 1].percentual_ram;
+
+            } else {
+                throw ("Erro ao puxar as métricas");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 
     //GRAFICOS
     
@@ -324,6 +369,19 @@
 
         for(i = 0; i <= 5; i++){
             grafico.data.datasets[0].data.push(arrayData[i])
+
+            if(arrayData[i].disk_usage >= percentual_disk){
+                mensagemSlack(`O uso do seu disco está crítica! ${arrayData[i].disk_usage}% de uso!!`);
+                Swal.fire({
+                    title: "Crítico!",
+                    text: `Sua memória ram está a ${arrayData[i].disk_usage}% de uso!`,
+                    color: "#fff",
+                    icon: "error",
+                    iconColor: "#EB1616",
+                    background: "#191C24",
+    
+                  });
+            }
         }
         grafico.update();
 
@@ -373,19 +431,26 @@
  
     function updateGraficoProcessador(grafico, arrayData){
 
-
         for(i = 0; i < 5; i++){
            
-            
-            if(arrayData[i].cpu_usage <= 35){
+            if(arrayData[i].cpu_usage < percentual_cpu){
+                mensagemSlack(`O uso do seu disco está crítica! ${arrayData[i].cpu_usage}% de uso!!`);
+                Swal.fire({
+                    title: "Crítico!",
+                    text: `Sua memória ram está a ${arrayData[i].cpu_usage}% de uso!`,
+                    color: "#fff",
+                    icon: "error",
+                    iconColor: "#EB1616",
+                    background: "#191C24",
+    
+                  });
                 ideal++
-            }else if(arrayData[i].cpu_usage > 35 && arrayData[i].cpu_usage < 65){
-                emAlerta++
             }else{
                 critico++
             }
         }   
-        var arrayAlertas = [critico, emAlerta, ideal]
+        var arrayAlertas = [ideal, critico]
+
         grafico.data.datasets[0].data = arrayAlertas 
         grafico.update();
         
@@ -432,7 +497,19 @@
         for(i=0;i< 5; i++){
             grafico.data.datasets[0].data.push(arrayData[i].ram_usage) 
             grafico.update();
+            
+            if(arrayData[i].ram_usage >= percentual_ram){
+                mensagemSlack(`O uso do seu disco está crítica! ${arrayData[i].ram_usage}% de uso!!`);
+                Swal.fire({
+                    title: "Crítico!",
+                    text: `Sua memória ram está a ${arrayData[i].ram_usage}% de uso!`,
+                    color: "#fff",
+                    icon: "error",
+                    iconColor: "#EB1616",
+                    background: "#191C24",
     
+                  });
+            }
         }
 
         var usoRam = document.getElementById("usoRam");
@@ -487,7 +564,7 @@
         for(i=0;i< 5; i++){
             grafico.data.datasets[0].data.push(arrayData[i].disk_usage) 
             grafico.update();
-    
+
         }
             
     }

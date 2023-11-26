@@ -63,6 +63,25 @@ function cadastrarEmpresa(req, res) {
     }
 }
 
+function puxarMetrica(){
+    idEmpresa = req.query.tb_companies_id;
+
+    pessoaModel.puxarMetrica(idEmpresa)
+        .then(function (resultado) {
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+
+            } else {
+                res.status(204).send("Nenhuma métrica encontrada!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao puxarMetrica()");
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 function cadastrarMetrica(req, res) {
     var idEmpresa = req.body.idEmpresaServer;
     var ram = req.body.ramServer;
@@ -225,6 +244,7 @@ module.exports = {
     gerarUserAtual,
     listarAllUsers,
     cadastrarEmpresa,
+    puxarMetrica,
     cadastrarMetrica,
     editarUserFkempresa,
     listarEmpresas
