@@ -11,6 +11,7 @@ var app = express();
 
 var pessoaRouter = require("./src/routes/pessoa");
 var totemRouter = require("./src/routes/totem");
+const slackRouter = require("./src/routes/slackRouter");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,9 +21,10 @@ app.use(cors());
 
 app.use("/pessoa", pessoaRouter);
 app.use("/totem", totemRouter);
+app.use("/slack", slackRouter);
 
 
-app.listen(PORTA, function () {
+app.listen(3000, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
     Você está rodando sua aplicação em Ambiente de ${process.env.AMBIENTE_PROCESSO} \n
     \t\tSe "desenvolvimento", você está se conectando ao banco LOCAL (MySQL Workbench). \n
