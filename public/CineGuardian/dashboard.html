@@ -303,7 +303,7 @@
         var spanNameAtual = document.getElementById("span_nameUser");
         var typeUser = document.getElementById("type_user");
 
-        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+        fetch('/pessoa/listarAllUsers', { cache: 'no-store' }).then(function (response) {
             console.log(response);
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -376,13 +376,15 @@
                 
                     trTotem.innerHTML += `
                     
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>ID-${resposta[i].id}</td>
-                        <td>${resposta[i].hostname}</td>
-                        <td
-                            style="background-color: ${cor}; color:white;  text-shadow: 1px 1px 2px #000;font-weight: 600">
-                            ${mensagem}
-                        </td>
+                        <li>
+                            <td><input class="form-check-input" type="checkbox"></td>
+                            <td>ID-${resposta[i].id}</td>
+                            <td>${resposta[i].hostname}</td>
+                            <td
+                                style="background-color: ${cor}; color:white;  text-shadow: 1px 1px 2px #000;font-weight: 600">
+                                ${mensagem}
+                            </td>
+                        </li>
                     `;
 
                     document.getElementById('listaTotens').appendChild(trTotem);

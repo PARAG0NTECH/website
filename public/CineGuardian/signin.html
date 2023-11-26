@@ -98,7 +98,7 @@
     function verificarCadastro() {
         var cadastroExiste = false;
 
-        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+        fetch('/pessoa/listarAllUsers', { cache: 'no-store' }).then(function (response) {
             console.log(response);
 
             if (response.ok) {
@@ -107,7 +107,9 @@
                         
                         if(resposta[i].email == ipt_email.value ){
 
-                           localStorage.setItem('userId', resposta[i].id);
+                            localStorage.setItem('userId', resposta[i].id);
+                            localStorage.setItem('idEmpresa', resposta[i].fk_empresa);
+                            localStorage.setItem("nomeUser", resposta[i].nome)
                            console.log(resposta[i].type_user);
 
                             Swal.fire({

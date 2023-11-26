@@ -19,8 +19,13 @@ router.post("/cadastrarMetrica", function (req, res){
 router.get("/listar", function (req, res){
     pessoaController.listarUsers(req, res);
 });
+
 router.get("/listarEmpresas", function (req, res){
     pessoaController.listarEmpresas(req, res);
+});
+
+router.get("/listarAllUsers", function (req, res){
+    pessoaController.listarAllUsers(req, res);
 });
 
 router.get("/userAtual", function (req, res){
@@ -29,6 +34,10 @@ router.get("/userAtual", function (req, res){
 
 router.put("/editar/:id", function(req, res){
     pessoaController.editarUser(req, res);
+});
+
+router.post("/editarUserFkempresa", function(req, res){
+    pessoaController.editarUserFkempresa(req, res);
 });
 
 router.delete("/delete/:id", function(req, res){

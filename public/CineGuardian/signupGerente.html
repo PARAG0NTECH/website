@@ -58,14 +58,6 @@
                             <input type="text" class="form-control" id="ipt_nome" placeholder="Nome Exemplo">
                             <label for="floatingText">Nome de usuário</label>
                         </div>
-                        <!-- <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="ipt_nomeEmpresa" placeholder="Empresa">
-                            <label for="floatingText">Nome da Empresa</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="ipt_cnpjEmpresa" placeholder="CNPJ">
-                            <label for="floatingText">CNPJ da Empresa</label>
-                        </div> -->
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="ipt_email" placeholder="name@example.com">
                             <label for="floatingInput">E-mail</label>
@@ -73,6 +65,14 @@
                         <div class="form-floating mb-4">
                             <input type="password" class="form-control" id="ipt_password" placeholder="Senha">
                             <label for="floatingPassword">Senha</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="ipt_nomeEmpresa" placeholder="Empresa">
+                            <label for="floatingText">Nome da Empresa</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="ipt_cnpjEmpresa" placeholder="CNPJ">
+                            <label for="floatingText">CNPJ da Empresa</label>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4" onclick="verificarCadastro()">Cadastrar</button>
                         <p class="text-center mb-0">Já tem uma conta ? <a href="./signin.html">Login</a></p>
@@ -103,11 +103,63 @@
 </html>
 <script>
 
+    nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
+    cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
+
+    var idEmpresa = null;
+
+    function pegarIdUser(){
+        fetch('/pessoa/listarAllUsers', { cache: 'no-store' }).then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        if(resposta[i].email == ipt_email.value ){
+                            localStorage.setItem('userId', resposta[i].id);
+                           
+                            cadastraEmpresa(resposta[i].id)
+                            return
+                        }
+                    }
+                })
+            } else {
+                console.log("Nenhum dado encontrado.");
+            }
+        }).catch(function (error) {
+            console.error("Erro na obtenção dos dados para a table : " + error.message);
+        });
+    }
+
+    function atualizarFkEmpresa(idEmpresa) {
+        fetch("/pessoa/editarUserFkempresa", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idEmpresaVar: idEmpresa,
+                userIdVar: localStorage.getItem("userId"),
+            }),
+          })
+            .catch(function (resposta) {
+              console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
     function cadastraEmpresa(idUsuario){
 
-                
-        nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
-        cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
+        if (ipt_nomeEmpresa.value == "" || ipt_cnpjEmpresa.value == "") {
+            Swal.fire({
+                title: "Erro de preenchimento!",
+                text: "Preencha as informações da empresa de maneira correta!.",
+                color: "#fff",
+                icon: "error",
+                iconColor: "#EB1616",
+                background: "#191C24",
+
+              });
+            return false;
+        }
 
         fetch("/pessoa/cadastrarEmpresa", {
             method: "POST",
@@ -115,8 +167,8 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                nomeEmpresaVar: nomeEmpresa,
-                cnpjEmpresaVar: cnpjEmpresa,
+                nomeEmpresaVar: ipt_nomeEmpresa.value,
+                cnpjEmpresaVar: ipt_cnpjEmpresa.value,
                 userIdVar: idUsuario,
             }),
           })
@@ -124,19 +176,10 @@
               console.log("resposta: ", resposta);
       
               if (resposta.ok) {
-
-                Swal.fire({
-                    title: "Empresa alterada com sucesso!",
-                    text: "Suas credenciais foram alteradas com sucesso!.",
-                    color: "#fff",
-                    icon: "success",
-                    iconColor: "#EB1616",
-                    background: "#191C24",
-    
-                  });
-
+                encontrarEmpresa()
+                return
               } else {
-                throw "Houve um erro ao fazer o editarEmpresa()!";  
+                throw "Houve um erro ao fazer o cadastrarEmpresa()!";  
               }
             })
             .catch(function (resposta) {
@@ -144,14 +187,44 @@
             });
     }
 
+    function encontrarEmpresa(){
+        fetch('/pessoa/listarEmpresas', { cache: 'no-store' }).then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    for (let i = 0; i < resposta.length; i++) {
+                        if(resposta[i].name == ipt_nomeEmpresa.value){
+                            
+                           localStorage.setItem('idEmpresa', resposta[i].id);
+                            atualizarFkEmpresa(resposta[i].id)
+                           return;
+                        }
+                    }
+                })
+            } else {
+                console.log("Nenhum dado encontrado.");
+            }
+        }).catch(function (error) {
+            console.error("Erro na obtenção dos dados para a encontrarEmpresas() : " + error.message);
+        });
+    }
+
     function cadastrarUser() {
         var nomeVar = ipt_nome.value;
         var emailVar = ipt_email.value;
         var passwordVar = ipt_password.value;
         var donoVar = "dono"
-        console.log(nomeVar, emailVar, passwordVar);
-        if (nomeVar == "" || emailVar == "" || passwordVar == "") {
-            alert("Preencha os campos corretamente");
+
+        if (ipt_nome.value == "" || ipt_email.value == "" || ipt_password.value == "") {
+            Swal.fire({
+                title: "Erro de preenchimento!",
+                text: "Preencha suas informações da maneira correta!.",
+                color: "#fff",
+                icon: "error",
+                iconColor: "#EB1616",
+                background: "#191C24",
+
+              });
             return false;
         }
         fetch("/pessoa/cadastrar", {
@@ -160,15 +233,17 @@
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                passwordServer: passwordVar,
+                nomeServer: ipt_nome.value,
+                emailServer: ipt_email.value,
+                passwordServer: ipt_password.value,
                 tipoUserServer: donoVar
             })
         }).then(function (resposta) {
 
             if (resposta.ok) {
             
+                pegarIdUser()
+
                 Swal.fire({
                     title: "Seja Bem-vindo!",
                     text: "Seu cadastro foi realizado com sucesso!!.",
@@ -179,8 +254,8 @@
     
                   });
 
-                  localStorage.setItem('userName', nomeVar);
-                  localStorage.setItem('userEmail', emailVar);
+                  localStorage.setItem('userName', ipt_nome.value);
+                  localStorage.setItem('userEmail', ipt_email.value);
 
                 setTimeout(() => {
                     window.location = "./dashboard.html"
@@ -194,25 +269,16 @@
         });
         return false
     }
-
-
+    
     function verificarCadastro() {
-        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+        fetch('/pessoa/listarAllUsers', { cache: 'no-store' }).then(function (response) {
             console.log(response);
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    
-                    for (let i = 0; i <= resposta.length; i++) {
-                        if(resposta[i].email == ipt_email.value ){
-                            Swal.fire({
-                                title: "E-mail inválido!",
-                                text: "Este e-mail já possui um cadastro!.",
-                                color: "#fff",
-                                icon: "error",
-                                iconColor: "#EB1616",
-                                background: "#191C24",
-                              });
-                           return false;
+                    for (let i = 0; i < resposta.length; i++) {
+                        if(resposta[i].name == ipt_nome.value ){
+                           
+                           return ;
                         }
                     }
                     cadastrarUser()

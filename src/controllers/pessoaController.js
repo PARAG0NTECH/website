@@ -2,7 +2,7 @@ var pessoaModel = require("../models/pessoaModel");
 
 
 function cadastrar(req, res) {
-    var idEmpresa = req.body.fkEmpresaServer;
+
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var password = req.body.passwordServer;
@@ -12,14 +12,12 @@ function cadastrar(req, res) {
         res.status(400).send("Seu nome está indefinido");
     } else if (email == undefined) {
         res.status(400).send("Seu email está indefinido");
-    } else if (idEmpresa == undefined) {
-        res.status(400).send("Seu email está indefinido");
     } else if (tipoUser == undefined) {
         res.status(400).send("Seu tipo está indefinido");
     } else if (password == undefined) {
         res.status(400).send("Seu sexo está indefinido");
     } else {
-        pessoaModel.cadastrar(nome, email, password, tipoUser, idEmpresa)
+        pessoaModel.cadastrar(nome, email, password, tipoUser)
             .then(
                 function (result) {
                     res.json(result);
@@ -39,8 +37,6 @@ function cadastrarEmpresa(req, res) {
     var cnpjEmpresa = req.body.cnpjEmpresaVar;
     var userId = req.body.userIdVar;
 
-    console.log(nomeEmpresa, cnpjEmpresa, userId);
-
     if (nomeEmpresa == undefined) {
         res.status(400).send("O nome da empresa está indefinido");
 
@@ -51,7 +47,7 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("O id do usuário está indefinido");
 
     } else {
-        console.log("Estou pra entrar na cadastrar()")
+        console.log("Estou pra entrar na cadastrarEmpresa()")
         pessoaModel.cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, userId)
             .then(
                 function (result) {
@@ -121,7 +117,26 @@ function gerarUserAtual(req, res) {
 }
 
 function listarUsers(req, res) {
-    pessoaModel.listarUsers()
+    idEmpresa = req.query.tb_companies_id;
+
+    pessoaModel.listarUsers(idEmpresa)
+        .then(function (resultado) {
+
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+
+            } else {
+                res.status(204).send("Nenhum Resultado Encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o login");
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function listarAllUsers(req, res) {
+    pessoaModel.listarAllUsers()
         .then(function (resultado) {
 
             if (resultado.length > 0) {
@@ -150,6 +165,24 @@ function listarEmpresas(req, res) {
         }).catch(function (erro) {
             console.log(erro);
             console.log("Houve um erro ao realizar o listarEmpresas()");
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function editarUserFkempresa(req, res) {
+    var idEmpresa = req.body.idEmpresaVar;
+    var userId = req.body.userIdVar;
+
+    console.log("editarUserFkempresa()")
+    console.log(idEmpresa)
+    console.log(userId)
+
+    pessoaModel.editarUserFkempresa(idEmpresa, userId)
+        .then(function (resultado) {
+            res.json(resultado);
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o post : " + erro.sqlMessage);
             res.status(500).json(erro.sqlMessage);
         });
 }
@@ -190,7 +223,9 @@ module.exports = {
     editarUser,
     deletarUser,
     gerarUserAtual,
+    listarAllUsers,
     cadastrarEmpresa,
     cadastrarMetrica,
+    editarUserFkempresa,
     listarEmpresas
 }

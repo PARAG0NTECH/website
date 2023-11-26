@@ -12,7 +12,7 @@ router.post("/metricas", function (req, res) {
     totemController.metricaTotem(req, res);
 });
 
-router.get("/listar/:tb_companies_id", function (req, res) {
+router.get("/listar", function (req, res) {
     totemController.listarTotem(req, res);
 });
 router.get("/dadosAtual", function (req, res) {

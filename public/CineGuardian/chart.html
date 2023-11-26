@@ -527,7 +527,7 @@
         var spanNameAtual = document.getElementById("span_nameUser");
         var typeUser = document.getElementById("type_user");
 
-        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+        fetch('/pessoa/listarAllUsers', { cache: 'no-store' }).then(function (response) {
             console.log(response);
             if (response.ok) {
                 response.json().then(function (resposta) {

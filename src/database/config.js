@@ -38,8 +38,8 @@ var sql = require('mssql');
 var mySqlConfig = {
     host: "localhost",
     database: "cineguardian",
-    user: "aluno",
-    password: "aluno",
+    user: "admin",
+    password: "admin",
 };
 
 function executar(instrucao) {

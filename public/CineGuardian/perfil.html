@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="#" class="nav-item nav-link" id="pag_totens"><i class="fa fa-tachometer-alt me-2"></i>Totens</a>
+                    <a href="./dashboard.html" class="nav-item nav-link" id="pag_totens"><i class="fa fa-tachometer-alt me-2"></i>Totens</a>
                     <a href="./cadastroTecnico.html" id="pag_tecnico" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Cadastrar Técnico</a>
                     <a href="./chart.html" class="nav-item nav-link" id="pag_estatisticas"><i class="fa fa-chart-bar me-2"></i>Estatísticas</a>
                 </div>
@@ -216,7 +216,7 @@
                                 <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700;">E-mail:</span> <span id="userEmail">-------</span></p>
                             </li>
                             <li>
-                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Senha:</span> <span>**********</span>
+                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Cargo: </span> <span id="userCargo"></span>
                             </li>
                             <li>   
                                 <button onclick="editarperfil()" class="btn btn-primary py-3 w-100 mb-4" >
@@ -247,6 +247,7 @@
                             .listaTecnicos{
                                 flex-wrap: wrap;
                                 list-style: none; 
+                                text-wrap: wrap;
                                 flex-direction: column;
                                 height: 50vh;
                                 width: auto;
@@ -275,7 +276,6 @@
                             }
 
                         </style>
-
                         <div style="
                         display: flex;
                         flex-wrap: wrap; 
@@ -283,59 +283,12 @@
                         justify-content: space-around;
                         align-items: center;">
                             <div>
-                                <h3 style="text-align: center;">Técnicos cadastrados:</h3>
-                                <ul class="listaTecnicos" id="listaTecnicos">
-                                    <li>
-                                        <img src="./img/user-img.png">
-                                        <div>
-                                            <p>Jorge01</p>
-                                            <p>jorge01@gmail.com</p>
-                                            <p>Técnico</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="./img/user-img.png">
-                                        <div>
-                                            <p>Jorge02</p>
-                                            <p>jorge02@gmail.com</p>
-                                            <p>Técnico</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="./img/user-img.png">
-                                        <div>
-                                            <p>Jorge03</p>
-                                            <p>jorge03@gmail.com</p>
-                                            <p>Técnico</p>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <h3 style="text-align: center; font-size: 2rem">Técnicos cadastrados:</h3>
+                                <ul class="listaTecnicos" id="listaTecnicos"></ul>
                             </div>
                             <div>
-                                <h3 style="text-align: center;">Totens cadastrados:</h3>
-                                <ul class="listaTecnicos" id="listaTotens">
-                                    <li>
-                                        <img src="./img/totem.png">
-                                        <div>
-                                            <p>ID-001</p>
-                                            <p>Reiniciadas: 0</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="./img/totem.png">
-                                        <div>
-                                            <p>ID-002</p>
-                                            <p>Reiniciadas: 2</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="./img/totem.png">
-                                        <div>
-                                            <p>ID-003</p>
-                                            <p>Reiniciadas: 4</p>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <h3 style="text-align: center; font-size: 2rem;">Totens cadastrados:</h3>
+                                <ul class="listaTecnicos" id="listaTotens"></ul>
                             </div>
                         </div>
                         
@@ -366,11 +319,17 @@
     //localStorage.setItem('userId', );
 
     var userId = localStorage.getItem('userId');
+    var idEmpresa = localStorage.getItem("idEmpresa")
+    var nomeUser = localStorage.getItem("userName ")
+
+    console.log("   userId: "+userId);
+    console.log("idEmpresa: "+idEmpresa);
+    console.log(" nomeUser: "+nomeUser);
 
     var empresaNome = "cadastre sua empresa"
     var empresaCNPJ = "cadastre o CNPJ"
 
-    listarTotem();
+    //listarTotem();
     //FUNCAO PARA PUXAR OS TOTEMS CADASTRADOS NAQUELE CLIENTE
 
     //FUNCAO PARA PODER EDITAR O PERFIL
@@ -456,7 +415,7 @@
             <div style="display: flex; flex-direction: column; justify-content: start; ">
                 <div class="form-floating mb-3">
                     <input type="username" class="form-control" id="ipt_username" placeholder="Nome usuário">
-                    <label for="floatingInput" id="nomeLabelEditor">${userName}</label>
+                    <label for="floatingInput" id="nomeLabelEditor">${nomeUser}</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="ipt_email" placeholder="E-mail">
@@ -527,122 +486,61 @@
     
     }
 
-    function listarTecnicos(){
-        
-        var arrayTecnicos = [];
-        var companies_id;
+    function listarTecnicos(arrayFuncionarios){
 
-        fetch("/pessoas/listar", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              companies_idServer: companies_id
-            }),
-          })
-            .then(function (resposta) {
-              console.log("resposta: ", resposta);
-      
-              if (resposta.ok) {
-                
-                arrayTecnicos.push(resposta)
+        for(i = 0; i < arrayFuncionarios.length; i++){
 
-                alert("listarTecnicos realizado com sucesso!!!");
-                
-                for(i = 0; i < arrayTecnicos.length(); i++){
-                    var divTecnico = document.createElement('li');
-                    divTecnico.innerHTML +=`
-                    
-                    <img src="./img/user-img.png">
-                    <div>
-                        <p>Jorge01</p>
-                        <p>jorge01@gmail.com</p>
-                        <p>Técnico</p>
-                    </div>
-                    `;
+            var liTecnico = document.createElement('li');
+            liTecnico.innerHTML +=`
+            
+                <img src="./img/user-img.png">
+                <div>
+                    <p>${arrayFuncionarios[i].name}</p>
+                    <p>Cargo: <span style="color: #fff">${arrayFuncionarios[i].type_user}</span></p>
+                    <p style="font-size: 1.3rem; color: #fff">${arrayFuncionarios[i].email}</p>
+                </div>
+            `;
 
-                    document.getElementById('listaTecnicos').appendChild(divTecnico);
-                }
+            document.getElementById('listaTecnicos').appendChild(liTecnico);
+        }
 
-              } else {
-                throw "Houve um erro ao realizar o listarTecnicos()!";  
-              }
-            })
-            .catch(function (resposta) {
-              console.log(`#ERRO: ${resposta}`);
-            });
     }
 
     function listarTotem(){
 
-        var arrayTotens = [];
-        var companies_id;
-
-        fetch("/totem/listar", {
-            method: "POST",
+        fetch(`/totem/listar?tb_companies_id=${idEmpresa}`, {
+            method: "GET",
             headers: {
-              "Content-Type": "application/json",
+              "Content-type": "application/json",
             },
-            body: JSON.stringify({
-              companies_idServer: companies_id
-            }),
-          })
-            .then(function (resposta) {
-              console.log("resposta: ", resposta);
-      
-              if (resposta.ok) {
-                
-                arrayTotens.push(resposta)
 
-                alert("listarTotens realizado com sucesso!!!");
+          }) .then(function (response) {
+            console.log(response);
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Erro na requisição. Status: " + response.status);
+            }
+        })
+            .then(function (resposta) {
+                console.log(resposta)
+
                 
-                for(i = 0; i < arrayTotens.length(); i++){
-                    var divTotem = document.createElement('li');
-                    divTotem.innerHTML += `
+                
+                for(i = 0; i < resposta.length; i++){
+                    var liTotem = document.createElement('li');
+                    liTotem.innerHTML += `
                     
                         <img src="./img/totem.png">
                         <div>
-                            <p>ID-001</p>
-                            <p>Reiniciadas: 0</p>
+                            <p>ID-${resposta[i].id}</p>
+                            <p>Apelido: ${resposta[i].hostname}</p>
                         </div>
-
+                        
                     `;
 
-                    document.getElementById('listaTotens').appendChild(divTotem);
+                    document.getElementById('listaTotens').appendChild(liTotem);
                 }
-
-              } else {
-                throw "Houve um erro ao realizar o listarTotem()!";
-              }
-            })
-            .catch(function (resposta) {
-              console.log(`#ERRO: ${resposta}`);
-            });
-    }
-    
-    function listarEmpresa(id){
-
-        fetch("/pessoa/listarEmpresas", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userIdVar: id,
-            }),
-          })
-            .then(function (resposta) {
-              console.log("resposta: ", resposta);
-      
-              if (resposta.ok) {
-                
-                empresaNome = resposta[i].name;
-                empresaCNPJ = resposta[i].cnpj;
-
-              } else {
-                throw "Houve um erro ao realizar o listarEmpresa()!";
-              }
             })
             .catch(function (resposta) {
               console.log(`#ERRO: ${resposta}`);
@@ -650,40 +548,33 @@
     }
 
     function gerarDadosUserAtual() {
-        var h6NameAtual = document.getElementById("h6_name");
-        var spanNameAtual = document.getElementById("span_nameUser");
-        var typeUser = document.getElementById("type_user");
-        
-        var perfilNome = document.getElementById("userNome");
-        var perfilEmail = document.getElementById("userEmail");
 
-        fetch('/pessoa/listar', { cache: 'no-store' }).then(function (response) {
+        fetch(`/pessoa/listar?tb_companies_id=${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
             console.log(response);
+
             if (response.ok) {
                 response.json().then(function (resposta) {
+                    
+                    //var nome = document.getElementById("userNome");
+                    //var email = document.getElementById("userEmail");
+                    //var typeUser = document.getElementById("userCargo");
+
+                    listarTecnicos(resposta)
 
                     for (let i = 0; i < resposta.length; i++) {
+                        if (resposta[i].id == userId) { 
 
-                        if (resposta[i].id == userId) {
-                            console.log(resposta[i].id)
-                            
-                            userName = resposta[i].name
-                            userEmail = resposta[i].email
+                            var nome = document.getElementById("userNome");
+                            var email = document.getElementById("userEmail");
+                            var typeUser = document.getElementById("userCargo");
 
-                            h6NameAtual.textContent = resposta[i].name;
-                            spanNameAtual.textContent = resposta[i].name;
-                            typeUser.textContent = resposta[i].type_user; 
-                            perfilNome.innerHTML = `${resposta[i].name}`;
-                            perfilEmail.innerHTML = `${resposta[i].email}`;
-                            listarEmpresa(resposta[i].id);
-                            
-                                if(resposta[i].type_user == "dono"){
-                                    pag_estatisticas.style.display = "none";
+                            nome.innerHTML = `<span>${resposta[i].name}</span>`
+                            email.innerHTML = resposta[i].email
+                            typeUser.innerHTML = resposta[i].type_user
 
-                                }else{
-                                    pag_totens.style.display = "none";
-                                    pag_tecnico.style.display = "none";
-                                }
+
+                            //idEmpresa = resposta[i].fk_empresa
+                            listarTotem()
                             console.log(resposta[i].email)
                             console.log(resposta[i].password)
                             return true
@@ -697,6 +588,7 @@
             console.error("Erro na obtenção dos dados para a table : " + error.message);
         });
     }
+
 
     /*function buscarInstancia() {
         fetch('https://957f-3-85-160-217.ngrok-free.app/list-instances')
