@@ -18,7 +18,6 @@ AWS.config.update({
 const ec2 = new AWS.EC2();
 
 
-
 // Endpoint para reiniciar uma instância
 app.post('/restart-instance', (req, res) => {
   console.log("Entrei na restart-instance");

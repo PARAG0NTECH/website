@@ -86,7 +86,7 @@ function cadastrarMetrica(req, res) {
     var idEmpresa = req.body.idEmpresaServer;
     var ram = req.body.ramServer;
     var cpu = req.body.cpuServer;
-    var disk = req.body.diskServer;
+    var disk = req.body.diskEServer;
 
     if (idEmpresa == undefined) {
         res.status(400).send("Seu id empresa está indefinido");

@@ -52,6 +52,7 @@ function listarTotem(req, res) {
 
 function listarDadosTotemAtual(req, res) {
     var maquinaAtual = req.query.idmaquina;
+    
     totemModel.listarDadosTotemAtual(maquinaAtual)
         .then(function (resultado) {
                         if (resultado.length > 0) {

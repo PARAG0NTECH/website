@@ -32,7 +32,7 @@ function cadastrarMetrica(idEmpresa, ram, disk, cpu) {
 
 function puxarMetrica(idEmpresa) {
     var instrucao = `
-        select * from tb_alerts where tb_companies_id = ${idEmpresa};
+        select * from tb_alerts where tb_companies_id = ${idEmpresa};       
     `
     return database.executar(instrucao);
 }
