@@ -206,7 +206,7 @@
                             <h3 class="mb-4">Processador</h3>
                             <span>Processador : <span style="font-size: 1rem; color: #fff; font-weight: bold">Intel</span></p></span>
                             <span>Arquitetura: <span style="font-size: 1rem; color: #fff; font-weight: bold">x64</span></p></span>
-                            <span id="so">Sistema Operacional: </span>
+                            <span id="so">Sistema Operacional: </p></span>
                             <span id="usoCpu">Porcentagem de Uso: </span>
                             <h5 id="porcentagemMaquinas"></h5>
                             <canvas id="myBarChartProcessador"></canvas>
@@ -233,13 +233,13 @@
                                 <canvas id="myBarChartArmazenamento"></canvas>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-xl-6">
+                        <!-- <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h3 class="mb-4">Internet - MB - Giga</h3>
                                 <h5 id="reiniciadasDia"></h5>
                                 <canvas id="myBarChartInternet"></canvas>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -283,9 +283,14 @@
     var nick_name = document.getElementById("nick_name");
     var info = document.getElementById("info");
 
-    var percentual_cpu = null;
-    var percentual_disk = null;
-    var percentual_ram = null;
+    var percentual_cpu = 80;
+    var percentual_disk = 80;
+    var percentual_ram = 80;
+
+    var data = null;
+    var horas = null;
+    var minutos = null;
+    var segundos  = null;
 
     var ideal = "rgb(14, 173, 105)";
     var critico = "rgb(235 22 22 / 47%)";
@@ -375,14 +380,16 @@
                 fill: true,
                 borderColor: cor,
                 backgroundColor: cor,
-                tension: 0.1
-            }]
+                tension: 0.1,
+                color : "#fff",
+            }],
+
         };
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.disk_total);
+            labels.push(horas+":"+minutos+":"+segundos);
             dados.datasets[0].data.push(registro.disk_usage);
         }
 
@@ -398,12 +405,30 @@
         const config = {
             type: 'line',
             data: dados,
+            options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    color: "#fff",
+                    max: 100,
+                    ticks: {
+                        color: "#fff",
+                      }
+                  },
+                  x: {
+                    ticks: {
+                      color: "#fff",
+                    }
+                  }
+                },
+            } 
+                  
         };
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
             document.getElementById(`myBarChartArmazenamento`),
-            config
+            config,
         );
 
         setTimeout(() => updateGraficoArmazenamento(idMaquina, dados, myChart), 2000);
@@ -431,9 +456,11 @@
                         console.log(dados.labels[dados.labels.length - 1])
                         console.log("---------------------------------------------------------------")
                     } else {
+
+
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].disk_usage); // incluir um novo momento
+                        dados.labels.push(horas+":"+minutos+":"+segundos); // incluir um novo momento
 
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                         dados.datasets[0].data.push(novoRegistro[0].disk_usage); // incluir uma nova medida de umidade
@@ -446,9 +473,9 @@
                     var totalArmazenamento = document.getElementById("totalArmazenamento");
                     var utilizadoArmazenamento = document.getElementById("utilizadoArmazenamento");
                     
-                    var total = novoRegistro[novoRegistro.length - 1].disk_total 
-                    var utilizado = novoRegistro[novoRegistro.length - 1].disk_usage
-                    var porcentagemUso = (utilizado / total) * 100
+                    var total = Math.round(novoRegistro[novoRegistro.length - 1].disk_total) 
+                    var utilizado = Math.round(novoRegistro[novoRegistro.length - 1].disk_usage)
+                    var porcentagemUso = Math.round((utilizado / total) * 100)
             
                     totalArmazenamento.innerHTML =`<p>Total: <span style="font-size: 1rem; color: #fff; font-weight: bold">${total} GB</span> </p>`;
                     utilizadoArmazenamento.innerHTML =`<p>Utilizado: <span style="font-size: 1rem; color: #fff; font-weight: bold">${utilizado} GB</span></p>`;
@@ -482,7 +509,7 @@
          Swal.fire({
             position: "top",
             title: "Alerta!",
-            text: "Seu HD se encontra em leitura crítica!.",
+            text: "Seu processador está com o uso muito alto!.",
             color: "#fff",
             icon: "warning",
             iconColor: "#EB1616",
@@ -490,7 +517,7 @@
             showConfirmButton: false,
             timer: 1500
           });
- 
+        }
         // Criando estrutura para plotar gráfico - labels
         let labels = [];
 
@@ -503,14 +530,14 @@
                 fill: true,
                 borderColor: cor,
                 backgroundColor: cor,
-                tension: 0.1
-            }]
+                tension: 0.1,
+            }],
         };
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.cpu_total);
+            labels.push(horas+":"+minutos+":"+segundos);
             dados.datasets[0].data.push(registro.cpu_usage);
         }
 
@@ -526,6 +553,22 @@
         const config = {
             type: 'line',
             data: dados,
+            options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        color: "#fff",
+                      } 
+                  },
+                  x: {
+                    ticks: {
+                      color: "#fff",
+                    }
+                  }
+                },
+            } 
         };
 
         // Adicionando gráfico criado em div na tela
@@ -536,8 +579,7 @@
 
         setTimeout(() => updateGraficoProcessador(idMaquina, dados, myChart), 2000);
     }
-    }
- 
+    
     function updateGraficoProcessador(idMaquina, dados, myChart){
         fetch(`/totem/dadosAtual?idmaquina=${idMaquina}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -561,7 +603,7 @@
                     } else {
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].cpu_usage); // incluir um novo momento
+                        dados.labels.push(horas+":"+minutos+":"+segundos); // incluir um novo momento
 
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                         dados.datasets[0].data.push(novoRegistro[0].cpu_usage); // incluir uma nova medida de umidade
@@ -570,9 +612,8 @@
                     }
 
 
-                    var total = novoRegistro[novoRegistro.length - 1].cpu_total
-                    var utilizado = novoRegistro[novoRegistro.length - 1].cpu_usage
-                    var porcentagemUso = (novoRegistro[novoRegistro.length - 1].cpu_usage / novoRegistro[novoRegistro.length - 1].cpu_total) * 100
+                    
+                    var utilizado = Math.round(novoRegistro[[novoRegistro.length - 1]].cpu_usage)
                     var sistemaOperacional = novoRegistro[novoRegistro.length - 1].system_info
             
                     var so = document.getElementById("so");
@@ -581,12 +622,13 @@
                     so.innerHTML = `<p>Sistema Operacional: <span style="font-size: 1rem; color: #fff; font-weight: bold">Ubuntu</span></p>`
                     usoCPU.innerHTML = `<p>Processador: <span style="font-size: 1rem; color: #fff; font-weight: bold">${utilizado}%</span></p>`
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => updateGraficoArmazenamento(idMaquina, dados, myChart), 2000);
+                    proximaAtualizacao = setTimeout(() => updateGraficoProcessador(idMaquina, dados, myChart), 2000);
                 });
+
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => updateGraficoArmazenamento(idMaquina, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => updateGraficoProcessador(idMaquina, dados, myChart), 2000);
             }
         })
             .catch(function (error) {
@@ -607,7 +649,7 @@
         Swal.fire({
             position: "top",
             title: "Alerta!",
-            text: "Seu HD se encontra em leitura crítica!.",
+            text: "Sua memória ram está com uso muito alto!.",
             color: "#fff",
             icon: "warning",
             iconColor: "#EB1616",
@@ -629,14 +671,15 @@
                 fill: true,
                 borderColor: cor,
                 backgroundColor: cor,
-                tension: 0.1
-            }]
+                tension: 0.1,
+            }],
+            
         };
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.ram_total);
+            labels.push(horas+":"+minutos+":"+segundos);
             dados.datasets[0].data.push(registro.ram_usage);
         }
 
@@ -652,6 +695,22 @@
         const config = {
             type: 'line',
             data: dados,
+            options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    max: resposta[0].ram_total,
+                    ticks: {
+                        color: "#fff",
+                      }
+                  },
+                  x: {
+                    ticks: {
+                      color: "#fff",
+                    }
+                  }
+                },
+            } 
         };
 
         // Adicionando gráfico criado em div na tela
@@ -685,7 +744,7 @@
                     } else {
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].ram_usage); // incluir um novo momento
+                        dados.labels.push(horas+":"+minutos+":"+segundos); // incluir um novo momento
 
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                         dados.datasets[0].data.push(novoRegistro[0].ram_usage); // incluir uma nova medida de umidade
@@ -697,21 +756,21 @@
                     var totalRam = document.getElementById("totalRam");
                     var utilizadoRam = document.getElementById("utilizadoRam");
                     
-                    var total = novoRegistro[novoRegistro.length - 1].ram_total 
-                    var utilizado = novoRegistro[novoRegistro.length - 1].ram_usage
-                    var porcentagemUso = (utilizado / total) * 100
+                    var total = Math.round(novoRegistro[novoRegistro.length - 1].ram_total) 
+                    var utilizado = Math.round(novoRegistro[novoRegistro.length - 1].ram_usage)
+                    var porcentagemUso = Math.round((utilizado / total) * 100)
             
                     totalRam.innerHTML =`<p>Total: <span style="font-size: 1rem; color: #fff; font-weight: bold">${total} GB</span> </p>`;
                     utilizadoRam.innerHTML =`<p>Utilizado: <span style="font-size: 1rem; color: #fff; font-weight: bold">${utilizado} GB</span></p>`;
                     usoRam.innerHTML =`Porcentagem de uso: <spam style="font-size: 1rem; color: #fff; font-weight: bold">${porcentagemUso}%</spam>`;
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => updateGraficoArmazenamento(idMaquina, dados, myChart), 2000);
+                    proximaAtualizacao = setTimeout(() => updateGraficoRam(idMaquina, dados, myChart), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => updateGraficoArmazenamento(idMaquina, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => updateGraficoRam(idMaquina, dados, myChart), 2000);
             }
         })
             .catch(function (error) {
@@ -720,118 +779,6 @@
 
 
        
-    }
-
-    
-    function graficoInternet(resposta, idMaquina){
-        //console.log('iniciando plotagem do gráfico...');
-        var cor = ideal;
-
-        if(resposta[0].ram_usage >= percentual_ram){
-            mensagemSlack(`Alerta! Sua internet se encontra em ${resposta[0].ram_usage}% de uso`)
-            cor = critico
-            Swal.fire({
-                position: "top",
-                title: "Alerta!",
-                text: "Sua internet está crítica!.",
-                color: "#fff",
-                icon: "warning",
-                iconColor: "#EB1616",
-                background: "#191C24",
-                showConfirmButton: false,
-                timer: 1500
-              });
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Leitura',
-                data: [],
-                fill: true,
-                borderColor: cor,
-                backgroundColor: cor,
-                tension: 0.1
-            }]
-        };
-
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.umidade);
-        }
-
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myBarChartInternet`),
-            config
-        );
-
-        setTimeout(() => updateGraficoInternet(idMaquina, dados, myChart), 2000);
-    }}
-
-    function updateGraficoInternet(idMaquina, dados, myChart){
-        fetch(`/totem/dadosAtual?idmaquina=${idMaquina}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-
-                    if (novoRegistro[0].disk_total * 1.4 == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        //avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].disk_total)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].disk_total * 1.4); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].disk_total * 1.4); // incluir uma nova medida de umidade
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => updateGraficoArmazenamento(idMaquina, dados, myChart), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => updateGraficoArmazenamento(idMaquina, dados, myChart), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-            
     }
 
     //TOTEM
@@ -982,7 +929,12 @@
                         for (let i = 0; i <= resposta.length; i++) {
                             console.log(resposta)
 
-                            graficoInternet(resposta, idAtual)
+                            data = new Date();
+                            horas = data.getHours();
+                            minutos = data.getMinutes();
+                            segundos = data.getSeconds();
+
+                            //graficoInternet(resposta, idAtual)
                             graficoProcessador(resposta, idAtual)
                             graficoArmazenamento(resposta, idAtual)
                             graficoRam(resposta, idAtual)
