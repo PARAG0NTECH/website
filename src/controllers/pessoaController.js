@@ -7,7 +7,6 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var password = req.body.passwordServer;
     var tipoUser = req.body.tipoUserServer;
-
     if (nome == undefined) {
         res.status(400).send("Seu nome está indefinido");
     } else if (email == undefined) {
@@ -31,6 +30,39 @@ function cadastrar(req, res) {
             )
     }
 }
+function cadastrarTecnico(req, res) {
+
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
+    var password = req.body.passwordServer;
+    var tipoUser = req.body.tipoUserServer;
+    var idEmpresa = req.body.fkEmpresaServer;
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está indefinido");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está indefinido");
+    } else if (tipoUser == undefined) {
+        res.status(400).send("Seu tipo está indefinido");
+    } else if (password == undefined) {
+        res.status(400).send("Seu sexo está indefinido");
+    } else {
+        pessoaModel.cadastrarTecnico(nome, email, password, tipoUser, idEmpresa)
+            .then(
+                function (result) {
+                    res.json(result);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("Erro ao realizar cadastro!!ERRO : " + erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
+}
+
+
+
 
 function cadastrarEmpresa(req, res) {
     var nomeEmpresa = req.body.nomeEmpresaVar;
@@ -188,6 +220,21 @@ function listarEmpresas(req, res) {
         });
 }
 
+function editarEmpresa(req, res) {
+    var nomeEmpresa = req.body.nomeEmpresaVar;
+    var cnpjEmpresa = req.body.cnpjEmpresaVar;
+    var idEmpresa = req.body.userIdVar;
+
+    pessoaModel.editarEmpresa(nomeEmpresa, cnpjEmpresa, idEmpresa)
+        .then(function (resultado) {
+            res.json(resultado);
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o post : " + erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 function editarUserFkempresa(req, res) {
     var idEmpresa = req.body.idEmpresaVar;
     var userId = req.body.userIdVar;
@@ -207,10 +254,10 @@ function editarUserFkempresa(req, res) {
 }
 
 function editarUser(req, res) {
-    var id = req.body.idServer;
-    var nome = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var password = req.body.passwordServer;
+    var id = req.body.idUserServer;
+    var nome = req.body.nomeUserServer;
+    var email = req.body.emailUserServer;
+    var password = req.body.passwordUserServer;
 
     pessoaModel.editarUser(id, nome, email, password)
         .then(function (resultado) {
@@ -247,5 +294,7 @@ module.exports = {
     puxarMetrica,
     cadastrarMetrica,
     editarUserFkempresa,
-    listarEmpresas
+    listarEmpresas,
+    cadastrarTecnico,
+    editarEmpresa
 }

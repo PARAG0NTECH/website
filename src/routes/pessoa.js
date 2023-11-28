@@ -7,9 +7,16 @@ var pessoaController = require("../controllers/pessoaController");
 router.post("/cadastrar", function (req, res){
     pessoaController.cadastrar(req, res);
 });
+router.post("/cadastrarTecnico", function (req, res){
+    pessoaController.cadastrarTecnico(req, res);
+});
 
 router.post("/cadastrarEmpresa", function (req, res){
     pessoaController.cadastrarEmpresa(req, res);
+});
+
+router.put("/editarEmpresa/:id", function (req, res){
+    pessoaController.editarEmpresa(req, res);
 });
 
 router.post("/cadastrarMetrica", function (req, res){

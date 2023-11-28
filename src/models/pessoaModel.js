@@ -9,6 +9,15 @@ function cadastrar(nome, email, senha, tipoUser) {
 
     return database.executar(instrucao);
 }
+function cadastrarTecnico(nome, email, senha, tipoUser, idEmpresa) {
+    var instrucao =
+        `
+    insert into tb_users(name, email, type_user , password, fk_empresa)  values
+	('${nome}', '${email}', '${tipoUser}' ,'${senha}', '${idEmpresa}');
+    `
+
+    return database.executar(instrucao);
+}
 
 function cadastrarEmpresa(nomeEmpresa, cnpjEmpresa, userId) {
     console.log("Cheguei na model cadastrarEmpresa()");
@@ -44,9 +53,9 @@ function listarEmpresas() {
     return database.executar(instrucao);
 }
 
-function listarUsers(idEmpresa) {
+function listarUsers() {
     var instrucao = `
-        select * from tb_users where fk_empresa = ${idEmpresa};
+        select * from tb_users;
     `
     return database.executar(instrucao);
 }
@@ -73,9 +82,17 @@ function editarUserFkempresa(idEmpresa, userId) {
     return database.executar(instrucao);
 }
 
+function editarEmpresa(nomeEmpresa, cnpjEmpresa, idEmpresa) {
+    var instrucao = `
+        update tb_companies set name = '${nomeEmpresa}', cnpj = '${cnpjEmpresa}' where id = ${idEmpresa};
+    `
+    return database.executar(instrucao);
+}
+
+
 function editarUser(idPessoa, nome, email, password) {
     var instrucao = `
-        update tb_users set name = '${nome}', email = '${email}', password = '${password}' where id = '${idPessoa}';
+        update tb_users set name = '${nome}', email = '${email}', password = '${password}' where id = ${idPessoa};
     `
     return database.executar(instrucao);
 }
@@ -98,5 +115,7 @@ module.exports = {
     cadastrarEmpresa,
     cadastrarMetrica,
     listarEmpresas,
-    editarUserFkempresa
+    editarUserFkempresa,
+    cadastrarTecnico,
+    editarEmpresa
 }

@@ -96,8 +96,6 @@
 </html>
 <script>
     function verificarCadastro() {
-        var cadastroExiste = false;
-
         fetch('/pessoa/listarAllUsers', { cache: 'no-store' }).then(function (response) {
             console.log(response);
 
@@ -109,8 +107,7 @@
 
                             localStorage.setItem('userId', resposta[i].id);
                             localStorage.setItem('idEmpresa', resposta[i].fk_empresa);
-                            localStorage.setItem("nomeUser", resposta[i].nome)
-                           console.log(resposta[i].type_user);
+                            localStorage.setItem("tipoUser", resposta[i].type_user);
 
                             Swal.fire({
                             icon: "success",

@@ -114,7 +114,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="./perfil.html" class="dropdown-item">Meu perfil</a>
-                            <a href="#" class="dropdown-item">Sair</a>
+                            <a href="./CineGuardian.html" class="dropdown-item">Sair</a>
                         </div>
                     </div>
                 </div>
@@ -875,7 +875,8 @@
                             h6NameAtual.textContent = resposta[i].name;
                             spanNameAtual.textContent = resposta[i].name;
                             typeUser.textContent = resposta[i].type_user;
-
+                            localStorage.setItem('Name', resposta[i].name);
+                            localStorage.setItem("tipoUser", resposta[i].type_user)
                             if (resposta[i].type_user == "dono") {
                                 pag_estatisticas.style.display = "none";
 

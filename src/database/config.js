@@ -38,8 +38,8 @@ var sqlServerConfig = {
 var mySqlConfig = {
     host: "localhost",
     database: "cineguardian",
-    user: "admin",
-    password: "admin",
+    user: "aluno",
+    password: "aluno",
 };
 
 function executar(instrucao) {

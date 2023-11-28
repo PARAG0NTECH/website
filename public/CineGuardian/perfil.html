@@ -63,9 +63,12 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="./dashboard.html" class="nav-item nav-link" id="pag_totens"><i class="fa fa-tachometer-alt me-2"></i>Totens</a>
-                    <a href="./cadastroTecnico.html" id="pag_tecnico" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Cadastrar Técnico</a>
-                    <a href="./chart.html" class="nav-item nav-link" id="pag_estatisticas"><i class="fa fa-chart-bar me-2"></i>Estatísticas</a>
+                    <a href="./dashboard.html" class="nav-item nav-link" id="pag_totens"><i
+                            class="fa fa-tachometer-alt me-2"></i>Totens</a>
+                    <a href="./cadastroTecnico.html" id="pag_tecnico" class="nav-item nav-link"><i
+                            class="fa fa-chart-bar me-2"></i>Cadastrar Técnico</a>
+                    <a href="./chart.html" class="nav-item nav-link" id="pag_estatisticas"><i
+                            class="fa fa-chart-bar me-2"></i>Estatísticas</a>
                 </div>
             </nav>
         </div>
@@ -149,7 +152,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="./perfil.html" class="dropdown-item">Meu perfil</a>
-                            <a href="#" class="dropdown-item">Sair</a>
+                            <a href="./CineGuardian.html" class="dropdown-item">Sair</a>
                         </div>
                     </div>
                 </div>
@@ -196,7 +199,7 @@
 
             <!-- GERENCIADOR DE MÁQUINAS -->
             <div class="container-fluid pt-4 px-4">
-                
+
                 <div style="background: #191C24; width: auto">
 
                     <div style="
@@ -210,23 +213,27 @@
                         <img src="././img/user-img.png" style="border-radius: 100%; margin-top: 2rem; ">
                         <ul style="list-style: none; flex-direction: row; margin-top: 2rem">
                             <li>
-                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Nome:</span> <span id="userNome">-------</span></p>
+                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Nome:</span>
+                                    <span id="userNome">-------</span></p>
                             </li>
                             <li>
-                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700;">E-mail:</span> <span id="userEmail">-------</span></p>
+                                <p style="font-size: 1.5rem;"><span
+                                        style="color: #fff; font-weight: 700;">E-mail:</span> <span
+                                        id="userEmail">-------</span></p>
                             </li>
                             <li>
-                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Cargo: </span> <span id="userCargo"></span>
+                                <p style="font-size: 1.5rem;"><span style="color: #fff; font-weight: 700">Cargo: </span>
+                                    <span id="userCargo"></span>
                             </li>
-                            <li>   
-                                <button onclick="editarperfil()" class="btn btn-primary py-3 w-100 mb-4" >
+                            <li>
+                                <button onclick="editarperfil()" class="btn btn-primary py-3 w-100 mb-4">
                                     Editar Perfil
-                                </button> 
+                                </button>
                             </li>
-                            <li>   
-                                <button onclick="editarEmpresa()" class="btn btn-primary py-3 w-100 mb-4" >
+                            <li>
+                                <button onclick="editarEmpresa()" class="btn btn-primary py-3 w-100 mb-4">
                                     Editar Empresa
-                                </button> 
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -235,28 +242,27 @@
                     </div>
                     <div>
                         <style>
-                            
                             ::-webkit-scrollbar {
                                 width: 10px;
                             }
 
                             ::-webkit-scrollbar-thumb {
-                            background: #888;
-                            }  
+                                background: #888;
+                            }
 
-                            .listaTecnicos{
+                            .listaTecnicos {
                                 flex-wrap: wrap;
-                                list-style: none; 
+                                list-style: none;
                                 text-wrap: wrap;
                                 flex-direction: column;
                                 height: 50vh;
                                 width: auto;
-                                width: 100%; 
-                                padding: 1rem; 
+                                width: 100%;
+                                padding: 1rem;
                                 overflow-y: scroll;
                             }
 
-                            .listaTecnicos li{
+                            .listaTecnicos li {
                                 display: flex;
                                 flex-wrap: wrap;
                                 margin-bottom: 2rem;
@@ -269,12 +275,11 @@
                                 align-items: center;
                             }
 
-                            .listaTecnicos li img{
+                            .listaTecnicos li img {
                                 margin-right: 50px;
                                 height: 136px;
                                 width: auto;
                             }
-
                         </style>
                         <div style="
                         display: flex;
@@ -291,40 +296,40 @@
                                 <ul class="listaTecnicos" id="listaTotens"></ul>
                             </div>
                         </div>
-                        
+
                     </div>
 
                 </div>
-    </div>
+            </div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="./js/actions.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <!-- JavaScript Libraries -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="lib/chart/chart.min.js"></script>
+            <script src="lib/easing/easing.min.js"></script>
+            <script src="lib/waypoints/waypoints.min.js"></script>
+            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+            <script src="lib/tempusdominus/js/moment.min.js"></script>
+            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+            <script src="./js/actions.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/index.js"></script>
+            <!-- Template Javascript -->
+            <script src="js/index.js"></script>
 </body>
 
 <script>
-    
+
     //localStorage.setItem('userId', );
 
     var userId = localStorage.getItem('userId');
     var idEmpresa = localStorage.getItem("idEmpresa")
     var nomeUser = localStorage.getItem("userName ")
 
-    console.log("   userId: "+userId);
-    console.log("idEmpresa: "+idEmpresa);
-    console.log(" nomeUser: "+nomeUser);
+    console.log("   userId: " + userId);
+    console.log("idEmpresa: " + idEmpresa);
+    console.log(" nomeUser: " + nomeUser);
 
     var empresaNome = "cadastre sua empresa"
     var empresaCNPJ = "cadastre o CNPJ"
@@ -334,164 +339,15 @@
 
     //FUNCAO PARA PODER EDITAR O PERFIL
 
-    function editarEmpresa(){
-        Swal.fire({
-            title: "Editar Empresa",
-            text: "Informações da sua empresa:",
-            icon: "warning",
-            iconColor: "#EB1616",
-            html: `
-            <div style="display: flex; flex-direction: column; justify-content: start; ">
-                <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="ipt_nomeEmpresa" placeholder="Nome Empresa">
-                    <label for="floatingPassword">${empresaNome}</label>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="ipt_cnpjEmpresa" placeholder="CNPJ">
-                    <label for="floatingPassword">${empresaCNPJ}</label>
-                </div>
-            </div>
-            `,
-            background: "#191C24",
-            showCancelButton: true,
-            cancelButtonColor: "#EB1616",
-            cancelButtonText: "Sair",
-            confirmButtonText: "Alterar",
-            confirmButtonColor: "#7066e0",
-          }).then((result) => {
-            if (result.isConfirmed) {
-                //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
-                
-                nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
-                cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
-                
-                fetch("/pessoa/cadastrarEmpresa", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        nomeEmpresaVar: nomeEmpresa,
-                        cnpjEmpresaVar: cnpjEmpresa,
-                        userIdVar: userId,
-                    }),
-                  })
-                    .then(function (resposta) {
-                      console.log("resposta: ", resposta);
-                        
-                      if (resposta.ok) {
-        
-                        Swal.fire({
-                            title: "Empresa alterada com sucesso!",
-                            text: "Suas credenciais foram alteradas com sucesso!.",
-                            color: "#fff",
-                            icon: "success",
-                            iconColor: "#EB1616",
-                            background: "#191C24",
-            
-                          });
-        
-                      } else {
-                        throw "Houve um erro ao fazer o editarEmpresa()!";  
-                      }
-                    })
-                    .catch(function (resposta) {
-                      console.log(`#ERRO: ${resposta}`);
-                    });
 
-              
-            }
-          });
-    
-    }
 
-    function editarperfil(){ 
-        Swal.fire({
-            title: "Editar Perfil",
-            text: "Escolha qual campo deseja alterar:",
-            icon: "warning",
-            iconColor: "#EB1616",
-            html: `
-            <div style="display: flex; flex-direction: column; justify-content: start; ">
-                <div class="form-floating mb-3">
-                    <input type="username" class="form-control" id="ipt_username" placeholder="Nome usuário">
-                    <label for="floatingInput" id="nomeLabelEditor">${nomeUser}</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="ipt_email" placeholder="E-mail">
-                    <label for="floatingInput" id="emailLabelEditor">${userEmail}</label>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="ipt_password" placeholder="Senha">
-                    <label for="floatingPassword">Senha</label>
-                </div>
-                
-            </div>
-            `,
-            background: "#191C24",
-            showCancelButton: true,
-            cancelButtonColor: "#EB1616",
-            cancelButtonText: "Sair",
-            confirmButtonText: "Alterar",
-            confirmButtonColor: "#7066e0",
+    function listarTecnicos(arrayFuncionarios) {
 
-          }).then((result) => {
+        for (i = 0; i < arrayFuncionarios.length; i++) {
+            if (idEmpresa == arrayFuncionarios[i].fk_empresa) {
 
-            if (result.isConfirmed) {
-                //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
-
-                nomeUser = document.getElementById("ipt_username").value;
-                emailUser = document.getElementById("ipt_email").value;
-                passwordUser = document.getElementById("ipt_password").value
-
-                alert(nomeEmpresa,cnpjEmpresa)
-                
-                fetch("/pessoa/editar/", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        idUserServer : idUser,
-                        nomeUserServer :nomeUser,
-                        emailUserServer :emailUser,
-                        passwordUserServer: passwordUser,
-                    }),
-                  })
-                    .then(function (resposta) {
-                      console.log("resposta: ", resposta);
-              
-                      if (resposta.ok) {
-        
-                        Swal.fire({
-                            title: "Empresa alterada com sucesso!",
-                            text: "Suas credenciais foram alteradas com sucesso!.",
-                            color: "#fff",
-                            icon: "success",
-                            iconColor: "#EB1616",
-                            background: "#191C24",
-            
-                          });
-        
-                      } else {
-                        throw "Houve um erro ao fazer o editarEmpresa()!";  
-                      }
-                    })
-                    .catch(function (resposta) {
-                      console.log(`#ERRO: ${resposta}`);
-                    });
-
-            }
-          });
-    
-    }
-
-    function listarTecnicos(arrayFuncionarios){
-
-        for(i = 0; i < arrayFuncionarios.length; i++){
-
-            var liTecnico = document.createElement('li');
-            liTecnico.innerHTML +=`
+                var liTecnico = document.createElement('li');
+                liTecnico.innerHTML += `
             
                 <img src="./img/user-img.png">
                 <div>
@@ -501,20 +357,22 @@
                 </div>
             `;
 
-            document.getElementById('listaTecnicos').appendChild(liTecnico);
+                document.getElementById('listaTecnicos').appendChild(liTecnico);
+            }
+
         }
 
     }
 
-    function listarTotem(){
+    function listarTotem() {
 
         fetch(`/totem/listar?tb_companies_id=${idEmpresa}`, {
             method: "GET",
             headers: {
-              "Content-type": "application/json",
+                "Content-type": "application/json",
             },
 
-          }) .then(function (response) {
+        }).then(function (response) {
             console.log(response);
             if (response.ok) {
                 return response.json();
@@ -525,9 +383,9 @@
             .then(function (resposta) {
                 console.log(resposta)
 
-                
-                
-                for(i = 0; i < resposta.length; i++){
+
+
+                for (i = 0; i < resposta.length; i++) {
                     var liTotem = document.createElement('li');
                     liTotem.innerHTML += `
                     
@@ -543,18 +401,25 @@
                 }
             })
             .catch(function (resposta) {
-              console.log(`#ERRO: ${resposta}`);
+                console.log(`#ERRO: ${resposta}`);
             });
     }
 
     function gerarDadosUserAtual() {
+        var h6NameAtual = document.getElementById("h6_name");
+        var spanNameAtual = document.getElementById("span_nameUser");
+        var typeUser = document.getElementById("type_user");
+
+        spanNameAtual.textContent = localStorage.getItem('Name');
+        h6NameAtual.textContent = localStorage.getItem('Name');
+        typeUser.textContent = localStorage.getItem('tipoUser');
 
         fetch(`/pessoa/listar?tb_companies_id=${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
             console.log(response);
 
             if (response.ok) {
                 response.json().then(function (resposta) {
-                    
+
                     //var nome = document.getElementById("userNome");
                     //var email = document.getElementById("userEmail");
                     //var typeUser = document.getElementById("userCargo");
@@ -562,7 +427,7 @@
                     listarTecnicos(resposta)
 
                     for (let i = 0; i < resposta.length; i++) {
-                        if (resposta[i].id == userId) { 
+                        if (resposta[i].id == userId) {
 
                             var nome = document.getElementById("userNome");
                             var email = document.getElementById("userEmail");
@@ -571,6 +436,13 @@
                             nome.innerHTML = `<span>${resposta[i].name}</span>`
                             email.innerHTML = resposta[i].email
                             typeUser.innerHTML = resposta[i].type_user
+                            if (resposta[i].type_user == "dono") {
+                                pag_estatisticas.style.display = "none";
+
+                            } else {
+                                pag_totens.style.display = "none";
+                                pag_tecnico.style.display = "none";
+                            }
 
 
                             //idEmpresa = resposta[i].fk_empresa
@@ -610,5 +482,154 @@
             })
             .catch(error => console.log(error));
     }*/
+    function editarEmpresa() {
+        Swal.fire({
+            title: "Editar Empresa",
+            text: "Informações da sua empresa:",
+            icon: "warning",
+            iconColor: "#EB1616",
+            html: `
+            <div style="display: flex; flex-direction: column; justify-content: start; ">
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="ipt_nomeEmpresa" placeholder="Nome Empresa">
+                    <label for="floatingPassword">${empresaNome}</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control" id="ipt_cnpjEmpresa" placeholder="CNPJ">
+                    <label for="floatingPassword">${empresaCNPJ}</label>
+                </div>
+            </div>
+            `,
+            background: "#191C24",
+            showCancelButton: true,
+            cancelButtonColor: "#EB1616",
+            cancelButtonText: "Sair",
+            confirmButtonText: "Alterar",
+            confirmButtonColor: "#7066e0",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
+
+                nomeEmpresa = document.getElementById("ipt_nomeEmpresa").value;
+                cnpjEmpresa = document.getElementById("ipt_cnpjEmpresa").value;
+                alert(`nome ${nomeEmpresa}\ncnpj${cnpjEmpresa}\nid${idEmpresa}` )
+                fetch(`/pessoa/editarEmpresa/${idEmpresa}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        nomeEmpresaVar: nomeEmpresa,
+                        cnpjEmpresaVar: cnpjEmpresa,
+                        userIdVar: idEmpresa,
+                    }),
+                })
+                    .then(function (resposta) {
+                        console.log("resposta: ", resposta);
+
+                        if (resposta.ok) {
+
+                            Swal.fire({
+                                title: "Empresa alterada com sucesso!",
+                                text: "Suas credenciais foram alteradas com sucesso!.",
+                                color: "#fff",
+                                icon: "success",
+                                iconColor: "#EB1616",
+                                background: "#191C24",
+
+                            });
+
+                        } else {
+                            throw "Houve um erro ao fazer o editarEmpresa()!";
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+
+
+            }
+        });
+
+    }
+    function editarperfil(id = userId) {
+        Swal.fire({
+            title: "Editar Perfil",
+            text: "Escolha qual campo deseja alterar:",
+            icon: "warning",
+            iconColor: "#EB1616",
+            html: `
+            <div style="display: flex; flex-direction: column; justify-content: start; ">
+                <div class="form-floating mb-3">
+                    <input type="username" class="form-control" id="ipt_username" placeholder="Nome usuário">
+                    <label for="floatingInput" id="nomeLabelEditor">${nomeUser}</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="ipt_email" placeholder="E-mail">
+                    <label for="floatingInput" id="emailLabelEditor">${userEmail}</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" id="ipt_password" placeholder="Senha">
+                    <label for="floatingPassword">Senha</label>
+                </div>
+                
+            </div>
+            `,
+            background: "#191C24",
+            showCancelButton: true,
+            cancelButtonColor: "#EB1616",
+            cancelButtonText: "Sair",
+            confirmButtonText: "Alterar",
+            confirmButtonColor: "#7066e0",
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                //FAZER UM UPDATE NA TABELA DE USUARIO, DE PREFERENCIA DENTRO DE UM TRY AND CATCH PRA FAZER A MENSAGEM DE ERRO
+
+                nomeUser = document.getElementById("ipt_username").value;
+                emailUser = document.getElementById("ipt_email").value;
+                passwordUser = document.getElementById("ipt_password").value
+                
+                fetch(`/pessoa/editar/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        idUserServer: id,
+                        nomeUserServer: nomeUser,
+                        emailUserServer: emailUser,
+                        passwordUserServer: passwordUser,
+                    }),
+                })
+                    .then(function (resposta) {
+                        console.log("resposta: ", resposta);
+
+                        if (resposta.ok) {
+
+                            Swal.fire({
+                                title: "Conta alterada com sucesso!",
+                                text: "Suas credenciais foram alteradas com sucesso!.",
+                                color: "#fff",
+                                icon: "success",
+                                iconColor: "#EB1616",
+                                background: "#191C24",
+
+                            });
+
+                        } else {
+                            throw "Houve um erro ao fazer o editarEmpresa()!";
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+
+            }
+        });
+
+    }
+
 
 </script>
