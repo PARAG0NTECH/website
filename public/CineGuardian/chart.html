@@ -222,8 +222,20 @@
                             <canvas id="myBarChartRam" width="400" height="200"></canvas>
                         </div>
                     </div>
-                    <div class="row g-4">
+                    <!-- <div class="row g-4">
                         <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <h3 class="mb-4">Armazenamento</h3>
+                                <span id="totalArmazenamento">Total: </p></span>
+                                <span id="utilizadoArmazenamento">Utilizado: </p></span>
+                                <span id="usoArmazenamento">Porcentagem de Uso:  </span>
+                                <h5 id="porcentagemMaquinas"></h5>
+                                <canvas id="myBarChartArmazenamento" style="width: auto;"></canvas>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h3 class="mb-4">Armazenamento</h3>
                                 <span id="totalArmazenamento">Total: </p></span>
@@ -233,13 +245,6 @@
                                 <canvas id="myBarChartArmazenamento"></canvas>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-12 col-xl-6">
-                            <div class="bg-secondary rounded h-100 p-4">
-                                <h3 class="mb-4">Internet - MB - Giga</h3>
-                                <h5 id="reiniciadasDia"></h5>
-                                <canvas id="myBarChartInternet"></canvas>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -324,7 +329,7 @@
 
     function puxarMetricas(){
         fetch(`/pessoa/puxarMetrica?tb_companies_id=${idEmpresa}`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-type": "application/json"
             },

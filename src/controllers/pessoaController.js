@@ -95,7 +95,7 @@ function cadastrarEmpresa(req, res) {
     }
 }
 
-function puxarMetrica(){
+function puxarMetrica(req, res){
     idEmpresa = req.query.tb_companies_id;
 
     pessoaModel.puxarMetrica(idEmpresa)
